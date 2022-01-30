@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	ConfigPath = "configs/dataConfig.toml"
+	ConfigPath = "backend/data/configs/dataConfig.toml"
 )
 
 func main() {
