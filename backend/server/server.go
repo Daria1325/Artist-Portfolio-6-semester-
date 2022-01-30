@@ -1,12 +1,17 @@
-package client
+package server
 
 import (
 	"fmt"
 	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
 	"github.com/gorilla/mux"
 	"html/template"
 	"net/http"
 )
+
+type Server struct {
+	Repo *database.Repo
+}
 
 func about(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/about.html", "frontend/templates/header.html")
@@ -50,7 +55,7 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/series/{id:[0-9]+}/{id:[0-9]+}", show_picture).Methods("GET")
 
 	http.Handle("/", rtr)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../../../frontend/static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../../../frontend/static/"))))
 
 	err := http.ListenAndServe(config.BindAddr, rtr)
 	if err != nil {
