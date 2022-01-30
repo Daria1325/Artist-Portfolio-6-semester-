@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/daria/Portfolio/backend/cmd/client"
-	"github.com/daria/Portfolio/backend/cmd/database"
-	"github.com/daria/Portfolio/backend/cmd/server"
 	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/daria/Portfolio/backend/server"
 )
 
 var (
-	ConfigPath = "backend/data/configs/dataConfig.toml"
+	ConfigPath = "data/configs/dataConfig.toml"
 )
 
 func main() {
@@ -22,7 +21,7 @@ func main() {
 	MainServer.Repo = database.Init(config)
 	defer MainServer.Repo.Close()
 
-	err = client.Start(config)
+	err = server.Start(config)
 	if err != nil {
 		_ = fmt.Errorf("%s", err.Error())
 		return
