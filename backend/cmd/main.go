@@ -9,20 +9,9 @@ import (
 )
 
 var (
-	ConfigPath = "configs/dataConfig.toml"
+	ConfigPath = "backend/data/configs/dataConfig.toml"
 )
 
-func configService() (*cnfg.Config, error) {
-	config, err := cnfg.NewConfigPath(configPath)
-	if err != nil {
-		return nil, err
-	}
-	err = client.Connect.InitConn(config.BindAddrHost, config.BindAddrServer, config.FileSize)
-	if err != nil {
-		return nil, err
-	}
-	return config, nil
-}
 func main() {
 	config, err := cnfg.NewConfigPath(ConfigPath)
 	if err != nil {
@@ -38,5 +27,5 @@ func main() {
 		_ = fmt.Errorf("%s", err.Error())
 		return
 	}
-	defer client.Connect.Conn.Close()
+
 }
