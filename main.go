@@ -26,5 +26,4 @@ func main() {
 		_ = fmt.Errorf("%s", err.Error())
 		return
 	}
-
 }
