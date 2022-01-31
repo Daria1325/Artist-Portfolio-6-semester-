@@ -1,6 +1,6 @@
 bind_addr = ":3000"
 
-db_name = "portDb"
+db_name = "PortfolioDB"
 db_user = "postgres"
 db_password = "12345"
 db_host = "localhost"

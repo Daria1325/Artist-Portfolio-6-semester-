@@ -3,7 +3,12 @@
 
 
     <main>
-       
+        {{range.}}
+        <h1>{{.Name}}</h1>
+        <p>{{.Description}}</p>
+        {{else}}
+        <p>No series</p>
+        {{end}}
     </main>
       
 

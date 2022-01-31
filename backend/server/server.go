@@ -13,6 +13,8 @@ type Server struct {
 	Repo *database.Repo
 }
 
+var MainServer = Server{}
+
 func about(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/about.html", "frontend/templates/header.html")
 	if err != nil {
@@ -46,8 +48,13 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	series, err := MainServer.Repo.GetSeries()
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
 
-	t.ExecuteTemplate(w, "work", nil)
+	t.ExecuteTemplate(w, "work", series)
 }
 func show_series(w http.ResponseWriter, r *http.Request) {
 
