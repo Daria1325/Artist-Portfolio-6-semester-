@@ -10,12 +10,14 @@ import (
 type Picture struct {
 	ID          int     `db:"id"`
 	Name        string  `db:"name"`
-	Owner       string  `db:"owner"`
+	ClientId    string  `db:"client_id"`
+	SeriesId    string  `db:"series_id"`
 	Size        string  `db:"size"`
 	Materials   string  `db:"materials"`
 	Price       float32 `db:"price"`
 	Description string  `db:"description"`
 	Path        string  `db:"path"`
+	Date        string  `db:"date"`
 }
 type Series struct {
 	ID          int    `db:"id"`
@@ -23,11 +25,9 @@ type Series struct {
 	Description string `db:"description"`
 }
 type Client struct {
-	ID    int    `db:"id"`
-	Name  string `db:"name"`
-	Type  string `db:"type"`
-	Email string `db:"email"`
-	Phone string `db:"phone"`
+	ID   int    `db:"id"`
+	Name string `db:"name"`
+	Type string `db:"type"`
 }
 
 type Repo struct {
@@ -93,24 +93,41 @@ func (r *Repo) GetPictures() ([]Picture, error) {
 	return pictures, nil
 }
 
-//
-//func (r *Repo) AddSeries(item Series) error {
-//	_, err := r.db.NamedExec(`INSERT INTO ports (name, description)
-//        VALUES (:name, :description)`, item)
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return err
-//	}
-//	return nil
-//}
-//func (r *Repo) UpdateSeries(item Series) error {
-//	_, err := r.db.NamedExec(`UPDATE ports SET name=:name, description=:description WHERE id =:id`, item)
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return err
-//	}
-//	return nil
-//}
+func (r *Repo) AddSeries(item Series) error {
+	_, err := r.db.NamedExec(`INSERT INTO series (name, description)
+       VALUES (:name, :description)`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+func (r *Repo) UpdateSeries(item Series) error {
+	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+
+func (r *Repo) AddPicture(item Picture) error {
+	_, err := r.db.NamedExec(`INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)
+       VALUES (:name, :path,:price,:date,:material,:size, :description,:series_id,:client_id)`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+func (r *Repo) UpdatePicture(item Picture) error {
+	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
 
 func (r *Repo) Close() error {
 	err := r.db.Close()

@@ -1,13 +1,20 @@
 {{define "work"}}
 {{template "header"}}
 
-
+<title>{{.Title}}</title>
     <main>
-        {{range.}}
-        <h1>{{.Name}}</h1>
-        <p>{{.Description}}</p>
+
+        {{range $key, $value:= .Items}}
+
+            {{if eq (mod $key 2) 0}}
+            <div>{{$key}}</div>
+            <div> {{$value.Name}} </div>
+            {{else}}
+            <div>{{$key}}</div>
+            <div> {{$value.Description}} </div>
+            {{end}}
         {{else}}
-        <p>No series</p>
+        <div><strong>no series</strong></div>
         {{end}}
     </main>
       

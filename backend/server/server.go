@@ -43,7 +43,15 @@ func clients(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "clients", nil)
 }
 func work(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/work.html", "frontend/templates/header.html")
+	funcMap := template.FuncMap{
+		"mod": func(i, j int) int {
+			return i % j
+		},
+	}
+	t, err := template.New("test").Funcs(funcMap).ParseFiles("frontend/templates/work.html", "frontend/templates/header.html")
+	//t := template.New("")
+	//t.Funcs(template.FuncMap{"mod": func(i, j int) int { return i%j }})
+	//t, err := template.ParseFiles("frontend/templates/work.html", "frontend/templates/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -53,8 +61,15 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	data := struct {
+		Title string
+		Items []database.Series
+	}{
+		Title: "My page",
+		Items: series,
+	}
 
-	t.ExecuteTemplate(w, "work", series)
+	t.ExecuteTemplate(w, "work", data)
 }
 func show_series(w http.ResponseWriter, r *http.Request) {
 
