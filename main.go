@@ -17,14 +17,12 @@ func main() {
 		_ = fmt.Errorf("%s", err.Error())
 		return
 	}
-	MainServer := server.Server{}
-	MainServer.Repo = database.Init(config)
-	defer MainServer.Repo.Close()
+	server.MainServer.Repo = database.Init(config)
+	defer server.MainServer.Repo.Close()
 
 	err = server.Start(config)
 	if err != nil {
 		_ = fmt.Errorf("%s", err.Error())
 		return
 	}
-
 }

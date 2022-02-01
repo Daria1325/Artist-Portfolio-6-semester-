@@ -10,12 +10,14 @@ import (
 type Picture struct {
 	ID          int     `db:"id"`
 	Name        string  `db:"name"`
-	Owner       string  `db:"owner"`
+	ClientId    string  `db:"client_id"`
+	SeriesId    string  `db:"series_id"`
 	Size        string  `db:"size"`
 	Materials   string  `db:"materials"`
 	Price       float32 `db:"price"`
 	Description string  `db:"description"`
 	Path        string  `db:"path"`
+	Date        string  `db:"date"`
 }
 type Series struct {
 	ID          int    `db:"id"`
@@ -23,11 +25,9 @@ type Series struct {
 	Description string `db:"description"`
 }
 type Client struct {
-	ID    int    `db:"id"`
-	Name  string `db:"name"`
-	Type  string `db:"type"`
-	Email string `db:"email"`
-	Phone string `db:"phone"`
+	ID   int    `db:"id"`
+	Name string `db:"name"`
+	Type string `db:"type"`
 }
 
 type Repo struct {
@@ -38,78 +38,96 @@ func New(db *sqlx.DB) *Repo {
 	return &Repo{db: db}
 }
 
-//func (r *Repo) GetSeries() ([]Series, error) {
-//	series := []Series{}
-//	rows, err := r.db.Queryx("SELECT * FROM ports")
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return nil, err
-//	}
-//	for rows.Next() {
-//		var p Series
-//		err = rows.StructScan(&p)
-//		if err != nil {
-//			fmt.Errorf("%s", err.Error())
-//			continue
-//		}
-//		series = append(series, p)
-//	}
-//	return ports, nil
-//}
-//func (r *Repo) GetClients() ([]Client, error) {
-//	clients := []Client{}
-//	rows, err := r.db.Queryx("SELECT * FROM ports")
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return nil, err
-//	}
-//	for rows.Next() {
-//		var p Client
-//		err = rows.StructScan(&p)
-//		if err != nil {
-//			fmt.Errorf("%s", err.Error())
-//			continue
-//		}
-//		clients = append(clients, p)
-//	}
-//	return clients, nil
-//}
-//func (r *Repo) GetPictures() ([]Picture, error) {
-//	pictures := []Picture{}
-//	rows, err := r.db.Queryx("SELECT * FROM ports")
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return nil, err
-//	}
-//	for rows.Next() {
-//		var p Picture
-//		err = rows.StructScan(&p)
-//		if err != nil {
-//			fmt.Errorf("%s", err.Error())
-//			continue
-//		}
-//		pictures = append(pictures, p)
-//	}
-//	return pictures, nil
-//}
-//
-//func (r *Repo) AddSeries(item Series) error {
-//	_, err := r.db.NamedExec(`INSERT INTO ports (name, description)
-//        VALUES (:name, :description)`, item)
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return err
-//	}
-//	return nil
-//}
-//func (r *Repo) UpdateSeries(item Series) error {
-//	_, err := r.db.NamedExec(`UPDATE ports SET name=:name, description=:description WHERE id =:id`, item)
-//	if err != nil {
-//		fmt.Errorf("failed to execute the query: %v", err.Error())
-//		return err
-//	}
-//	return nil
-//}
+func (r *Repo) GetSeries() ([]Series, error) {
+	series := []Series{}
+	rows, err := r.db.Queryx("SELECT * FROM series")
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return nil, err
+	}
+	for rows.Next() {
+		var p Series
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		series = append(series, p)
+	}
+	return series, nil
+}
+func (r *Repo) GetClients() ([]Client, error) {
+	clients := []Client{}
+	rows, err := r.db.Queryx("SELECT * FROM clients")
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return nil, err
+	}
+	for rows.Next() {
+		var p Client
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		clients = append(clients, p)
+	}
+	return clients, nil
+}
+func (r *Repo) GetPictures() ([]Picture, error) {
+	pictures := []Picture{}
+	rows, err := r.db.Queryx("SELECT * FROM pictures")
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return nil, err
+	}
+	for rows.Next() {
+		var p Picture
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		pictures = append(pictures, p)
+	}
+	return pictures, nil
+}
+
+func (r *Repo) AddSeries(item Series) error {
+	_, err := r.db.NamedExec(`INSERT INTO series (name, description)
+       VALUES (:name, :description)`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+func (r *Repo) UpdateSeries(item Series) error {
+	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+
+func (r *Repo) AddPicture(item Picture) error {
+	_, err := r.db.NamedExec(`INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)
+       VALUES (:name, :path,:price,:date,:material,:size, :description,:series_id,:client_id)`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
+func (r *Repo) UpdatePicture(item Picture) error {
+	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
 
 func (r *Repo) Close() error {
 	err := r.db.Close()
