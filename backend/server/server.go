@@ -97,7 +97,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 	t.ExecuteTemplate(w, "login", nil)
 }
-func edit(w http.ResponseWriter, r *http.Request) {
+func admin(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 
 		err := r.ParseForm()
@@ -114,10 +114,46 @@ func edit(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
+		series, err := MainServer.Repo.GetSeries()
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		data := struct {
+			Title string
+			Items []database.Series
+		}{
+			Title: "Series",
+			Items: series,
+		}
 
-		t.ExecuteTemplate(w, "edit", nil)
+		t.ExecuteTemplate(w, "admin", data)
 	}
 
+}
+func adminSeries(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("frontend/templates/admin_series.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+
+	t.ExecuteTemplate(w, "admin_series", nil)
+}
+func adminPictures(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("frontend/templates/admin_pictures.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+
+	t.ExecuteTemplate(w, "admin_pictures", nil)
+}
+func editHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("edit")
+}
+func deleteHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("delete")
 }
 
 func Start(config *cnfg.Config) error {
@@ -130,7 +166,11 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/series/{id:[0-9]+}/{id:[0-9]+}", show_picture).Methods("GET")
 
 	rtr.HandleFunc("/login", login).Methods("GET")
-	rtr.HandleFunc("/edit", edit)
+	rtr.HandleFunc("/admin", admin)
+	rtr.HandleFunc("/admin/series", adminSeries)
+	rtr.HandleFunc("/admin/pictures", adminPictures)
+	rtr.HandleFunc("/edit//{id:[0-9]+}", editHandler).Methods("POST")
+	rtr.HandleFunc("/delete//{id:[0-9]+}", deleteHandler)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))
