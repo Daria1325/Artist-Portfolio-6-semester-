@@ -6,6 +6,7 @@ import (
 	"github.com/daria/Portfolio/backend/database"
 	"github.com/gorilla/mux"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -97,13 +98,26 @@ func login(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "login", nil)
 }
 func edit(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/edit_admin.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+	if r.Method == "POST" {
+
+		err := r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		editType := r.FormValue("edit_type")
+		fmt.Println(editType)
+
+		http.Redirect(w, r, "/edit", 301)
+	} else {
+		t, err := template.ParseFiles("frontend/templates/edit_admin.html")
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+
+		t.ExecuteTemplate(w, "edit", nil)
 	}
 
-	t.ExecuteTemplate(w, "edit", nil)
 }
 
 func Start(config *cnfg.Config) error {
@@ -116,7 +130,7 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/series/{id:[0-9]+}/{id:[0-9]+}", show_picture).Methods("GET")
 
 	rtr.HandleFunc("/login", login).Methods("GET")
-	rtr.HandleFunc("/edit", edit).Methods("GET")
+	rtr.HandleFunc("/edit", edit)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))
