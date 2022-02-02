@@ -12,9 +12,11 @@ function showCheckboxes() {
 }
 
 function openEditForm() {
-    document.getElementById("form_edit").style.display = "block";
+  document.getElementById("form_edit").classList.remove("form-disactive");
+    document.getElementById("form_edit").classList.add("form-active");
   }
   
   function closeForm() {
-    document.getElementById("form_edit").style.display = "none";
+    document.getElementById("form_edit").classList.add("form-disactive");
+    document.getElementById("form_edit").classList.remove("form-active");
   }
