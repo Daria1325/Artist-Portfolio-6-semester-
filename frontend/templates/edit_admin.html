@@ -5,134 +5,203 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../static/css/edit.css" />
-    <!-- <link rel="stylesheet" href="../static/js/script.js"> -->
     <script src="../static/js/script.js"></script>
 </head>
 <body>
     <h1>DARKO BRUZHUCH</h1>
     <h2>Welcome to the edit page</h2>
-    <button type="submit" onclick="openForm('form_add')">ADD</button>
-    <button type="submit" onclick="openForm('form_delete')">DELETE</button>
-    <button type="submit" onclick="openForm('form_edit')">EDIT</button>
-
-
-    <div class="edit_form_popup">
-        <form class="form-container form-disactive" id="form_edit">
-            <div class="form_header"></div>
-            <input type="radio" name="edit_type" id="edit_picture">
-            <label for="edit_picture">Picture</label>
-
-            <input type="radio" name="edit_type" id="edit_series">
-            <label for="edit_series">Series</label>
-
-            <p><select required name="type">
-                <option value="Series1">Series</option>
-                <option value="Series2">Picture</option>
-                <option value="Series3">Picture</option>
-                <option value="Series4">Picture</option>
-            </select></p>
-
-            <input type="text" size="40" placeholder="Name">
-
-            <input type="text" size="40" placeholder="Description">
-
-            
-
-            <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes()">
-                <select>
-                    <option>Select an option</option>
-                </select>
-                <div class="overSelect"></div>
-                </div>
-
-                <div id="checkboxes">
-                <label for="one">
-                    <input type="checkbox" id="one" />First checkbox</label>
-                <label for="two">
-                    <input type="checkbox" id="two" />Second checkbox</label>
-                <label for="three">
-                    <input type="checkbox" id="three" />Third checkbox</label>
-                </div>
-
-            </div>
-
-
-            <button>CANCEL</button>
-            <button>SAVE</button>
+    <button type="submit" onclick="">SERIES</button>
+    <button type="submit" onclick="">PICTURE</button>
 
 
 
-        </form>
-        <form method="POST" class="form-container form-disactive" id="form_add">
-            <div class="form_header"></div>
-            <input type="radio" name="edit_type" id="add_picture">
-            <label for="add_picture">Picture</label>
+    <div class="series_table">
+        <h2>Welcome to the series edit page</h2>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                
+                <td><button>ADD SERIES</button></td>
+            </tr>
 
-            <input type="radio" name="edit_type" id="add_series">
-            <label for="add_series">Series</label>
+            <tr>
+                <td>1</td>
+                <td>NAME_1</td>
+                <td>DESCRIPTION_1</td>
+                
+                <td><button>edit</button></td>
+                <td><button>detele</button></td>
+            </tr>
 
-            <p><select required name="type">
-                <option value="Series1">Series</option>
-                <option value="Series2">Picture</option>
-                <option value="Series3">Picture</option>
-                <option value="Series4">Picture</option>
-            </select></p>
+        </table>
 
-            <input type="text" size="40" placeholder="Name">
-
-            <input type="text" size="40" placeholder="Description">
-
-
-
-            <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes()">
-                    <select>
-                        <option>Select an option</option>
-                    </select>
-                    <div class="overSelect"></div>
-                </div>
-
-                <div id="checkboxes1">
-                    <label for="one">
-                        <input type="checkbox" id="one1" />First checkbox</label>
-                    <label for="two">
-                        <input type="checkbox" id="two2" />Second checkbox</label>
-                    <label for="three">
-                        <input type="checkbox" id="three3" />Third checkbox</label>
-                </div>
-
-            </div>
-
-            <input type="submit" value="SAVE" />
-            <button>CANCEL</button>
-            <button>SAVE</button>
-
-
-
-        </form>
-        <form class="form-container form-disactive" id="form_delete">
-            <div class="form_header"></div>
-            <input type="radio" name="edit_type" id="delete_picture">
-            <label for="delete_picture">Picture</label>
-
-            <input type="radio" name="edit_type" id="delete_series">
-            <label for="delete_series">Series</label>
-
-            <p><select required name="type">
-                <option value="Series1">Series</option>
-                <option value="Series2">Picture</option>
-                <option value="Series3">Picture</option>
-                <option value="Series4">Picture</option>
-            </select></p>
-
-            <button>CANCEL</button>
-            <button>DELETE</button>
-
-
-
-        </form>
     </div>
+
+    <div class="picture_table">
+        <h2>Welcome to the pictures edit page</h2>
+
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>YEAR</td>
+                <td><button>ADD PICTURE</button></td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>NAME_1</td>
+                <td>DESCRIPTION_1</td>
+                <td>YEAR_1</td>
+                <td><button>edit</button></td>
+                <td><button>detele</button></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <form action="" id="delete_series_form">
+        <input type="checkbox" id="series_delete_accsept">
+        <label for="series_delete_accsept">I understand, that it would be deleted permanently</label>
+        <input type="submit" value="SUBMIT">
+        <button>CANCEL</button>
+    </form>
+
+    <form action="" id="delete_picture_form">
+        <input type="checkbox" id="picture_delete_accsept">
+        <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+        <input type="submit" value="SUBMIT">
+        <button>CANCEL</button>
+    </form>
+
+
+
+
+    <form action="" id="edit_series_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="edit_series_name">
+
+        <input type="text" size="40" placeholder="Description" name="edit_series_description">
+
+
+        <div class="multiselect">
+            <div class="selectBox" onclick="showCheckboxes()">
+            <select>
+                <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+            </div>
+
+            <div id="checkboxes">
+            <label for="one">
+                <input type="checkbox" id="one" />First checkbox</label>
+            <label for="two">
+                <input type="checkbox" id="two" />Second checkbox</label>
+            <label for="three">
+                <input type="checkbox" id="three" />Third checkbox</label>
+            </div>
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+    <form action="" id="add_series_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="add_series_name">
+
+        <input type="text" size="40" placeholder="Description" name="add_series_description">
+
+
+        <div class="multiselect">
+            <div class="selectBox" onclick="showCheckboxes()">
+            <select>
+                <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+            </div>
+
+            <div id="checkboxes">
+            <label for="one">
+                <input type="checkbox" id="one" />First checkbox</label>
+            <label for="two">
+                <input type="checkbox" id="two" />Second checkbox</label>
+            <label for="three">
+                <input type="checkbox" id="three" />Third checkbox</label>
+            </div>
+
+        </div>
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+    </form>
+
+
+    <form action="" id="edit_picture_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="edit_picture_name">
+        <input type="text" size="40" placeholder="Size" name="edit_picture_size">
+        <input type="text" size="40" placeholder="Series" name="edit_picture_series">
+        <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
+        <input type="text" size="40" placeholder="Year" name="edit_series_year">
+        <input type="text" size="40" placeholder="Material" name="edit_picture_material">
+        
+        <input type="text" size="40" placeholder="Description" name="edit_picture_description">
+        <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+    <form action="" id="add_picture_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="add_picture_name">
+        <input type="text" size="40" placeholder="Size" name="add_picture_size">
+        <input type="text" size="40" placeholder="Series" name="add_picture_series">
+        <input type="text" size="40" placeholder="Price" name="add_picture_prise">
+        <input type="text" size="40" placeholder="Year" name="add_series_year">
+        <input type="text" size="40" placeholder="Material" name="add_picture_material">
+        
+        <input type="text" size="40" placeholder="Description" name="add_picture_description">
+        <input type="text" size="40" placeholder="Upload image" name="add_picture_upload">
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+
+       
+    
 
 </body>
 </html>
