@@ -2,12 +2,13 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
+
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
 )
 
 type Server struct {
@@ -114,20 +115,20 @@ func admin(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-		series, err := MainServer.Repo.GetSeries()
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		data := struct {
-			Title string
-			Items []database.Series
-		}{
-			Title: "Series",
-			Items: series,
-		}
+		// series, err := MainServer.Repo.GetSeries()
+		// if err != nil {
+		// 	fmt.Fprintf(w, err.Error())
+		// 	return
+		// }
+		// data := struct {
+		// 	Title string
+		// 	Items []database.Series
+		// }{
+		// 	Title: "Series",
+		// 	Items: series,
+		// }
 
-		t.ExecuteTemplate(w, "admin", data)
+		t.ExecuteTemplate(w, "admin", nil)
 	}
 
 }

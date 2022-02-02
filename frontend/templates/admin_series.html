@@ -6,6 +6,117 @@
     <title>Title</title>
 </head>
 <body>
+ 
+    <div class="series_table">
+        <h2>Welcome to the series edit page</h2>
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                
+                <td><button>ADD SERIES</button></td>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td>}</td>
+                <td>D</td>
+
+                <td><a href="/edit/{{.Id}}">edit</a></td>
+                <td><a href="/delete/{{.Id}}">delete</a></td>
+            </tr>
+
+            {{range $key, $value:= .Items}}
+            <tr>
+                <td>{{$value.ID}}</td>
+                <td>{{$value.Name}}</td>
+                <td>{{$value.Description}}</td>
+
+                <td><a href="/edit/{{.Id}}">edit</a></td>
+                <td><a href="/delete/{{.Id}}">delete</a></td>
+            </tr>
+            {{end}}
+        </table>
+
+    </div>
+
+
+    <form action="" id="delete_series_form">
+        <input type="checkbox" id="series_delete_accsept">
+        <label for="series_delete_accsept">I understand, that it would be deleted permanently</label>
+        <input type="submit" value="SUBMIT">
+        <button>CANCEL</button>
+    </form>
+
+
+    <form action="" id="edit_series_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="edit_series_name">
+
+        <input type="text" size="40" placeholder="Description" name="edit_series_description">
+
+
+        <div class="multiselect">
+            <div class="selectBox" onclick="showCheckboxes()">
+            <select>
+                <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+            </div>
+
+            <div id="checkboxes">
+            <label for="one">
+                <input type="checkbox" id="one" />First checkbox</label>
+            <label for="two">
+                <input type="checkbox" id="two" />Second checkbox</label>
+            <label for="three">
+                <input type="checkbox" id="three" />Third checkbox</label>
+            </div>
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+    <form action="" id="add_series_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="add_series_name">
+
+        <input type="text" size="40" placeholder="Description" name="add_series_description">
+
+
+        <div class="multiselect">
+            <div class="selectBox" onclick="showCheckboxes()">
+            <select>
+                <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+            </div>
+
+            <div id="checkboxes">
+            <label for="one">
+                <input type="checkbox" id="one" />First checkbox</label>
+            <label for="two">
+                <input type="checkbox" id="two" />Second checkbox</label>
+            <label for="three">
+                <input type="checkbox" id="three" />Third checkbox</label>
+            </div>
+
+        </div>
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+    </form>
 
 </body>
 </html>
