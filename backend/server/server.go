@@ -99,6 +99,16 @@ func login(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "login", nil)
 }
 func admin(w http.ResponseWriter, r *http.Request) {
+
+	t, err := template.ParseFiles("frontend/templates/edit_admin.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	t.ExecuteTemplate(w, "admin", nil)
+
+}
+func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 
 		err := r.ParseForm()
@@ -110,36 +120,27 @@ func admin(w http.ResponseWriter, r *http.Request) {
 
 		http.Redirect(w, r, "/edit", 301)
 	} else {
-		t, err := template.ParseFiles("frontend/templates/edit_admin.html")
+		t, err := template.ParseFiles("frontend/templates/admin_series.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-		// series, err := MainServer.Repo.GetSeries()
-		// if err != nil {
-		// 	fmt.Fprintf(w, err.Error())
-		// 	return
-		// }
-		// data := struct {
-		// 	Title string
-		// 	Items []database.Series
-		// }{
-		// 	Title: "Series",
-		// 	Items: series,
-		// }
+		series, err := MainServer.Repo.GetSeries()
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		data := struct {
+			Title string
+			Items []database.Series
+		}{
+			Title: "Series",
+			Items: series,
+		}
+		fmt.Println(data.Items)
 
-		t.ExecuteTemplate(w, "admin", nil)
+		t.ExecuteTemplate(w, "admin_series", data)
 	}
-
-}
-func adminSeries(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin_series.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-
-	t.ExecuteTemplate(w, "admin_series", nil)
 }
 func adminPictures(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/admin_pictures.html")
@@ -151,7 +152,7 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "admin_pictures", nil)
 }
 func editHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("edit")
+
 }
 func deleteHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("delete")
