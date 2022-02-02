@@ -1,4 +1,4 @@
-{{define "edit"}}
+{{define "admin"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,16 +25,25 @@
                 
                 <td><button>ADD SERIES</button></td>
             </tr>
-
             <tr>
-                <td>1</td>
-                <td>NAME_1</td>
-                <td>DESCRIPTION_1</td>
-                
-                <td><button>edit</button></td>
-                <td><button>detele</button></td>
+                <td>Id</td>
+                <td>}</td>
+                <td>D</td>
+
+                <td><a href="/edit/{{.Id}}">edit</a></td>
+                <td><a href="/delete/{{.Id}}">delete</a></td>
             </tr>
 
+            {{range $key, $value:= .Items}}
+            <tr>
+                <td>{{$value.ID}}</td>
+                <td>{{$value.Name}}</td>
+                <td>{{$value.Description}}</td>
+
+                <td><a href="/edit/{{.Id}}">edit</a></td>
+                <td><a href="/delete/{{.Id}}">delete</a></td>
+            </tr>
+            {{end}}
         </table>
 
     </div>
