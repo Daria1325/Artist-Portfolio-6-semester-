@@ -2,12 +2,13 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
+
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
 )
 
 type Server struct {
@@ -139,7 +140,6 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(data.Items)
 
 		t.ExecuteTemplate(w, "admin_series", data)
-
 	}
 }
 func adminPictures(w http.ResponseWriter, r *http.Request) {
