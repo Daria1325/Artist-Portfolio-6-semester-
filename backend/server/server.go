@@ -137,7 +137,6 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 			Title: "Series",
 			Items: series,
 		}
-		fmt.Println(data.Items)
 
 		t.ExecuteTemplate(w, "admin_series", data)
 	}
@@ -155,7 +154,14 @@ func editHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 func deleteHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("delete")
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := MainServer.Repo.DeleteSeries(id)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/admin", 301)
 }
 
 func Start(config *cnfg.Config) error {
@@ -171,8 +177,8 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/admin", admin)
 	rtr.HandleFunc("/admin/series", adminSeries)
 	rtr.HandleFunc("/admin/pictures", adminPictures)
-	rtr.HandleFunc("/edit//{id:[0-9]+}", editHandler).Methods("POST")
-	rtr.HandleFunc("/delete//{id:[0-9]+}", deleteHandler)
+	rtr.HandleFunc("/edit/{id:[0-9]+}", editHandler).Methods("POST")
+	rtr.HandleFunc("/delete/{id:[0-9]+}", deleteHandler)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))

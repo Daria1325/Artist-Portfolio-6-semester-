@@ -11,9 +11,11 @@ function showCheckboxes() {
   }
 }
 
-function openForm(s) {
-  document.getElementById(s).classList.remove("form-disactive");
-    document.getElementById(s).classList.add("form-active");
+function openForm(id) {
+  // s = "delete/"+ id
+  //вставить в кнопку делете из формы ссылку <a href=s>DELETE</a>
+  // document.getElementById(s).classList.remove("form-disactive");
+  //   document.getElementById(s).classList.add("form-active");
   }
   
   function closeForm(s) {
