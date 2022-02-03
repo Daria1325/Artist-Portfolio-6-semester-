@@ -41,8 +41,13 @@ func clients(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	clients, err := MainServer.Repo.GetClients(6)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
 
-	t.ExecuteTemplate(w, "clients", nil)
+	t.ExecuteTemplate(w, "clients", clients)
 }
 func work(w http.ResponseWriter, r *http.Request) {
 	funcMap := template.FuncMap{
@@ -99,14 +104,12 @@ func login(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "login", nil)
 }
 func admin(w http.ResponseWriter, r *http.Request) {
-
 	t, err := template.ParseFiles("frontend/templates/edit_admin.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
 	t.ExecuteTemplate(w, "admin", nil)
-
 }
 func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
@@ -150,10 +153,10 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 
 	t.ExecuteTemplate(w, "admin_pictures", nil)
 }
-func editHandler(w http.ResponseWriter, r *http.Request) {
+func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
 }
-func deleteHandler(w http.ResponseWriter, r *http.Request) {
+func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 	err := MainServer.Repo.DeleteSeries(id)
@@ -161,7 +164,20 @@ func deleteHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	http.Redirect(w, r, "/admin", 301)
+	http.Redirect(w, r, "/admin/series", 301)
+}
+func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+func deletePicturesHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := MainServer.Repo.DeletePictures(id)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/admin/pictures", 301)
 }
 
 func Start(config *cnfg.Config) error {
@@ -177,8 +193,10 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/admin", admin)
 	rtr.HandleFunc("/admin/series", adminSeries)
 	rtr.HandleFunc("/admin/pictures", adminPictures)
-	rtr.HandleFunc("/edit/{id:[0-9]+}", editHandler).Methods("POST")
-	rtr.HandleFunc("/delete/{id:[0-9]+}", deleteHandler)
+	rtr.HandleFunc("admin/series/edit/{id:[0-9]+}", editSeriesHandler)
+	rtr.HandleFunc("admin/series/delete/{id:[0-9]+}", deleteSeriesHandler)
+	rtr.HandleFunc("admin/pictures/edit/{id:[0-9]+}", editPicturesHandler)
+	rtr.HandleFunc("admin/pictures/delete/{id:[0-9]+}", deletePicturesHandler)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))

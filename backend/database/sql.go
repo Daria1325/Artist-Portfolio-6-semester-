@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -64,9 +65,9 @@ func (r *Repo) DeleteSeries(id string) error {
 	}
 	return nil
 }
-func (r *Repo) GetClients() ([]Client, error) {
+func (r *Repo) GetClients(num int) ([]Client, error) {
 	clients := []Client{}
-	rows, err := r.db.Queryx("SELECT * FROM clients")
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients LIMIT %d", num))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
@@ -85,6 +86,42 @@ func (r *Repo) GetClients() ([]Client, error) {
 func (r *Repo) GetPictures() ([]Picture, error) {
 	pictures := []Picture{}
 	rows, err := r.db.Queryx("SELECT * FROM pictures")
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return nil, err
+	}
+	for rows.Next() {
+		var p Picture
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		pictures = append(pictures, p)
+	}
+	return pictures, nil
+}
+func (r *Repo) GetPictureById(id string) ([]Picture, error) {
+	pictures := []Picture{}
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE id=%s", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return nil, err
+	}
+	for rows.Next() {
+		var p Picture
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		pictures = append(pictures, p)
+	}
+	return pictures, nil
+}
+func (r *Repo) GetPictureBySeries(id string) ([]Picture, error) {
+	pictures := []Picture{}
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE series_id=%s", id))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
