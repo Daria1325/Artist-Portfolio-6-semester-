@@ -11,12 +11,14 @@ function showCheckboxes() {
   }
 }
 
-function openEditForm() {
-  document.getElementById("form_edit").classList.remove("form-disactive");
-    document.getElementById("form_edit").classList.add("form-active");
+function openForm(id) {
+  // s = "delete/"+ id
+  //вставить в кнопку делете из формы ссылку <a href=s>DELETE</a>
+  // document.getElementById(s).classList.remove("form-disactive");
+  //   document.getElementById(s).classList.add("form-active");
   }
   
-  function closeForm() {
-    document.getElementById("form_edit").classList.add("form-disactive");
-    document.getElementById("form_edit").classList.remove("form-active");
+  function closeForm(s) {
+    document.getElementById(s).classList.add("form-disactive");
+    document.getElementById(s).classList.remove("form-active");
   }

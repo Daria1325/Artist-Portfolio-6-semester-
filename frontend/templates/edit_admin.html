@@ -1,70 +1,19 @@
-{{define "edit"}}
+{{define "admin"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../static/css/edit.css" />
-    <!-- <link rel="stylesheet" href="../static/js/script.js"> -->
     <script src="../static/js/script.js"></script>
 </head>
 <body>
     <h1>DARKO BRUZHUCH</h1>
     <h2>Welcome to the edit page</h2>
-    <button>ADD</button>
-    <button>DELETE</button>
-    <button type="submit" onclick="openEditForm()">EDIT</button>
+    
+    <button> <a href="admin/series">SERIES</a></button>
+    <button ><a href="admin/pictures">PICTURES</a></button> 
 
-
-    <div class="edit_form_popup">
-        <form class="form-container form-disactive" id="form_edit">
-            <div class="form_header"></div>
-            <input type="radio" name="edit_type" id="edit_picture">
-            <label for="add_picture">Picture</label>
-
-            <input type="radio" name="edit_type" id="edit_series">
-            <label for="add_series">Series</label>
-
-            <p><select required name="type">
-                <option value="Series1">Series</option>
-                <option value="Series2">Picture</option>
-                <option value="Series3">Picture</option>
-                <option value="Series4">Picture</option>
-            </select></p>
-
-            <input type="text" size="40" placeholder="Name">
-
-            <input type="text" size="40" placeholder="Description">
-
-            
-
-            <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes()">
-                <select>
-                    <option>Select an option</option>
-                </select>
-                <div class="overSelect"></div>
-                </div>
-
-                <div id="checkboxes">
-                <label for="one">
-                    <input type="checkbox" id="one" />First checkbox</label>
-                <label for="two">
-                    <input type="checkbox" id="two" />Second checkbox</label>
-                <label for="three">
-                    <input type="checkbox" id="three" />Third checkbox</label>
-                </div>
-
-            </div>
-
-
-            <button>CANCEL</button>
-            <button>SAVE</button>
-
-
-
-        </form>
-    </div>
 
 </body>
 </html>

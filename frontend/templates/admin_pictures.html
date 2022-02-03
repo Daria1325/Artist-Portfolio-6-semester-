@@ -1,0 +1,95 @@
+{{define "admin_pictures"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="picture_table">
+        <h2>Welcome to the pictures edit page</h2>
+
+        <table>
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>DESCRIPTION</td>
+                <td>YEAR</td>
+                <td><button>ADD PICTURE</button></td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>NAME_1</td>
+                <td>DESCRIPTION_1</td>
+                <td>YEAR_1</td>
+                <td><button>edit</button></td>
+                <td><button>detele</button></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <form action="" id="delete_picture_form">
+        <input type="checkbox" id="picture_delete_accsept">
+        <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+        <input type="submit" value="SUBMIT">
+        <button>CANCEL</button>
+    </form>
+
+
+    
+
+    <form action="" id="edit_picture_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="edit_picture_name">
+        <input type="text" size="40" placeholder="Size" name="edit_picture_size">
+        <input type="text" size="40" placeholder="Series" name="edit_picture_series">
+        <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
+        <input type="text" size="40" placeholder="Year" name="edit_series_year">
+        <input type="text" size="40" placeholder="Material" name="edit_picture_material">
+        
+        <input type="text" size="40" placeholder="Description" name="edit_picture_description">
+        <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+    <form action="" id="add_picture_form">
+
+        <div class="form_header"></div>
+        
+        <input type="text" size="40" placeholder="Name" name="add_picture_name">
+        <input type="text" size="40" placeholder="Size" name="add_picture_size">
+        <input type="text" size="40" placeholder="Series" name="add_picture_series">
+        <input type="text" size="40" placeholder="Price" name="add_picture_prise">
+        <input type="text" size="40" placeholder="Year" name="add_series_year">
+        <input type="text" size="40" placeholder="Material" name="add_picture_material">
+        
+        <input type="text" size="40" placeholder="Description" name="add_picture_description">
+        <input type="text" size="40" placeholder="Upload image" name="add_picture_upload">
+
+        </div>
+
+
+        <button>CANCEL</button>
+        <input type="submit" value="SUBMIT">
+
+
+    </form>
+
+
+</body>
+</html>
+{{end}}
