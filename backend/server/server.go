@@ -18,7 +18,7 @@ type Server struct {
 var MainServer = Server{}
 
 func about(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/about.html", "frontend/templates/header.html")
+	t, err := template.ParseFiles("frontend/templates/client/about.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -27,7 +27,7 @@ func about(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "about", nil)
 }
 func contact(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/contact.html", "frontend/templates/header.html")
+	t, err := template.ParseFiles("frontend/templates/client/contact.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -36,7 +36,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "contact", nil)
 }
 func clients(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/clients.html", "frontend/templates/header.html")
+	t, err := template.ParseFiles("frontend/templates/client/clients.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -55,7 +55,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 			return i % j
 		},
 	}
-	t, err := template.New("test").Funcs(funcMap).ParseFiles("frontend/templates/work.html", "frontend/templates/header.html")
+	t, err := template.New("test").Funcs(funcMap).ParseFiles("frontend/templates/client/work.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -76,7 +76,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "work", data)
 }
 func show_series(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/show_series.html", "frontend/templates/header.html")
+	t, err := template.ParseFiles("frontend/templates/client/show_series.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -85,7 +85,7 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "show_series", nil)
 }
 func show_picture(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/show_picture.html", "frontend/templates/header.html")
+	t, err := template.ParseFiles("frontend/templates/client/show_picture.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -95,7 +95,7 @@ func show_picture(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/login.html")
+	t, err := template.ParseFiles("frontend/templates/admin/login.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -104,7 +104,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "login", nil)
 }
 func admin(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/edit_admin.html")
+	t, err := template.ParseFiles("frontend/templates/admin/admin.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -123,7 +123,7 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 
 		http.Redirect(w, r, "/edit", 301)
 	} else {
-		t, err := template.ParseFiles("frontend/templates/admin_series.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return
@@ -145,7 +145,7 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func adminPictures(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin_pictures.html")
+	t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return

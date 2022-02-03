@@ -14,7 +14,7 @@ type Picture struct {
 	ClientId    string  `db:"client_id"`
 	SeriesId    string  `db:"series_id"`
 	Size        string  `db:"size"`
-	Materials   string  `db:"materials"`
+	Material    string  `db:"material"`
 	Price       float32 `db:"price"`
 	Description string  `db:"description"`
 	Path        string  `db:"path"`
@@ -26,9 +26,21 @@ type Series struct {
 	Description string `db:"description"`
 }
 type Client struct {
+	ID      int    `db:"id"`
+	Name    string `db:"name"`
+	Contact int    `db:"contact_id""`
+	Type    int    `db:"type_id"`
+}
+
+type Contact struct {
+	ID        int    `db:"id"`
+	Email     string `db:"email"`
+	Number    int    `db:"number""`
+	AddNumber int    `db:"add_number"`
+}
+type ClientType struct {
 	ID   int    `db:"id"`
 	Name string `db:"name"`
-	Type string `db:"type"`
 }
 
 type Repo struct {
@@ -67,7 +79,7 @@ func (r *Repo) DeleteSeries(id string) error {
 }
 func (r *Repo) GetClients(num int) ([]Client, error) {
 	clients := []Client{}
-	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients LIMIT %d", num))
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients WHERE type_id <> 2 LIMIT %d", num))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
