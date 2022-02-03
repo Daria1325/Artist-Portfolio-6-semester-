@@ -2,14 +2,15 @@ package server
 
 import (
 	"fmt"
-	"html/template"
-	"log"
-	"net/http"
-
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/daria/Portfolio/backend/database"
 	"github.com/gorilla/mux"
+	"html/template"
+	"log"
+	"net/http"
 )
+
+const layoutISO = "2006-01-02"
 
 type Server struct {
 	Repo *database.Repo
@@ -91,7 +92,7 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	if series.ID != 0 {
+	if series.ID != -1 {
 		pictures, err = MainServer.Repo.GetPictureBySeries(id)
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
@@ -109,6 +110,8 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 		}
 		fmt.Println(data.Pictures)
 		t.ExecuteTemplate(w, "show_series", data)
+	} else {
+		w.WriteHeader(404)
 	}
 
 }
@@ -118,8 +121,19 @@ func show_picture(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	vars := mux.Vars(r)
+	id := vars["id_p"]
+	picture, err := MainServer.Repo.GetPictureById(id)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	if picture.ID != -1 {
+		t.ExecuteTemplate(w, "show_picture", picture)
+	} else {
+		w.WriteHeader(404)
+	}
 
-	t.ExecuteTemplate(w, "show_picture", nil)
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
@@ -215,7 +229,7 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/clients", clients).Methods("GET")
 	rtr.HandleFunc("/work", work).Methods("GET")
 	rtr.HandleFunc("/series/{id:[0-9]+}", show_series).Methods("GET")
-	rtr.HandleFunc("/series/{id:[0-9]+}/{id:[0-9]+}", show_picture).Methods("GET")
+	rtr.HandleFunc("/series/{id_s:[0-9]+}/{id_p:[0-9]+}", show_picture).Methods("GET")
 
 	rtr.HandleFunc("/login", login).Methods("GET")
 	rtr.HandleFunc("/admin", admin)

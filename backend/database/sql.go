@@ -87,7 +87,7 @@ func (r *Repo) GetSeriesById(id string) (Series, error) {
 		series = append(series, p)
 	}
 	if len(series) == 0 {
-		return Series{}, nil
+		return Series{ID: -1}, nil
 	} else {
 		return series[0], nil
 	}
@@ -156,12 +156,12 @@ func (r *Repo) GetPictures() ([]Picture, error) {
 	}
 	return pictures, nil
 }
-func (r *Repo) GetPictureById(id string) ([]Picture, error) {
+func (r *Repo) GetPictureById(id string) (Picture, error) {
 	pictures := []Picture{}
 	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE id=%s", id))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
-		return nil, err
+		return Picture{}, err
 	}
 	for rows.Next() {
 		var p Picture
@@ -172,7 +172,11 @@ func (r *Repo) GetPictureById(id string) ([]Picture, error) {
 		}
 		pictures = append(pictures, p)
 	}
-	return pictures, nil
+	if len(pictures) == 0 {
+		return Picture{ID: -1}, nil
+	} else {
+		return pictures[0], nil
+	}
 }
 func (r *Repo) GetPictureBySeries(id string) ([]Picture, error) {
 	pictures := []Picture{}

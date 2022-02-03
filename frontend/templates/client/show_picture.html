@@ -1,5 +1,17 @@
 {{define "show_picture"}}
 {{template "header"}}
 
+
+
+<div><img src="{{.Path.String}}" alt="painting {{.Name}}"></div>
+<div>
+    <div>{{.Name}}</div>
+    <div>{{.Date.String}}</div>
+    <div>{{.Material.String}}</div>
+    <div>{{.Size.String}}</div>
+    <div>{{.Description.String}}</div>
+</div>
+
 </body>
 </html>
+{{end}}
