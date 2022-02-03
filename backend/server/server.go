@@ -76,13 +76,41 @@ func work(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "work", data)
 }
 func show_series(w http.ResponseWriter, r *http.Request) {
+
 	t, err := template.ParseFiles("frontend/templates/client/show_series.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
 
-	t.ExecuteTemplate(w, "show_series", nil)
+	vars := mux.Vars(r)
+	id := vars["id"]
+	pictures := []database.Picture{}
+	series, err := MainServer.Repo.GetSeriesById(id)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	if series.ID != 0 {
+		pictures, err = MainServer.Repo.GetPictureBySeries(id)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+
+		data := struct {
+			Title    string
+			Series   database.Series
+			Pictures []database.Picture
+		}{
+			Title:    "My page",
+			Series:   series,
+			Pictures: pictures,
+		}
+		fmt.Println(data.Pictures)
+		t.ExecuteTemplate(w, "show_series", data)
+	}
+
 }
 func show_picture(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/show_picture.html", "frontend/templates/client/header.html")
@@ -200,6 +228,7 @@ func Start(config *cnfg.Config) error {
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))
+	http.Handle("/image/", http.StripPrefix("/image/", http.FileServer(http.Dir("./data/image/"))))
 
 	err := http.ListenAndServe(config.BindAddr, nil)
 	if err != nil {

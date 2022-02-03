@@ -1,5 +1,18 @@
 {{define "show_series"}}
 {{template "header"}}
 
+
+<div>{{.Series.Name}}</div>
+<div>{{.Series.Description}}</div>
+<div>
+    {{range $key, $value:= .Pictures}}
+    <div>{{$value.Name}}</div>
+    <div><img src="{{$value.Path.String}}" alt="painting {{$value.Name}}"></div>
+    {{else}}
+    <div><strong>no pictures</strong></div>
+    {{end}}
+</div>
+
 </body>
 </html>
+{{end}}
