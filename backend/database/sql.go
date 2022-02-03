@@ -22,9 +22,9 @@ type Picture struct {
 	ClientId    sql.NullInt32   `db:"client_id"`
 }
 type Series struct {
-	ID          int    `db:"id"`
-	Name        string `db:"name"`
-	Description string `db:"description"`
+	ID          int            `db:"id"`
+	Name        string         `db:"name"`
+	Description sql.NullString `db:"description"`
 }
 type Client struct {
 	ID      int    `db:"id"`

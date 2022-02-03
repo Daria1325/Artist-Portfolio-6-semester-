@@ -3,7 +3,7 @@
 
 
 <div>{{.Series.Name}}</div>
-<div>{{.Series.Description}}</div>
+<div>{{.Series.Description.String}}</div>
 <div>
     {{range $key, $value:= .Pictures}}
     <div>{{$value.Name}}</div>

@@ -11,22 +11,25 @@
         <h2>Welcome to the pictures edit page</h2>
 
         <table>
+            <thead>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>DESCRIPTION</th>
+            <th>YEAR</th>
+            <th><button>ADD PICTURE</button></th>
+            </thead>
+            {{range $key, $value:= .Items}}
             <tr>
-                <td>ID</td>
-                <td>NAME</td>
-                <td>DESCRIPTION</td>
-                <td>YEAR</td>
-                <td><button>ADD PICTURE</button></td>
+                <td> {{$value.ID}} </td>
+                <td> {{$value.Name}} </td>
+                <td> {{$value.Description.String}} </td>
+                <td> {{$value.Date.String}} </td>
+                <td><button >edit</button></td>
+                <td><button onclick="openForm('{{$value.ID}}')">delete</button></td>
+                {{else}}
+                <td><strong>no pictures</strong></td>
             </tr>
-
-            <tr>
-                <td>1</td>
-                <td>NAME_1</td>
-                <td>DESCRIPTION_1</td>
-                <td>YEAR_1</td>
-                <td><button>edit</button></td>
-                <td><button>detele</button></td>
-            </tr>
+            {{end}}
 
         </table>
 

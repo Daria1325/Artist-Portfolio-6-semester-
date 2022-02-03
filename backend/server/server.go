@@ -108,7 +108,7 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 			Series:   series,
 			Pictures: pictures,
 		}
-		fmt.Println(data.Pictures)
+
 		t.ExecuteTemplate(w, "show_series", data)
 	} else {
 		w.WriteHeader(404)
@@ -192,8 +192,20 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	pictures, err := MainServer.Repo.GetPictures()
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	data := struct {
+		Title string
+		Items []database.Picture
+	}{
+		Title: "Pictures",
+		Items: pictures,
+	}
 
-	t.ExecuteTemplate(w, "admin_pictures", nil)
+	t.ExecuteTemplate(w, "admin_pictures", data)
 }
 func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
