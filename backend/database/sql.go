@@ -56,6 +56,14 @@ func (r *Repo) GetSeries() ([]Series, error) {
 	}
 	return series, nil
 }
+func (r *Repo) DeleteSeries(id string) error {
+	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM series WHERE id=%s", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
+}
 func (r *Repo) GetClients() ([]Client, error) {
 	clients := []Client{}
 	rows, err := r.db.Queryx("SELECT * FROM clients")
@@ -91,6 +99,14 @@ func (r *Repo) GetPictures() ([]Picture, error) {
 		pictures = append(pictures, p)
 	}
 	return pictures, nil
+}
+func (r *Repo) DeletePictures(id string) error {
+	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM pictures WHERE id=%s", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	return nil
 }
 
 func (r *Repo) AddSeries(item Series) error {
