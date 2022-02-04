@@ -21,7 +21,7 @@
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
-                <td> {{$value.Description}} </td>
+                <td> {{$value.Description.String}} </td>
                 <td><button >edit</button></td>
                 <td><button onclick="openForm('{{$value.ID}}')">delete</button></td>
                 {{else}}
