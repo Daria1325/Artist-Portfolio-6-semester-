@@ -209,7 +209,6 @@ func (r *Repo) DeletePictures(id string) error {
 	}
 	return nil
 }
-
 func (r *Repo) AddPicture(item Picture) error {
 	_, err := r.db.NamedExec(`INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)
        VALUES (:name, :path,:price,:date,:material,:size, :description,:series_id,:client_id)`, item)

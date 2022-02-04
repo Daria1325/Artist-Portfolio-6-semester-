@@ -77,7 +77,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 
 	t.ExecuteTemplate(w, "work", data)
 }
-func show_series(w http.ResponseWriter, r *http.Request) {
+func showSeries(w http.ResponseWriter, r *http.Request) {
 
 	t, err := template.ParseFiles("frontend/templates/client/show_series.html", "frontend/templates/client/header.html")
 	if err != nil {
@@ -117,7 +117,7 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-func show_picture(w http.ResponseWriter, r *http.Request) {
+func showPicture(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/show_picture.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
@@ -157,6 +157,7 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	}
 	t.ExecuteTemplate(w, "admin", nil)
 }
+
 func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 
@@ -190,6 +191,23 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, "admin_series", data)
 	}
 }
+func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	err := MainServer.Repo.DeleteSeries(id)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/admin/series", 301)
+}
+
 func adminPictures(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html")
 	if err != nil {
@@ -211,18 +229,8 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 
 	t.ExecuteTemplate(w, "admin_pictures", data)
 }
-func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
+func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
-}
-func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-	err := MainServer.Repo.DeleteSeries(id)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	http.Redirect(w, r, "/admin/series", 301)
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -244,17 +252,19 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/contact", contact).Methods("GET")
 	rtr.HandleFunc("/clients", clients).Methods("GET")
 	rtr.HandleFunc("/work", work).Methods("GET")
-	rtr.HandleFunc("/series/{id:[0-9]+}", show_series).Methods("GET")
-	rtr.HandleFunc("/series/{id_s:[0-9]+}/{id_p:[0-9]+}", show_picture).Methods("GET")
+	rtr.HandleFunc("/series/{id:[0-9]+}", showSeries).Methods("GET")
+	rtr.HandleFunc("/series/{id_s:[0-9]+}/{id_p:[0-9]+}", showPicture).Methods("GET")
 
-	rtr.HandleFunc("/login", login).Methods("GET")
-	rtr.HandleFunc("/admin", admin)
+	rtr.HandleFunc("/login", login)
+	rtr.HandleFunc("/admin", admin).Methods("GET")
 	rtr.HandleFunc("/admin/series", adminSeries)
 	rtr.HandleFunc("/admin/pictures", adminPictures)
 	rtr.HandleFunc("/admin/series/edit/{id:[0-9]+}", editSeriesHandler)
 	rtr.HandleFunc("/admin/series/delete/{id:[0-9]+}", deleteSeriesHandler)
+	rtr.HandleFunc("/admin/series/add/{id:[0-9]+}", addSeriesHandler)
 	rtr.HandleFunc("/admin/pictures/edit/{id:[0-9]+}", editPicturesHandler)
 	rtr.HandleFunc("/admin/pictures/delete/{id:[0-9]+}", deletePicturesHandler)
+	rtr.HandleFunc("/admin/pictures/add/{id:[0-9]+}", addPicturesHandler)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))
