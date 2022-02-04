@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 const layoutISO = "2006-01-02"
@@ -111,7 +112,8 @@ func show_series(w http.ResponseWriter, r *http.Request) {
 
 		t.ExecuteTemplate(w, "show_series", data)
 	} else {
-		w.WriteHeader(404)
+		t.Parse("<div>404 page not found</div>")
+		t.Execute(w, nil)
 	}
 
 }
@@ -122,16 +124,18 @@ func show_picture(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	vars := mux.Vars(r)
-	id := vars["id_p"]
-	picture, err := MainServer.Repo.GetPictureById(id)
+	idP := vars["id_p"]
+	idS := vars["id_s"]
+	picture, err := MainServer.Repo.GetPictureById(idP)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	if picture.ID != -1 {
+	if picture.ID != -1 && strconv.Itoa(int(picture.SeriesId.Int32)) == idS {
 		t.ExecuteTemplate(w, "show_picture", picture)
 	} else {
-		w.WriteHeader(404)
+		t.Parse("<div>404 page not found</div>")
+		t.Execute(w, nil)
 	}
 
 }
