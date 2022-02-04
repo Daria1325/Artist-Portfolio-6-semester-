@@ -94,7 +94,12 @@ func (r *Repo) GetSeriesById(id string) (Series, error) {
 
 }
 func (r *Repo) DeleteSeries(id string) error {
-	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM series WHERE id=%s", id))
+	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM pictures WHERE series_id=%s", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	_, err = r.db.Queryx(fmt.Sprintf("DELETE FROM series WHERE id=%s", id))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
