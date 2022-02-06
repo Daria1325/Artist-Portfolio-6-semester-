@@ -2,12 +2,12 @@ package server
 
 import (
 	"fmt"
-	"html/template"
-	"log"
-	"net/http"
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/daria/Portfolio/backend/database"
 	"github.com/gorilla/mux"
+	"html/template"
+	"log"
+	"net/http"
 
 	"strconv"
 )
@@ -160,43 +160,70 @@ func admin(w http.ResponseWriter, r *http.Request) {
 }
 
 func adminSeries(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
+	t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	series, err := MainServer.Repo.GetSeries()
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	data := struct {
+		Title string
+		Items []database.Series
+	}{
+		Title: "Series",
+		Items: series,
+	}
 
-		err := r.ParseForm()
+	t.ExecuteTemplate(w, "admin_series", data)
+}
+func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
+	series := database.Series{}
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+	series.Name = r.FormValue("add_series_name")
+	series.Description.String = r.FormValue("add_series_description")
+	err = MainServer.Repo.AddSeries(series)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	r.Method = "GET"
+	http.Redirect(w, r, "/admin/series", 200)
+}
+func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
+	series := database.Series{}
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		log.Println(err)
+	}
+	series.ID = id
+	if r.Method == "POST" {
+		err = r.ParseForm()
 		if err != nil {
 			log.Println(err)
 		}
-		editType := r.FormValue("edit_type")
-		fmt.Println(editType)
-
-		http.Redirect(w, r, "/edit", 301)
+		series.Name = r.FormValue("edit_series_name")
+		series.Description.String = r.FormValue("edit_series_description")
+		fmt.Println(series)
+		err = MainServer.Repo.UpdateSeries(series)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
 	} else {
-		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		series, err := MainServer.Repo.GetSeries()
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		data := struct {
-			Title string
-			Items []database.Series
-		}{
-			Title: "Series",
-			Items: series,
-		}
+		//data, _ := MainServer.Repo.GetSeriesById(string(id))
 
-		t.ExecuteTemplate(w, "admin_series", nil)
 	}
-}
-func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
-}
-func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
-
+	r.Method = "GET"
+	http.Redirect(w, r, "/admin/series", 200)
 }
 func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -228,7 +255,7 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 		Items: pictures,
 	}
 
-	t.ExecuteTemplate(w, "admin_pictures", nil)
+	t.ExecuteTemplate(w, "admin_pictures", data)
 }
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
@@ -258,14 +285,15 @@ func Start(config *cnfg.Config) error {
 
 	rtr.HandleFunc("/login", login)
 	rtr.HandleFunc("/admin", admin).Methods("GET")
-	rtr.HandleFunc("/admin/series", adminSeries)
+	rtr.HandleFunc("/admin/series", adminSeries).Methods("GET")
+	rtr.HandleFunc("/admin/series", addSeriesHandler).Methods("POST")
 	rtr.HandleFunc("/admin/pictures", adminPictures)
-	rtr.HandleFunc("/admin/series/edit/{id:[0-9]+}", editSeriesHandler)
+	rtr.HandleFunc("/admin/series/edit/{id:[0-9]+}", editSeriesHandler).Methods("POST")
 	rtr.HandleFunc("/admin/series/delete/{id:[0-9]+}", deleteSeriesHandler)
-	rtr.HandleFunc("/admin/series/add/{id:[0-9]+}", addSeriesHandler)
-	rtr.HandleFunc("/admin/pictures/edit/{id:[0-9]+}", editPicturesHandler)
+	//rtr.HandleFunc("/admin/series/add", addSeriesHandler)
+	rtr.HandleFunc("/admin/pictures/edit/{id:[0-9]+}", editPicturesHandler).Methods("POST")
 	rtr.HandleFunc("/admin/pictures/delete/{id:[0-9]+}", deletePicturesHandler)
-	rtr.HandleFunc("/admin/pictures/add/{id:[0-9]+}", addPicturesHandler)
+	rtr.HandleFunc("/admin/pictures/add", addPicturesHandler)
 
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))

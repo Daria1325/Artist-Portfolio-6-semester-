@@ -107,8 +107,7 @@ func (r *Repo) DeleteSeries(id string) error {
 	return nil
 }
 func (r *Repo) AddSeries(item Series) error {
-	_, err := r.db.NamedExec(`INSERT INTO series (name, description)
-       VALUES (:name, :description)`, item)
+	_, err := r.db.Queryx(fmt.Sprintf("INSERT INTO series (name, description) VALUES ('%s','%s')", item.Name, item.Description.String))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
@@ -116,7 +115,7 @@ func (r *Repo) AddSeries(item Series) error {
 	return nil
 }
 func (r *Repo) UpdateSeries(item Series) error {
-	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description.String WHERE id =:id`, item)
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
