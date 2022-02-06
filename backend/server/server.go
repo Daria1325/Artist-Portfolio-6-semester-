@@ -2,12 +2,13 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
+
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
 )
 
 const layoutISO = "2006-01-02"
@@ -170,20 +171,20 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-		series, err := MainServer.Repo.GetSeries()
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		data := struct {
-			Title string
-			Items []database.Series
-		}{
-			Title: "Series",
-			Items: series,
-		}
+		// series, err := MainServer.Repo.GetSeries()
+		// if err != nil {
+		// 	fmt.Fprintf(w, err.Error())
+		// 	return
+		// }
+		// data := struct {
+		// 	Title string
+		// 	Items []database.Series
+		// }{
+		// 	Title: "Series",
+		// 	Items: series,
+		// }
 
-		t.ExecuteTemplate(w, "admin_series", data)
+		t.ExecuteTemplate(w, "admin_series", nil)
 	}
 }
 func adminPictures(w http.ResponseWriter, r *http.Request) {
@@ -192,20 +193,20 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	pictures, err := MainServer.Repo.GetPictures()
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	data := struct {
-		Title string
-		Items []database.Picture
-	}{
-		Title: "Pictures",
-		Items: pictures,
-	}
+	// pictures, err := MainServer.Repo.GetPictures()
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
+	// data := struct {
+	// 	Title string
+	// 	Items []database.Picture
+	// }{
+	// 	Title: "Pictures",
+	// 	Items: pictures,
+	// }
 
-	t.ExecuteTemplate(w, "admin_pictures", data)
+	t.ExecuteTemplate(w, "admin_pictures", nil)
 }
 func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
