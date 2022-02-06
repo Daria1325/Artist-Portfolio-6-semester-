@@ -54,7 +54,7 @@ func New(db *sqlx.DB) *Repo {
 
 func (r *Repo) GetSeries() ([]Series, error) {
 	series := []Series{}
-	rows, err := r.db.Queryx("SELECT * FROM series")
+	rows, err := r.db.Queryx("SELECT * FROM series ORDER BY id")
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
@@ -94,7 +94,12 @@ func (r *Repo) GetSeriesById(id string) (Series, error) {
 
 }
 func (r *Repo) DeleteSeries(id string) error {
-	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM series WHERE id=%s", id))
+	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM pictures WHERE series_id=%s", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return err
+	}
+	_, err = r.db.Queryx(fmt.Sprintf("DELETE FROM series WHERE id=%s", id))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
@@ -140,7 +145,7 @@ func (r *Repo) GetClients(num int) ([]Client, error) {
 
 func (r *Repo) GetPictures() ([]Picture, error) {
 	pictures := []Picture{}
-	rows, err := r.db.Queryx("SELECT * FROM pictures")
+	rows, err := r.db.Queryx("SELECT * FROM pictures ORDER BY id")
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
@@ -180,7 +185,7 @@ func (r *Repo) GetPictureById(id string) (Picture, error) {
 }
 func (r *Repo) GetPictureBySeries(id string) ([]Picture, error) {
 	pictures := []Picture{}
-	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE series_id=%s", id))
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE series_id=%s ORDER BY id", id))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err
@@ -204,7 +209,6 @@ func (r *Repo) DeletePictures(id string) error {
 	}
 	return nil
 }
-
 func (r *Repo) AddPicture(item Picture) error {
 	_, err := r.db.NamedExec(`INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)
        VALUES (:name, :path,:price,:date,:material,:size, :description,:series_id,:client_id)`, item)
