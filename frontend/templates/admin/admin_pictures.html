@@ -1,10 +1,12 @@
 {{define "admin_pictures"}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 
     <div class="picture_table">
@@ -12,13 +14,13 @@
 
         <table>
             <thead>
-            <th>ID</th>
-            <th>NAME</th>
-            <th>DESCRIPTION</th>
-            <th>YEAR</th>
-            <th><button>ADD PICTURE</button></th>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>DESCRIPTION</th>
+                <th>YEAR</th>
+                <th><button>ADD PICTURE</button></th>
             </thead>
-            {{range $key, $value:= .Items}}
+            <!-- {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
@@ -29,8 +31,31 @@
                 {{else}}
                 <td><strong>no pictures</strong></td>
             </tr>
-            {{end}}
-
+            {{end}} -->
+            <tr>
+                <td> fg </td>
+                <td> fg</td>
+                <td> fg </td>
+                <td> fg </td>
+                <td><button>edit</button></td>
+                <td><button onclick="">delete</button></td>
+            </tr>
+            <tr>
+                <td> fg </td>
+                <td> fg</td>
+                <td> fg </td>
+                <td> fg </td>
+                <td><button>edit</button></td>
+                <td><button onclick="">delete</button></td>
+            </tr>
+            <tr>
+                <td> fg </td>
+                <td> fg</td>
+                <td> fg </td>
+                <td> fg </td>
+                <td><button>edit</button></td>
+                <td><button onclick="">delete</button></td>
+            </tr>
         </table>
 
     </div>
@@ -42,20 +67,17 @@
         <button>CANCEL</button>
     </form>
 
-
-    
-
     <form action="" id="edit_picture_form">
 
         <div class="form_header"></div>
-        
+
         <input type="text" size="40" placeholder="Name" name="edit_picture_name">
         <input type="text" size="40" placeholder="Size" name="edit_picture_size">
         <input type="text" size="40" placeholder="Series" name="edit_picture_series">
         <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
         <input type="text" size="40" placeholder="Year" name="edit_series_year">
         <input type="text" size="40" placeholder="Material" name="edit_picture_material">
-        
+
         <input type="text" size="40" placeholder="Description" name="edit_picture_description">
         <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
 
@@ -68,18 +90,17 @@
 
     </form>
 
-
     <form action="" id="add_picture_form">
 
         <div class="form_header"></div>
-        
+
         <input type="text" size="40" placeholder="Name" name="add_picture_name">
         <input type="text" size="40" placeholder="Size" name="add_picture_size">
         <input type="text" size="40" placeholder="Series" name="add_picture_series">
         <input type="text" size="40" placeholder="Price" name="add_picture_prise">
         <input type="text" size="40" placeholder="Year" name="add_series_year">
         <input type="text" size="40" placeholder="Material" name="add_picture_material">
-        
+
         <input type="text" size="40" placeholder="Description" name="add_picture_description">
         <input type="text" size="40" placeholder="Upload image" name="add_picture_upload">
 
@@ -94,5 +115,6 @@
 
 
 </body>
+
 </html>
 {{end}}

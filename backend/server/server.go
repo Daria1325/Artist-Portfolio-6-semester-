@@ -2,12 +2,13 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
+
 	"strconv"
 )
 
@@ -188,7 +189,7 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 			Items: series,
 		}
 
-		t.ExecuteTemplate(w, "admin_series", data)
+		t.ExecuteTemplate(w, "admin_series", nil)
 	}
 }
 func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
@@ -227,7 +228,7 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 		Items: pictures,
 	}
 
-	t.ExecuteTemplate(w, "admin_pictures", data)
+	t.ExecuteTemplate(w, "admin_pictures", nil)
 }
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
