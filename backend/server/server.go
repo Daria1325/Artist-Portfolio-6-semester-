@@ -193,8 +193,7 @@ func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	r.Method = "GET"
-	http.Redirect(w, r, "/admin/series", 200)
+	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
 }
 func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	series := database.Series{}
@@ -217,8 +216,8 @@ func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	r.Method = "GET"
-	http.Redirect(w, r, "/admin/series", 200)
+	//r.Method = "GET"
+	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
 }
 func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -228,7 +227,7 @@ func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	http.Redirect(w, r, "/admin/series", 301)
+	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
 }
 
 func adminPictures(w http.ResponseWriter, r *http.Request) {
@@ -294,7 +293,7 @@ func Start(config *cnfg.Config) error {
 
 	rtr.HandleFunc("/login", login)
 	rtr.HandleFunc("/admin", admin).Methods("GET")
-	rtr.HandleFunc("/admin/series", adminSeries).Methods("GET")
+	rtr.HandleFunc("/admin/series", adminSeries)
 	rtr.HandleFunc("/admin/pictures", adminPictures)
 	rtr.HandleFunc("/admin/series/edit/{id:[0-9]+}", editSeriesHandler).Methods("POST")
 	rtr.HandleFunc("/admin/series/delete/{id:[0-9]+}", deleteSeriesHandler)
