@@ -204,22 +204,17 @@ func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	series.ID = id
-	if r.Method == "POST" {
-		err = r.ParseForm()
-		if err != nil {
-			log.Println(err)
-		}
-		series.Name = r.FormValue("edit_series_name")
-		series.Description.String = r.FormValue("edit_series_description")
-		fmt.Println(series)
-		err = MainServer.Repo.UpdateSeries(series)
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-	} else {
-		//data, _ := MainServer.Repo.GetSeriesById(string(id))
+	err = r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+	series.Name = r.FormValue("edit_series_name")
+	series.Description.String = r.FormValue("edit_series_description")
 
+	err = MainServer.Repo.UpdateSeries(series)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
 	}
 
 	r.Method = "GET"
@@ -258,7 +253,21 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "admin_pictures", data)
 }
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
+	picture := database.Picture{}
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+	picture.Name = r.FormValue("add_series_name")
+	picture.Description.String = r.FormValue("add_series_description")
 
+	err = MainServer.Repo.AddPicture(picture)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	r.Method = "GET"
+	http.Redirect(w, r, "/admin/series", 200)
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
