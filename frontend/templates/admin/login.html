@@ -1,27 +1,36 @@
 {{define "login"}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../static/css/admin/login.css">
 </head>
+
 <body>
 
-    <div class="conteiner">
-        <h1>DARKO BRUZHUCH</h1>
-        <div class="login">
+    <div class="login-conteiner">
+        <h1 class="login-conteiner__header">DARKO BRUZHUCH</h1>
+        <div class="login-conteiner__content">
 
-            <form action="" class="login_form">
-                <input type="text" placeholder="Username" name="username">
-                <input type="text" placeholder="password" name="password">
+            <form action="" class="login-conteiner__form">
+                <div class="filde">
+                    <label for="username">Usermane</label>
+                    <input type="text" name="username">
+                </div>
+                <div class="filde">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                </div>
 
                 <input type="submit" value="Log in" name="login_buutton">
             </form>
 
         </div>
     </div>
-  
+
 </body>
+
 </html>
 {{end}}

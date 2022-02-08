@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../../static/js/script.js"></script>
+    <link rel="stylesheet" href="../../static/css/admin/edit.css">
+
 </head>
 
 <body>
@@ -18,7 +21,7 @@
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>YEAR</th>
-                <th><button>ADD PICTURE</button></th>
+                <th><button onclick="openForm('add_p')">ADD PICTURE</button></th>
             </thead>
             <!-- {{range $key, $value:= .Items}}
             <tr>
@@ -37,8 +40,8 @@
                 <td> fg</td>
                 <td> fg </td>
                 <td> fg </td>
-                <td><button>edit</button></td>
-                <td><button onclick="">delete</button></td>
+                <td><button onclick="openForm('edit_p', 1000)">edit</button></td>
+                <td><button onclick="openForm('delete_p', 1000)">delete</button></td>
             </tr>
             <tr>
                 <td> fg </td>
@@ -60,59 +63,67 @@
 
     </div>
 
-    <form action="" id="delete_picture_form">
-        <input type="checkbox" id="picture_delete_accsept">
-        <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
-        <input type="submit" value="SUBMIT">
-        <button>CANCEL</button>
-    </form>
+    <div class="open-popup" id="delete_p">
+        <form action="" id="delete_picture">
+            <input type="checkbox" id="picture_delete_accsept">
+            <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+            <!-- <input type="submit" value="SUBMIT"> -->
+            <button type="submit"><a href="pictures/delete/">SUBMIT</a></button>
 
-    <form action="" id="edit_picture_form">
+            <button onclick="closeForm('delete_p')">CANCEL</button>
+        </form>
+    </div>
 
-        <div class="form_header"></div>
+    <div class="open-popup" id="edit_p">
+        <form action="" id="edit_picture" class="edit_picture_form">
 
-        <input type="text" size="40" placeholder="Name" name="edit_picture_name">
-        <input type="text" size="40" placeholder="Size" name="edit_picture_size">
-        <input type="text" size="40" placeholder="Series" name="edit_picture_series">
-        <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
-        <input type="text" size="40" placeholder="Year" name="edit_series_year">
-        <input type="text" size="40" placeholder="Material" name="edit_picture_material">
+            <div class="form-header"></div>
 
-        <input type="text" size="40" placeholder="Description" name="edit_picture_description">
-        <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
+            <input type="text" size="40" placeholder="Name" name="edit_picture_name">
+            <input type="text" size="40" placeholder="Size" name="edit_picture_size">
+            <input type="text" size="40" placeholder="Series" name="edit_picture_series">
+            <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
+            <input type="text" size="40" placeholder="Year" name="edit_series_year">
+            <input type="text" size="40" placeholder="Material" name="edit_picture_material">
 
-        </div>
+            <input type="text" size="40" placeholder="Description" name="edit_picture_description">
+            <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
 
+            <button type="submit"><a href="pictures/edit/">SUBMIT</a></button>
 
-        <button>CANCEL</button>
-        <input type="submit" value="SUBMIT">
+            <button onclick="closeForm('edit_p')">CANCEL</button>
 
-
-    </form>
-
-    <form action="" id="add_picture_form">
-
-        <div class="form_header"></div>
-
-        <input type="text" size="40" placeholder="Name" name="add_picture_name">
-        <input type="text" size="40" placeholder="Size" name="add_picture_size">
-        <input type="text" size="40" placeholder="Series" name="add_picture_series">
-        <input type="text" size="40" placeholder="Price" name="add_picture_prise">
-        <input type="text" size="40" placeholder="Year" name="add_series_year">
-        <input type="text" size="40" placeholder="Material" name="add_picture_material">
-
-        <input type="text" size="40" placeholder="Description" name="add_picture_description">
-        <input type="text" size="40" placeholder="Upload image" name="add_picture_upload">
-
-        </div>
+            <!-- <input type="submit" value="SUBMIT"> -->
 
 
-        <button>CANCEL</button>
-        <input type="submit" value="SUBMIT">
+        </form>
+    </div>
 
 
-    </form>
+    <div class="open-popup" id="add_p">
+        <form action="" id="add_picture">
 
+            <div class="form-header"></div>
+
+            <input type="text" size="40" placeholder="Name" name="add_picture_name">
+            <input type="text" size="40" placeholder="Size" name="add_picture_size">
+            <input type="text" size="40" placeholder="Series" name="add_picture_series">
+            <input type="text" size="40" placeholder="Price" name="add_picture_prise">
+            <input type="text" size="40" placeholder="Year" name="add_series_year">
+            <input type="text" size="40" placeholder="Material" name="add_picture_material">
+
+            <input type="text" size="40" placeholder="Description" name="add_picture_description">
+            <input type="text" size="40" placeholder="Upload image" name="add_picture_upload">
+
+
+
+
+            <button onclick="closeForm('add_p')">CANCEL</button>
+            <input type="submit" value="SUBMIT">
+
+
+        </form>
+    </div>
 
 </body>
 
