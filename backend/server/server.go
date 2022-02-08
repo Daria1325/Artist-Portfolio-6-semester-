@@ -65,20 +65,20 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	// series, err := MainServer.Repo.GetSeries()
-	// if err != nil {
-	// 	fmt.Fprintf(w, err.Error())
-	// 	return
-	// }
-	// data := struct {
-	// 	Title string
-	// 	Items []database.Series
-	// }{
-	// 	Title: "My page",
-	// 	Items: series,
-	// }
+	series, err := MainServer.Repo.GetSeries()
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	data := struct {
+		Title string
+		Items []database.Series
+	}{
+		Title: "My page",
+		Items: series,
+	}
 
-	t.ExecuteTemplate(w, "work", nil)
+	t.ExecuteTemplate(w, "work", data)
 }
 func showSeries(w http.ResponseWriter, r *http.Request) {
 
