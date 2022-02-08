@@ -349,7 +349,8 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		defer f.Close()
 		io.Copy(f, file)
-		picture.Path.String = path
+		picture.Path.String = "/image/" + seriesName + "/" + handler.Filename
+		picture.ClientId.Valid = false
 
 		err = MainServer.Repo.AddPicture(picture)
 		if err != nil {

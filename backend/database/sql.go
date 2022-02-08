@@ -3,8 +3,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"time"
-
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -237,10 +235,10 @@ func (r *Repo) DeletePictures(id string) error {
 	return nil
 }
 func (r *Repo) AddPicture(item Picture) error {
-	date, err := time.Parse(layoutISO, item.Date.String)
+	date := item.Date.String
 
-	_, err = r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)" +
-		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId.Int32, item.ClientId.Int32))
+	_, err := r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id)" +
+		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId.Int32))
 
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
