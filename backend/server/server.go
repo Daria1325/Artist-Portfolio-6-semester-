@@ -5,17 +5,19 @@ import (
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/daria/Portfolio/backend/database"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"html/template"
 	"log"
 	"net/http"
-
+	"os"
 	"strconv"
 )
 
 const layoutISO = "2006-01-02"
 
 type Server struct {
-	Repo *database.Repo
+	Repo       *database.Repo
+	StatusUser bool
 }
 
 var MainServer = Server{}
@@ -142,144 +144,209 @@ func showPicture(w http.ResponseWriter, r *http.Request) {
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin/login.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+	if r.Method == "GET" {
+		t, err := template.ParseFiles("frontend/templates/admin/login.html")
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+
+		t.ExecuteTemplate(w, "login", nil)
+	}
+	if r.Method == "POST" {
+		err := godotenv.Load("Variables.env")
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+
+		user := os.Getenv("USERNAME")
+		pass := os.Getenv("PASSWORD")
+		err = r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		username := r.FormValue("username")
+		password := r.FormValue("password")
+		if username == user && password == pass {
+			http.Redirect(w, r, "/admin", http.StatusSeeOther)
+			MainServer.StatusUser = true
+		} else {
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+		}
 	}
 
-	t.ExecuteTemplate(w, "login", nil)
 }
 func admin(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin/admin.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+	if MainServer.StatusUser {
+		t, err := template.ParseFiles("frontend/templates/admin/admin.html")
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		t.ExecuteTemplate(w, "admin", nil)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	t.ExecuteTemplate(w, "admin", nil)
+
 }
 
 func adminSeries(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	series, err := MainServer.Repo.GetSeries()
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	data := struct {
-		Title string
-		Items []database.Series
-	}{
-		Title: "Series",
-		Items: series,
+	if MainServer.StatusUser {
+		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		series, err := MainServer.Repo.GetSeries()
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		data := struct {
+			Title string
+			Items []database.Series
+		}{
+			Title: "Series",
+			Items: series,
+		}
+
+		t.ExecuteTemplate(w, "admin_series", data)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 
-	t.ExecuteTemplate(w, "admin_series", data)
 }
 func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
-	series := database.Series{}
-	err := r.ParseForm()
-	if err != nil {
-		log.Println(err)
+	if MainServer.StatusUser {
+		series := database.Series{}
+		err := r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		series.Name = r.FormValue("add_series_name")
+		series.Description.String = r.FormValue("add_series_description")
+		err = MainServer.Repo.AddSeries(series)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	series.Name = r.FormValue("add_series_name")
-	series.Description.String = r.FormValue("add_series_description")
-	err = MainServer.Repo.AddSeries(series)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
+
 }
 func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
-	series := database.Series{}
-	vars := mux.Vars(r)
-	id, err := strconv.Atoi(vars["id"])
-	if err != nil {
-		log.Println(err)
-	}
-	series.ID = id
-	err = r.ParseForm()
-	if err != nil {
-		log.Println(err)
-	}
-	series.Name = r.FormValue("edit_series_name")
-	series.Description.String = r.FormValue("edit_series_description")
+	if MainServer.StatusUser {
+		series := database.Series{}
+		vars := mux.Vars(r)
+		id, err := strconv.Atoi(vars["id"])
+		if err != nil {
+			log.Println(err)
+		}
+		series.ID = id
+		err = r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		series.Name = r.FormValue("edit_series_name")
+		series.Description.String = r.FormValue("edit_series_description")
 
-	err = MainServer.Repo.UpdateSeries(series)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+		err = MainServer.Repo.UpdateSeries(series)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 
-	//r.Method = "GET"
-	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
 }
 func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-	err := MainServer.Repo.DeleteSeries(id)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+	if MainServer.StatusUser {
+		vars := mux.Vars(r)
+		id := vars["id"]
+		err := MainServer.Repo.DeleteSeries(id)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
+
 }
 
 func adminPictures(w http.ResponseWriter, r *http.Request) {
-	t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	pictures, err := MainServer.Repo.GetPictures()
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	data := struct {
-		Title string
-		Items []database.Picture
-	}{
-		Title: "Pictures",
-		Items: pictures,
+	if MainServer.StatusUser {
+		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html")
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		pictures, err := MainServer.Repo.GetPictures()
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		data := struct {
+			Title string
+			Items []database.Picture
+		}{
+			Title: "Pictures",
+			Items: pictures,
+		}
+
+		t.ExecuteTemplate(w, "admin_pictures", data)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 
-	t.ExecuteTemplate(w, "admin_pictures", data)
 }
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
-	picture := database.Picture{}
-	err := r.ParseForm()
-	if err != nil {
-		log.Println(err)
-	}
-	picture.Name = r.FormValue("add_series_name")
-	picture.Description.String = r.FormValue("add_series_description")
+	if MainServer.StatusUser {
+		picture := database.Picture{}
+		err := r.ParseForm()
+		if err != nil {
+			log.Println(err)
+		}
+		picture.Name = r.FormValue("add_series_name")
+		picture.Description.String = r.FormValue("add_series_description")
 
-	err = MainServer.Repo.AddPicture(picture)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+		err = MainServer.Repo.AddPicture(picture)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/admin/pictures", http.StatusSeeOther)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	r.Method = "GET"
-	http.Redirect(w, r, "/admin/series", 200)
+
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
+	if MainServer.StatusUser {
 
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
 }
 func deletePicturesHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
-	err := MainServer.Repo.DeletePictures(id)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
+	if MainServer.StatusUser {
+		vars := mux.Vars(r)
+		id := vars["id"]
+		err := MainServer.Repo.DeletePictures(id)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/admin/pictures", 301)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	http.Redirect(w, r, "/admin/pictures", 301)
+
 }
 
 func Start(config *cnfg.Config) error {
