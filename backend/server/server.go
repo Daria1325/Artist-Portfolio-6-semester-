@@ -7,13 +7,12 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 )
-
-const layoutISO = "2006-01-02"
 
 type Server struct {
 	Repo       *database.Repo
@@ -305,15 +304,52 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+// :TODO id series
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		picture := database.Picture{}
-		err := r.ParseForm()
+
+		err := r.ParseMultipartForm(32 << 20)
 		if err != nil {
 			log.Println(err)
 		}
-		picture.Name = r.FormValue("add_series_name")
-		picture.Description.String = r.FormValue("add_series_description")
+		picture.Name = r.FormValue("add_picture_name")
+		picture.Size.String = r.FormValue("add_picture_size")
+		seriesName := r.FormValue("add_picture_series")
+		if seriesName == "" {
+			seriesName = "Without series"
+		}
+		seriesID, err := MainServer.Repo.GetSeriesIDByName(seriesName)
+		if err != nil {
+			log.Println(err)
+		}
+		picture.SeriesId.Int32 = int32(seriesID)
+		price, err := strconv.ParseFloat(r.FormValue("add_picture_prise"), 32)
+		if err != nil {
+			picture.Price.Valid = false
+		} else {
+			picture.Price.Float64 = price
+		}
+		picture.Date.String = r.FormValue("add_series_year")
+		picture.Material.String = r.FormValue("add_picture_material")
+		picture.Description.String = r.FormValue("add_picture_description")
+		file, handler, err := r.FormFile("add_picture_upload")
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+
+		path := "./data/image/" + seriesName + "/" + handler.Filename
+		f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer f.Close()
+		io.Copy(f, file)
+		picture.Path.String = path
 
 		err = MainServer.Repo.AddPicture(picture)
 		if err != nil {
