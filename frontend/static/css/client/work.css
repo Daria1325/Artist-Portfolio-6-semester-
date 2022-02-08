@@ -1,0 +1,53 @@
+.work-block{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 50px;
+    row-gap: 20px;
+}
+
+.work-block__img1{
+    background-color: #523131;
+    width: 604.48px;
+    height: 493px;
+}
+
+.work-block__img2{
+    width: 462.96px;
+    height: 493px;  
+    background-color: #314552;
+
+}
+
+.work-block__img3{
+    
+    width: 427.58px;
+    height: 458px;
+     
+    background: #1D1A36;
+
+}
+
+.work-block__img4{
+    width: 427.58px;
+    height: 458px;
+
+
+    background: #32351E;
+
+}
+
+.work-block__img5{
+    width: 481.02px;
+    height: 500px;
+
+    background: #32351E;
+}
+
+.work-block__img6{
+    width: 572.11px;
+    height: 500px;
+        
+    background: #40203B;
+
+}

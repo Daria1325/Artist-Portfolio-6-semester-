@@ -1,88 +1,137 @@
 
-
-
-
-header  {
-  
-  height: 97px;
-  left: 36px;
-  top: 32px;
-  
-  font-family: 'Abel';
+* {
+  font-family: Abel;
   font-style: normal;
   font-weight: normal;
-  font-size: 72px;
-  line-height: 92px;
+  margin: 0;
+  padding: 0;
   
-  align-items: center;
+}
+
+
+
+.header {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  align-items: baseline
+}
+
+.header__title {
   
+  width: auto;
+  height: 97px;
+  padding-left: 36px;
+  padding-top: 32px;
+  font-size: 48px;
   color: #222222;
-  
 
 }
 
-main {
-  /* text-align: center; */
+.header__nav{
+ 
+  font-size: 24px;
+  text-align: center;
+  color: #222222;
 }
 
-.contact_main_ul li{
-  list-style-type: none
-}
-
-.clients_main_ul li {
-  list-style-type: none;
-  display: inline-block;
-  width: 200px;
-}
-
-.header  li {
+.header__nav li {
   display: inline-block;
 }
 
-.header  a {
-  color: black;
+.header__nav  a {
+  color: #222222;
   text-decoration: none;
   margin: 44px;
 }
-.header li a :hover {
+.header__nav li a :hover {
   text-decoration: underline;
 }
 
 
+/* end header style */
+
+
+main {
+  font-size: 24px;
+  line-height: 40px;
+  /* height: calc(100% - 129px); */
+  min-height: 100vh;   
+  display: flex;
+  
+ 
+  /* text-align: center; */
+  letter-spacing: 0.1em;
+  
+  color: #222222;
+  align-items: center;
+  justify-content: center;
+  
+}
 
 
 
 
-.multiselect {
+.main__content {
+  width: -webkit-fill-available;
+  text-align: center;
+  margin: 0 110px 0 110px;
+  
+  /* margin-top: 150px; */
+
+}
+
+.main__content li {
+  list-style-type: none
+}
+
+
+
+
+/* .clients_main_ul li {
+  list-style-type: none;
+  display: inline-block;
   width: 200px;
-}
+} */
 
-.selectBox {
-  position: relative;
-}
 
-.selectBox select {
-  width: 100%;
-  font-weight: bold;
-}
+@media  (max-width:425px) {
 
-.overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
+    .header {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr ;
+    align-items: center;
+  }
 
-#checkboxes {
-  display: none;
-  border: 1px #dadada solid;
-}
+  .header__nav {
+    font-size:18px;
+  }
+  
+  
+  .header__nav  a {
+      margin: 15px;
+  }
 
-#checkboxes label {
-  display: block;
-}
+  .header__title{
+    height: 79px;
+    font-size: 36px;
+    padding-left: 0px;
+    padding-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: center;
+  }
 
-#checkboxes label:hover {
-  background-color: #1e90ff;
+  .main{
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+  }
+
+  .main__content{
+    width: 375px;
+
+  }
+
 }
