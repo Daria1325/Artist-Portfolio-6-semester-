@@ -1,0 +1,25 @@
+{{define "clients"}}
+{{template "header"}}
+
+    <main>
+        <div>
+            I do what I love, so when the first buyer came to me and liked my work, I was overjoyed. 
+            It was 10 years ago. Since then, a lot has changed, I have changed, as well as my work. 
+            Over the course of my career, I have been approached by over 200 customers. 
+            My paintings ended up in private collections, as well as in galleries, museums and just at houses. </br> I am glad for every person, every company, because through my work we are no longer strangers to each other. 
+        </div>
+
+
+        <ul class="clients_main_ul">  
+        {{range.}}
+            <li>{{.Name}}</li>
+        {{else}}
+        <li>no clients</li>
+        {{end}}
+        </ul>
+    </main>
+      
+
+</body>
+</html>
+{{end}}

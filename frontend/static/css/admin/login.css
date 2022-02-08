@@ -1,0 +1,28 @@
+.conteiner{
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 800px;
+}
+
+.login {
+    background-color: #577487;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.login_form{
+    background-color: #C4C4C4;
+    width: 510px;
+    height: 300px;
+    border-radius: 10px;
+    
+}
+
+.login_form input {
+    border-radius: 10px;
+}

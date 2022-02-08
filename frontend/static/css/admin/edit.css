@@ -1,25 +1,31 @@
-/*.edit_form_popup {*/
-/*    display: none;*/
-/*    border: 3px solid #f1f1f1;*/
-/*  }*/
-.form-active{
-    display: block;
-    border: 3px solid #f1f1f1;
-}
-.form-disactive{
-    display: none;
-    border: none;
+
+.add-open-b {
+  background-color: #577487;
+  color: white;
+  cursor: pointer;
 }
 
-  /* Добавить стили для контейнера формы */
-  .form-container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-  }
+.open-popup{
+  visibility: hidden;
+ 
+} 
 
+.add_series_form {
+  max-width: 1150px;
+  background-color: tomato;
+}
 
+.delete_series_form {
+  height: 1100px;
+  width: 1100px;
+  background-color: tomato;
+}
+.edit_series_form {
+  max-width: 1150px;
+  background-color: tomato;
+}
 
+ 
 /* .multiselect {
     width: 200px;
   }
