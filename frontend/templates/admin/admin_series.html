@@ -22,39 +22,39 @@
                 <th>DESCRIPTION</th>
                 <th><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
             </thead>
-            <!-- {{range $key, $value:= .Items}}
+            {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
-                <td><button >edit</button></td>
-                <td><button onclick="openForm('{{$value.ID}}')">delete</button></td>
+                <td><button onclick="openForm('edit_s', '{{$value.ID}}')">edit</button></td> //нужно передавать номер строки $key чтобі потом в открытие формы по индексу к данным обращатся
+                <td><button onclick="openForm('delete_s','{{$value.ID}}')">delete</button></td>
                 {{else}}
                 <td><strong>no series</strong></td>
             </tr>
 
-            {{end}} -->
-            <tr>
-                <td> id </td>
-                <td> nme </td>
-                <td> sdsa </td>
-                <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>
-                <td><button onclick="openForm('delete_s', 1000)">delete</button></td>
-            </tr>
-            <tr>
-                <td> id </td>
-                <td> nme </td>
-                <td> sdsa </td>
-                <td><button onclick="openForm('edit_s')">edit</button></td>
-                <td><button onclick="openForm('delete_s')">delete</button></td>
-            </tr>
-            <tr>
-                <td> id </td>
-                <td> nme </td>
-                <td> sdsa </td>
-                <td><button onclick="openForm('edit_s')">edit</button></td>
-                <td><button onclick="openForm('delete_s')">delete</button></td>
-            </tr>
+            {{end}}
+<!--            <tr>-->
+<!--                <td> id </td>-->
+<!--                <td> nme </td>-->
+<!--                <td> sdsa </td>-->
+<!--                <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
+<!--                <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td> id </td>-->
+<!--                <td> nme </td>-->
+<!--                <td> sdsa </td>-->
+<!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
+<!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td> id </td>-->
+<!--                <td> nme </td>-->
+<!--                <td> sdsa </td>-->
+<!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
+<!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
+<!--            </tr>-->
         </table>
 
     </div>
@@ -69,78 +69,93 @@
         </form>
     </div>
 
-    <div class="open-popup" id="edit_s">
-        <form action="" id="edit_series" class="edit_series_form">
 
-            <div class="form-header"></div>
+<!--    <div class="open-popup" id="edit_s">-->
+<!--        <form method="POST" action="series/edit/7" id="edit_series" class="edit_series_form">-->
 
-            <input type="text" size="40" placeholder="Name" name="edit_series_name">
+<!--            <div class="form_header"></div>-->
 
-            <input type="text" size="40" placeholder="Description" name="edit_series_description">
+<!--            <input type="text" size="40" placeholder="Name" name="edit_series_name">-->
 
-
-            <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes()">
-                    <select>
-                        <option>Select an option</option>
-                    </select>
-                    <div class="overSelect"></div>
-                </div>
-
-                <div id="checkboxes">
-                    <label for="one">
-                        <input type="checkbox" id="one" />First checkbox</label>
-                    <label for="two">
-                        <input type="checkbox" id="two" />Second checkbox</label>
-                    <label for="three">
-                        <input type="checkbox" id="three" />Third checkbox</label>
-                </div>
-
-            </div>
+<!--            <input type="text" size="40" placeholder="Description" name="edit_series_description">-->
 
 
-            <button type="submit"><a href="series/edit/">SUBMIT</a></button>
-            <button onclick="closeForm('edit_s')">CANCEL</button>
+<!--&lt;!&ndash;            <div class="multiselect">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="selectBox" onclick="showCheckboxes()">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <select>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option>Select an option</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="overSelect"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
 
-        </form>
+<!--&lt;!&ndash;                <div id="checkboxes">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="one">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="checkbox" id="one" />First checkbox</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="two">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="checkbox" id="two" />Second checkbox</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="three">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="checkbox" id="three" />Third checkbox</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
 
-    </div>
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--            <input type="submit" value="Send" />-->
+<!--            <button type="submit"><a href="series/edit/">SUBMIT</a></button>-->
+<!--            <button onclick="closeForm('edit_s')">CANCEL</button>-->
+
+<!--        </form>-->
+
+<!--    </div>-->
 
     <div class="open-popup" id="add_s">
 
-        <form action="" id="add_series" class="add_series_form">
-
-            <div class="form-header"></div>
-
+        <form method="post" action="series/add" id="add_series" class="add_series_form" >
+            <div class="form_header"></div>
             <input type="text" size="40" placeholder="Name" name="add_series_name">
-
             <input type="text" size="40" placeholder="Description" name="add_series_description">
 
 
-            <div class="multiselect">
-                <div class="selectBox" onclick="showCheckboxes()">
-                    <select>
-                        <option>Select an option</option>
-                    </select>
-                    <div class="overSelect"></div>
-                </div>
+<!--            <div class="multiselect">-->
+<!--                <div class="selectBox" onclick="showCheckboxes()">-->
+<!--                    <select>-->
+<!--                        <option>Select an option</option>-->
+<!--                    </select>-->
+<!--                    <div class="overSelect"></div>-->
+<!--                </div>-->
 
-                <div id="checkboxes">
-                    <label for="one">
-                        <input type="checkbox" id="one" />First checkbox</label>
-                    <label for="two">
-                        <input type="checkbox" id="two" />Second checkbox</label>
-                    <label for="three">
-                        <input type="checkbox" id="three" />Third checkbox</label>
-                </div>
+<!--                <div id="checkboxes">-->
+<!--                    <label for="one">-->
+<!--                        <input type="checkbox" id="one" />First checkbox</label>-->
+<!--                    <label for="two">-->
+<!--                        <input type="checkbox" id="two" />Second checkbox</label>-->
+<!--                    <label for="three">-->
+<!--                        <input type="checkbox" id="three" />Third checkbox</label>-->
+<!--                </div>-->
 
-            </div>
+<!--            </div>-->
 
-            <input type="submit" value="SUBMIT">
+            <input type="submit" value="SUBMIT" >
             <button onclick="closeForm('add_s') ">CANCEL</button>
 
 
         </form>
+    </div>
+
+    <div class="open-popup" id="edit_s">
+        <form method="POST" action="series/edit/29" id="edit_series" class="edit_series_form">
+
+            <div class="form_header"></div>
+            <input type="hidden" name="id" value="{{(index .Items 6).ID }}">
+            <input type="text" size="40" placeholder="Name" name="edit_series_name" value="{{(index .Items 6).Name }}">
+
+            <input type="text" size="40" placeholder="Description" name="edit_series_description" value="{{(index .Items 6).Description.String }}">
+
+
+            <input type="submit" value="Send" />
+            <button onclick="closeForm('edit_s')">CANCEL</button>
+
+        </form>
+
     </div>
 
 
