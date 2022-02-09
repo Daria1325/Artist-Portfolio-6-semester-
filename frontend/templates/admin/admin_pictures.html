@@ -23,42 +23,42 @@
                 <th>YEAR</th>
                 <th><button onclick="openForm('add_p')">ADD PICTURE</button></th>
             </thead>
-            <!-- {{range $key, $value:= .Items}}
+            {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
                 <td> {{$value.Date.String}} </td>
-                <td><button >edit</button></td>
-                <td><button onclick="openForm('{{$value.ID}}')">delete</button></td>
+                <td><button onclick="openForm('edit_p', '{{$value.ID}}')" >edit</button></td>
+                <td><button onclick="openForm('delete_p', '{{$value.ID}}')">delete</button></td>
                 {{else}}
                 <td><strong>no pictures</strong></td>
             </tr>
-            {{end}} -->
-            <tr>
-                <td> fg </td>
-                <td> fg</td>
-                <td> fg </td>
-                <td> fg </td>
-                <td><button onclick="openForm('edit_p', 1000)">edit</button></td>
-                <td><button onclick="openForm('delete_p', 1000)">delete</button></td>
-            </tr>
-            <tr>
-                <td> fg </td>
-                <td> fg</td>
-                <td> fg </td>
-                <td> fg </td>
-                <td><button>edit</button></td>
-                <td><button onclick="">delete</button></td>
-            </tr>
-            <tr>
-                <td> fg </td>
-                <td> fg</td>
-                <td> fg </td>
-                <td> fg </td>
-                <td><button>edit</button></td>
-                <td><button onclick="">delete</button></td>
-            </tr>
+            {{end}}
+<!--            <tr>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg</td>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg </td>-->
+<!--                <td><button onclick="openForm('edit_p', 1000)">edit</button></td>-->
+<!--                <td><button onclick="openForm('delete_p', 1000)">delete</button></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg</td>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg </td>-->
+<!--                <td><button>edit</button></td>-->
+<!--                <td><button onclick="">delete</button></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg</td>-->
+<!--                <td> fg </td>-->
+<!--                <td> fg </td>-->
+<!--                <td><button>edit</button></td>-->
+<!--                <td><button onclick="">delete</button></td>-->
+<!--            </tr>-->
         </table>
 
     </div>
@@ -101,7 +101,7 @@
 
 
     <div class="open-popup" id="add_p">
-        <form action="" id="add_picture">
+        <form enctype="multipart/form-data" method="post" action="pictures/add" id="add_picture">
 
             <div class="form-header"></div>
 

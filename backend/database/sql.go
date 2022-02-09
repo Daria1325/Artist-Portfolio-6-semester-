@@ -3,11 +3,12 @@ package database
 import (
 	"database/sql"
 	"fmt"
-
 	cnfg "github.com/daria/Portfolio/backend/config"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
+
+const layoutISO = "2006-01-02"
 
 type Picture struct {
 	ID          int             `db:"id"`
@@ -90,6 +91,29 @@ func (r *Repo) GetSeriesById(id string) (Series, error) {
 		return Series{ID: -1}, nil
 	} else {
 		return series[0], nil
+	}
+
+}
+func (r *Repo) GetSeriesIDByName(name string) (int, error) {
+	series := []Series{}
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM series WHERE name='%s'", name))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return 0, err
+	}
+	for rows.Next() {
+		var p Series
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		series = append(series, p)
+	}
+	if len(series) == 0 {
+		return 0, nil
+	} else {
+		return series[0].ID, nil
 	}
 
 }
@@ -211,8 +235,11 @@ func (r *Repo) DeletePictures(id string) error {
 	return nil
 }
 func (r *Repo) AddPicture(item Picture) error {
-	_, err := r.db.NamedExec(`INSERT INTO pictures (name,path,price,date,material,size, description,series_id,client_id)
-       VALUES (:name, :path,:price,:date,:material,:size, :description,:series_id,:client_id)`, item)
+	date := item.Date.String
+
+	_, err := r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id)" +
+		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId.Int32))
+
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
