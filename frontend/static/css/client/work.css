@@ -56,7 +56,7 @@
 
 }
 
-@media (max-width:425px) {
+@media (max-width:800px) {
 
     .work-block{
         grid-template-columns: 1fr;
@@ -72,3 +72,11 @@
     }
     
 }
+
+
+
+
+.work-block__img1:hover, .work-block__img2:hover, .work-block__img3:hover,
+    .work-block__img4:hover, .work-block__img5:hover, .work-block__img6:hover{
+        transform: translate(5px,5px);
+    }
