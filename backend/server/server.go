@@ -2,16 +2,17 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
+
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 type Server struct {
@@ -64,20 +65,20 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	series, err := MainServer.Repo.GetSeries()
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	data := struct {
-		Title string
-		Items []database.Series
-	}{
-		Title: "My page",
-		Items: series,
-	}
+	// series, err := MainServer.Repo.GetSeries()
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
+	// data := struct {
+	// 	Title string
+	// 	Items []database.Series
+	// }{
+	// 	Title: "My page",
+	// 	Items: series,
+	// }
 
-	t.ExecuteTemplate(w, "work", data)
+	t.ExecuteTemplate(w, "work", nil)
 }
 func showSeries(w http.ResponseWriter, r *http.Request) {
 
@@ -144,6 +145,7 @@ func showPicture(w http.ResponseWriter, r *http.Request) {
 
 func login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+
 		t, err := template.ParseFiles("frontend/templates/admin/login.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
@@ -153,12 +155,13 @@ func login(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, "login", nil)
 	}
 	if r.Method == "POST" {
+
 		err := godotenv.Load("Variables.env")
 		if err != nil {
 			log.Fatal("Error loading .env file")
 		}
 
-		user := os.Getenv("USERNAME")
+		user := os.Getenv("USERNAME_ADMIN")
 		pass := os.Getenv("PASSWORD")
 		err = r.ParseForm()
 		if err != nil {
@@ -167,8 +170,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		if username == user && password == pass {
-			http.Redirect(w, r, "/admin", http.StatusSeeOther)
+			fmt.Println("true")
 			MainServer.StatusUser = true
+			http.Redirect(w, r, "/admin", http.StatusSeeOther)
 		} else {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		}
