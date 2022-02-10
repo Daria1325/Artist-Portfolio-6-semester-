@@ -43,22 +43,6 @@
 <!--                <td><button onclick="openForm('edit_p', 1000)">edit</button></td>-->
 <!--                <td><button onclick="openForm('delete_p', 1000)">delete</button></td>-->
 <!--            </tr>-->
-<!--            <tr>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg</td>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg </td>-->
-<!--                <td><button>edit</button></td>-->
-<!--                <td><button onclick="">delete</button></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg</td>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg </td>-->
-<!--                <td><button>edit</button></td>-->
-<!--                <td><button onclick="">delete</button></td>-->
-<!--            </tr>-->
         </table>
 
     </div>
@@ -79,12 +63,19 @@
 
             <div class="form-header"></div>
 
-            <input type="hidden" id="id" name="id">
-            <input type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
-            <input type="text" id="size" size="40" placeholder="Size" name="edit_picture_size">
-            <input type="text" id="series" size="40" placeholder="Series" name="edit_picture_series">
-            <input type="text" id="price" size="40" placeholder="Price" name="edit_picture_prise">
-            <input type="text" id="year" size="40" placeholder="Year" name="edit_series_year">
+            <input  type="hidden" id="id" name="id">
+            <input required type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
+            <input  type="text" id="size" size="40" placeholder="Size" name="edit_picture_size">
+<!--            <input type="text" id="series" size="40" placeholder="Series" name="edit_picture_series">-->
+
+            <select id="series"  name="series">
+                <option disabled>Choose series</option>
+                <option value="s1" >s1</option>
+                <option value="s1" >s2</option>
+            </select>
+
+            <input type="number" min="0"  id="price" size="40" placeholder="Price" name="edit_picture_prise">
+            <input type="number" min="0" max="2022" id="year" size="40" placeholder="Year" name="edit_series_year">
             <input type="text" id="material" size="40" placeholder="Material" name="edit_picture_material">
 
             <input type="text" id="description" size="40" placeholder="Description" name="edit_picture_description">
@@ -106,15 +97,21 @@
 
             <div class="form-header"></div>
 
-            <input type="text" size="40" placeholder="Name" name="add_picture_name">
+            <input required type="text" size="40" placeholder="Name" name="add_picture_name">
             <input type="text" size="40" placeholder="Size" name="add_picture_size">
-            <input type="text" size="40" placeholder="Series" name="add_picture_series">
-            <input type="text" size="40" placeholder="Price" name="add_picture_prise">
-            <input type="text" size="40" placeholder="Year" name="add_series_year">
+<!--            <input type="text" size="40" placeholder="Series" name="add_picture_series">-->
+            <select  name="series">
+                <option disabled>Choose series</option>
+                <option value="s1" >s1</option>
+                <option value="s1" >s2</option>
+            </select>
+
+            <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">
+            <input type="number" max="2022"  min="0" size="40" placeholder="Year" name="add_series_year">
             <input type="text" size="40" placeholder="Material" name="add_picture_material">
 
             <input type="text" size="40" placeholder="Description" name="add_picture_description">
-            <input type="file" size="40" name="add_picture_upload">
+            <input required type="file" size="40" name="add_picture_upload">
 
 
 

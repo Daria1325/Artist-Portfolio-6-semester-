@@ -39,28 +39,6 @@
 <!--            <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
 <!--            <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
 <!--            </tr>-->
-
-            <!-- <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
-            <!--            </tr>-->
-            <!--            <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
-            <!--            </tr>-->
-            <!--            <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
-            <!--            </tr> -->
         </table>
 
     </div>
@@ -76,69 +54,39 @@
     </div>
 
 
-    <!--    <div class="open-popup" id="edit_s">-->
-    <!--        <form method="POST" action="series/edit/7" id="edit_series" class="edit_series_form">-->
-
-    <!--            <div class="form_header"></div>-->
-
-    <!--            <input type="text" size="40" placeholder="Name" name="edit_series_name">-->
-
-    <!--            <input type="text" size="40" placeholder="Description" name="edit_series_description">-->
-
-
-    <!--&lt;!&ndash;            <div class="multiselect">&ndash;&gt;-->
-    <!--&lt;!&ndash;                <div class="selectBox" onclick="showCheckboxes()">&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <select>&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <option>Select an option</option>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    </select>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <div class="overSelect"></div>&ndash;&gt;-->
-    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <div id="checkboxes">&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="one">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="one" />First checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="two">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="two" />Second checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="three">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="three" />Third checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-    <!--            <input type="submit" value="Send" />-->
-    <!--            <button type="submit"><a href="series/edit/">SUBMIT</a></button>-->
-    <!--            <button onclick="closeForm('edit_s')">CANCEL</button>-->
-
-    <!--        </form>-->
-
-    <!--    </div>-->
-
     <div class="open-popup" id="add_s">
 
         <form method="post" action="series/add" id="add_series" class="add_series_form">
             <div class="form_header"></div>
-            <input type="text" size="40" placeholder="Name" name="add_series_name">
+            <input required type="text" size="40" placeholder="Name" name="add_series_name">
             <input type="text" size="40" placeholder="Description" name="add_series_description">
 
 
-            <!--            <div class="multiselect">-->
-            <!--                <div class="selectBox" onclick="showCheckboxes()">-->
-            <!--                    <select>-->
-            <!--                        <option>Select an option</option>-->
-            <!--                    </select>-->
-            <!--                    <div class="overSelect"></div>-->
-            <!--                </div>-->
+<!--&lt;!&ndash;не удаляй ссылку&ndash;&gt;-->
+<!--&lt;!&ndash;            https://stackoverflow.com/questions/17714705/how-to-use-checkbox-inside-select-option&ndash;&gt;-->
+<!--            <div class="multiselect">-->
+<!--                <div class="selectBox" onclick="showCheckboxes()">-->
+<!--                    <select>-->
+<!--                        <option>Select an option</option>-->
+<!--                    </select>-->
+<!--                    <div class="overSelect"></div>-->
+<!--                </div>-->
+<!--                <div id="checkboxes">-->
+<!--                    <label for="one">-->
+<!--                        <input type="checkbox" id="one" />First checkbox</label>-->
+<!--                    <label for="two">-->
+<!--                        <input type="checkbox" id="two" />Second checkbox</label>-->
+<!--                    <label for="three">-->
+<!--                        <input type="checkbox" id="three" />Third checkbox</label>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <!--                <div id="checkboxes">-->
-            <!--                    <label for="one">-->
-            <!--                        <input type="checkbox" id="one" />First checkbox</label>-->
-            <!--                    <label for="two">-->
-            <!--                        <input type="checkbox" id="two" />Second checkbox</label>-->
-            <!--                    <label for="three">-->
-            <!--                        <input type="checkbox" id="three" />Third checkbox</label>-->
-            <!--                </div>-->
 
-            <!--            </div>-->
+            <select multiple>
+                <option>Select an option</option>
+                <option>Select an option</option>
+
+            </select>
 
             <input type="submit" value="SUBMIT">
             <button onclick="closeForm('add_s') ">CANCEL</button>
@@ -152,8 +100,8 @@
 
             <div class="form_header"></div>
 
-            <input type="hidden" id="id" name="id">
-            <input type="text" id="name" size="40" placeholder="Name" name="edit_series_name">
+            <input  type="hidden" id="id" name="id">
+            <input required type="text" id="name" size="40" placeholder="Name" name="edit_series_name">
 
             <input type="text" id="description" size="40" placeholder="Description" name="edit_series_description">
 
