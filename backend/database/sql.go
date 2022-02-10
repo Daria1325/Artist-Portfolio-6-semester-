@@ -112,10 +112,8 @@ func (r *Repo) GetSeriesIDByName(name string) (int, error) {
 	}
 	if len(series) == 0 {
 		return 0, nil
-	} else {
-		return series[0].ID, nil
 	}
-
+	return series[0].ID, nil
 }
 func (r *Repo) DeleteSeries(id string) error {
 	_, err := r.db.Queryx(fmt.Sprintf("DELETE FROM pictures WHERE series_id=%s", id))
@@ -204,9 +202,12 @@ func (r *Repo) GetPictureById(id string) (Picture, error) {
 	}
 	if len(pictures) == 0 {
 		return Picture{ID: -1}, nil
-	} else {
-		return pictures[0], nil
 	}
+	if pictures[0].Date.Valid {
+		pictures[0].Date.String = pictures[0].Date.String[0:4]
+	}
+	return pictures[0], nil
+
 }
 func (r *Repo) GetPictureBySeries(id string) ([]Picture, error) {
 	pictures := []Picture{}
