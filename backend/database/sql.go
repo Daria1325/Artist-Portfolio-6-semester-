@@ -180,6 +180,9 @@ func (r *Repo) GetPictures() ([]Picture, error) {
 			fmt.Errorf("%s", err.Error())
 			continue
 		}
+		if p.Date.Valid {
+			p.Date.String = p.Date.String[0:4]
+		}
 		pictures = append(pictures, p)
 	}
 	return pictures, nil

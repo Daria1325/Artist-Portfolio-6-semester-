@@ -369,7 +369,7 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-
+		http.Redirect(w, r, "/admin/pictures", http.StatusSeeOther)
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}

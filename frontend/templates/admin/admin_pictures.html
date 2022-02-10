@@ -29,7 +29,7 @@
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
                 <td> {{$value.Date.String}} </td>
-                <td><button onclick="openForm('edit_p', '{{$value.ID}}')" >edit</button></td>
+                <td><button onclick="openForm('edit_p', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}','{{$value.Path.String}}','{{$value.Price.Float64}}','{{$value.Date.String}}','{{$value.Material.String}}','{{$value.Size.String}}')" >edit</button></td>
                 <td><button onclick="openForm('delete_p', '{{$value.ID}}')">delete</button></td>
                 {{else}}
                 <td><strong>no pictures</strong></td>
@@ -75,21 +75,22 @@
     </div>
 
     <div class="open-popup" id="edit_p">
-        <form action="" id="edit_picture" class="edit_picture_form">
+        <form enctype="multipart/form-data" method="post" action="pictures/edit/" id="edit_picture" class="edit_picture_form">
 
             <div class="form-header"></div>
 
-            <input type="text" size="40" placeholder="Name" name="edit_picture_name">
-            <input type="text" size="40" placeholder="Size" name="edit_picture_size">
-            <input type="text" size="40" placeholder="Series" name="edit_picture_series">
-            <input type="text" size="40" placeholder="Price" name="edit_picture_prise">
-            <input type="text" size="40" placeholder="Year" name="edit_series_year">
-            <input type="text" size="40" placeholder="Material" name="edit_picture_material">
+            <input type="hidden" id="id" name="id">
+            <input type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
+            <input type="text" id="size" size="40" placeholder="Size" name="edit_picture_size">
+            <input type="text" id="series" size="40" placeholder="Series" name="edit_picture_series">
+            <input type="text" id="price" size="40" placeholder="Price" name="edit_picture_prise">
+            <input type="text" id="year" size="40" placeholder="Year" name="edit_series_year">
+            <input type="text" id="material" size="40" placeholder="Material" name="edit_picture_material">
 
-            <input type="text" size="40" placeholder="Description" name="edit_picture_description">
-            <input type="text" size="40" placeholder="Upload image" name="edit_picture_upload">
+            <input type="text" id="description" size="40" placeholder="Description" name="edit_picture_description">
+            <input type="file" id="img" size="40" placeholder="Upload image" name="edit_picture_upload">
 
-            <button type="submit"><a href="pictures/edit/">SUBMIT</a></button>
+            <input type="submit" value="SUBMIT" />
 
             <button onclick="closeForm('edit_p')">CANCEL</button>
 
@@ -117,9 +118,9 @@
 
 
 
-
-            <button onclick="closeForm('add_p')">CANCEL</button>
             <input type="submit" value="SUBMIT">
+            <button onclick="closeForm('add_p')">CANCEL</button>
+
 
 
         </form>
