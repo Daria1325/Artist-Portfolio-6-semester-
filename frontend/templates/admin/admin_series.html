@@ -22,24 +22,23 @@
                 <th>DESCRIPTION</th>
                 <th><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
             </thead>
-            <!-- {{range $key, $value:= .Items}}
+            {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
-                <td><button onclick="openForm('edit_s', '{{$value.ID}}')">edit</button></td> //нужно передавать номер строки $key чтобі потом в открытие формы по индексу к данным обращатся
+                <td><button onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">edit</button></td> //нужно передавать номер строки $key чтобі потом в открытие формы по индексу к данным обращатся
                 <td><button onclick="openForm('delete_s','{{$value.ID}}')">delete</button></td>
                 {{else}}
                 <td><strong>no series</strong></td>
-            </tr> -->
-
-            <!-- {{end}} -->
-            <td> id </td>
-            <td> nme </td>
-            <td> sdsa </td>
-            <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>
-            <td><button onclick="openForm('delete_s', 1000)">delete</button></td>
             </tr>
+             {{end}}
+<!--            <td> id </td>-->
+<!--            <td> nme </td>-->
+<!--            <td> sdsa </td>-->
+<!--            <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
+<!--            <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
+<!--            </tr>-->
 
             <!-- <tr>-->
             <!--                <td> id </td>-->
@@ -152,11 +151,11 @@
         <form method="POST" action="series/edit/29" id="edit_series" class="edit_series_form">
 
             <div class="form_header"></div>
-            <input type="hidden" name="id" value="{{(index .Items 6).ID }}">
-            <input type="text" size="40" placeholder="Name" name="edit_series_name" value="{{(index .Items 6).Name }}">
 
-            <input type="text" size="40" placeholder="Description" name="edit_series_description"
-                value="{{(index .Items 6).Description.String }}">
+            <input type="hidden" id="id" name="id">
+            <input type="text" id="name" size="40" placeholder="Name" name="edit_series_name">
+
+            <input type="text" id="description" size="40" placeholder="Description" name="edit_series_description">
 
 
             <input type="submit" value="Send" />
