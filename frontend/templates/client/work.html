@@ -5,42 +5,53 @@
 <main class="main">
     <div class="main__content">
 
-        <div class="work-block">
-            <!-- <img src="/image/Faces/Alexandr.jpeg"> -->
-            <a href="series/1" class="work-block__img1"></a>
-            <a href="#" class="work-block__img2"></a>
-            <a href="#" class="work-block__img3"></a>
-            <a href="#" class="work-block__img4"></a>
-            <a href="#" class="work-block__img5"></a>
-            <a href="#" class="work-block__img6"></a>
-        </div>
-        <div class="work-block">
-            <div class="work-block__img1"></div>
-            <div class="work-block__img2"></div>
-            <div class="work-block__img3"></div>
-            <div class="work-block__img4"></div>
-            <div class="work-block__img5"></div>
-            <div class="work-block__img6"></div>
-        </div>
+<!--        <div class="work-block">-->
+<!--            &lt;!&ndash; <img src="/image/Faces/Alexandr.jpeg"> &ndash;&gt;-->
+<!--            <a href="series/1" class="work-block__img1"></a>-->
+<!--            <a href="#" class="work-block__img2"></a>-->
+<!--            <a href="#" class="work-block__img3"></a>-->
+<!--            <a href="#" class="work-block__img4"></a>-->
+<!--            <a href="#" class="work-block__img5"></a>-->
+<!--            <a href="#" class="work-block__img6"></a>-->
+<!--        </div>-->
+<!--        <div class="work-block">-->
+<!--            <div class="work-block__img1"></div>-->
+<!--            <div class="work-block__img2"></div>-->
+<!--            <div class="work-block__img3"></div>-->
+<!--            <div class="work-block__img4"></div>-->
+<!--            <div class="work-block__img5"></div>-->
+<!--            <div class="work-block__img6"></div>-->
+<!--        </div>-->
 
+        <div class="work-block">
+            {{range $key, $value:= .Items}}
+                {{if eq (mod $key 6) 0}}
+                <a href="series/{{$value.ID}}" class="work-block__img1"><div> {{$value.Name}} </div></a>
+                {{else if eq (mod $key 6) 1}}
 
+                <a href="series/{{$value.ID}}" class="work-block__img2"><div> {{$value.Name}} </div></a>
+                {{else if eq (mod $key 6) 2}}
+
+                <a href="series/{{$value.ID}}" class="work-block__img3"><div> {{$value.Name}} </div></a>
+                {{else if eq (mod $key 6) 3}}
+
+                <a href="series/{{$value.ID}}" class="work-block__img4"><div> {{$value.Name}} </div></a>
+                {{else if eq (mod $key 6) 4}}
+
+                <a href="series/{{$value.ID}}" class="work-block__img5"><div> {{$value.Name}} </div></a>
+                {{else if eq (mod $key 6) 5}}
+
+                <a href="series/{{$value.ID}}" class="work-block__img6"><div> {{$value.Name}} </div></a>
+                {{end}}
+                {{else}}
+                <div><strong>no series</strong></div>
+            {{end}}
+        </div>
     </div>
 
 
 
 
-    <!-- {{range $key, $value:= .Items}}
-
-            {{if eq (mod $key 2) 0}}
-            <div>{{$key}}</div>
-            <div> {{$value.Name}} </div>
-            {{else}}
-            <div>{{$key}}</div>
-            <div> {{$value.Description}} </div>
-            {{end}}
-        {{else}}
-        <div><strong>no series</strong></div>
-        {{end}} -->
 </main>
 
 

@@ -2,42 +2,44 @@
 {{template "header"}}
 
 
+<!--<main class="main">-->
+<!--    <div class="main__content">-->
+<!--        <div class="series">-->
+<!--            <div class="series__title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae eum numquam-->
+<!--                eveniet natus, possimus illo similique! Consequatur omnis cupiditate pariatur, molestias, in error illum-->
+<!--                sequi debitis excepturi, eaque possimus amet.</div>-->
+<!--            <div class="series__gallery">-->
+<!--                <a href="1/1" class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+<!--                <a class="series__img"></a>-->
+
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+
+
+
 <main class="main">
     <div class="main__content">
         <div class="series">
-            <div class="series__title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae eum numquam
-                eveniet natus, possimus illo similique! Consequatur omnis cupiditate pariatur, molestias, in error illum
-                sequi debitis excepturi, eaque possimus amet.</div>
+            <div class="series__title">{{.Series.Name}}</div>
+            <div class="series__title">{{.Series.Description.String}}</div>
             <div class="series__gallery">
-                <a href="1/1" class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-                <a class="series__img"></a>
-
-
+                {{range .Pictures}}
+                <a href="{{.SeriesId}}/{{.ID}}" class="series__img"><div><div>{{.Name}}</div><img src="{{.Path.String}}"></div></a>
+                {{end}}
             </div>
         </div>
     </div>
 </main>
-
-
-
-
-<!-- <div>{{.Series.Name}}</div>
-<div>{{.Series.Description.String}}</div>
-<div>
-    {{range $key, $value:= .Pictures}}
-    <div>{{$value.Name}}</div>
-    <div><img src="{{$value.Path.String}}" alt="painting {{$value.Name}}"></div>
-    {{else}}
-    <div><strong>no pictures</strong></div>
-    {{end}}
-</div> -->
 
 </body>
 

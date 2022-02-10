@@ -19,7 +19,7 @@ type Picture struct {
 	Material    sql.NullString  `db:"material"`
 	Size        sql.NullString  `db:"size"`
 	Description sql.NullString  `db:"description"`
-	SeriesId    sql.NullInt32   `db:"series_id"`
+	SeriesId    int             `db:"series_id"`
 	ClientId    sql.NullInt32   `db:"client_id"`
 }
 type Series struct {
@@ -238,7 +238,7 @@ func (r *Repo) AddPicture(item Picture) error {
 	date := item.Date.String
 
 	_, err := r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id)" +
-		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId.Int32))
+		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId))
 
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
