@@ -16,7 +16,8 @@ function showCheckboxes() {
 
 var anyFormOpen = false;
 
-function openForm(s, objID) {
+function openForm(s,
+) {
   if (!anyFormOpen) {
     document.getElementById(s).style.visibility = "visible";
     anyFormOpen = true;

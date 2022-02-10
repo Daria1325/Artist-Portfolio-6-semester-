@@ -2,16 +2,17 @@ package server
 
 import (
 	"fmt"
-	cnfg "github.com/daria/Portfolio/backend/config"
-	"github.com/daria/Portfolio/backend/database"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
+
+	cnfg "github.com/daria/Portfolio/backend/config"
+	"github.com/daria/Portfolio/backend/database"
+	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 type Server struct {
@@ -45,13 +46,13 @@ func clients(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	clients, err := MainServer.Repo.GetClients(6)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
+	// clients, err := MainServer.Repo.GetClients(6)
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
 
-	t.ExecuteTemplate(w, "clients", clients)
+	t.ExecuteTemplate(w, "clients", nil)
 }
 func work(w http.ResponseWriter, r *http.Request) {
 	funcMap := template.FuncMap{
@@ -64,20 +65,20 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	series, err := MainServer.Repo.GetSeries()
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	data := struct {
-		Title string
-		Items []database.Series
-	}{
-		Title: "My page",
-		Items: series,
-	}
+	// series, err := MainServer.Repo.GetSeries()
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
+	// data := struct {
+	// 	Title string
+	// 	Items []database.Series
+	// }{
+	// 	Title: "My page",
+	// 	Items: series,
+	// }
 
-	t.ExecuteTemplate(w, "work", data)
+	t.ExecuteTemplate(w, "work", nil)
 }
 func showSeries(w http.ResponseWriter, r *http.Request) {
 
@@ -87,36 +88,36 @@ func showSeries(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	vars := mux.Vars(r)
-	id := vars["id"]
-	pictures := []database.Picture{}
-	series, err := MainServer.Repo.GetSeriesById(id)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	if series.ID != -1 {
-		pictures, err = MainServer.Repo.GetPictureBySeries(id)
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
+	// vars := mux.Vars(r)
+	// id := vars["id"]
+	// pictures := []database.Picture{}
+	// series, err := MainServer.Repo.GetSeriesById(id)
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
+	// if series.ID != -1 {
+	// 	pictures, err = MainServer.Repo.GetPictureBySeries(id)
+	// 	if err != nil {
+	// 		fmt.Fprintf(w, err.Error())
+	// 		return
+	// 	}
 
-		data := struct {
-			Title    string
-			Series   database.Series
-			Pictures []database.Picture
-		}{
-			Title:    "My page",
-			Series:   series,
-			Pictures: pictures,
-		}
+	// 	data := struct {
+	// 		Title    string
+	// 		Series   database.Series
+	// 		Pictures []database.Picture
+	// 	}{
+	// 		Title:    "My page",
+	// 		Series:   series,
+	// 		Pictures: pictures,
+	// 	}
 
-		t.ExecuteTemplate(w, "show_series", data)
-	} else {
-		t.Parse("<div>404 page not found</div>")
-		t.Execute(w, nil)
-	}
+	t.ExecuteTemplate(w, "show_series", nil)
+	// } else {
+	// 	t.Parse("<div>404 page not found</div>")
+	// 	t.Execute(w, nil)
+	// }
 
 }
 func showPicture(w http.ResponseWriter, r *http.Request) {
@@ -125,25 +126,27 @@ func showPicture(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	vars := mux.Vars(r)
-	idP := vars["id_p"]
-	idS := vars["id_s"]
-	picture, err := MainServer.Repo.GetPictureById(idP)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	if picture.ID != -1 && strconv.Itoa(int(picture.SeriesId.Int32)) == idS {
-		t.ExecuteTemplate(w, "show_picture", picture)
-	} else {
-		t.Parse("<div>404 page not found</div>")
-		t.Execute(w, nil)
-	}
+	// vars := mux.Vars(r)
+	// idP := vars["id_p"]
+	// idS := vars["id_s"]
+	// picture, err := MainServer.Repo.GetPictureById(idP)
+	// if err != nil {
+	// 	fmt.Fprintf(w, err.Error())
+	// 	return
+	// }
+	// if picture.ID != -1 && strconv.Itoa(int(picture.SeriesId.Int32)) == idS {
+	// 	t.ExecuteTemplate(w, "show_picture", picture)
+	// } else {
+	// 	t.Parse("<div>404 page not found</div>")
+	// 	t.Execute(w, nil)
+	// }
+	t.ExecuteTemplate(w, "show_picture", nil)
 
 }
 
 func login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+
 		t, err := template.ParseFiles("frontend/templates/admin/login.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
@@ -153,12 +156,13 @@ func login(w http.ResponseWriter, r *http.Request) {
 		t.ExecuteTemplate(w, "login", nil)
 	}
 	if r.Method == "POST" {
+
 		err := godotenv.Load("Variables.env")
 		if err != nil {
 			log.Fatal("Error loading .env file")
 		}
 
-		user := os.Getenv("USERNAME")
+		user := os.Getenv("USERNAME_ADMIN")
 		pass := os.Getenv("PASSWORD")
 		err = r.ParseForm()
 		if err != nil {
@@ -167,8 +171,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		if username == user && password == pass {
-			http.Redirect(w, r, "/admin", http.StatusSeeOther)
+			fmt.Println("true")
 			MainServer.StatusUser = true
+			http.Redirect(w, r, "/admin", http.StatusSeeOther)
 		} else {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		}
@@ -196,22 +201,22 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-		series, err := MainServer.Repo.GetSeries()
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		data := struct {
-			Title string
-			Items []database.Series
-		}{
-			Title: "Series",
-			Items: series,
-		}
+		// series, err := MainServer.Repo.GetSeries()
+		// if err != nil {
+		// 	fmt.Fprintf(w, err.Error())
+		// 	return
+		// }
+		// data := struct {
+		// 	Title string
+		// 	Items []database.Series
+		// }{
+		// 	Title: "Series",
+		// 	Items: series,
+		// }
 
-		t.ExecuteTemplate(w, "admin_series", data)
-	} else {
-		http.Redirect(w, r, "/login", http.StatusSeeOther)
+		t.ExecuteTemplate(w, "admin_series", nil)
+		// } else {
+		// 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 
 }

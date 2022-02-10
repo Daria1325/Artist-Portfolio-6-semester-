@@ -1,20 +1,25 @@
 {{define "admin"}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/admin/edit.css" />
-    <script src="../../static/js/script.js"></script>
+    <link rel="stylesheet" href="../../static/css/admin/main.css" />
+    <!-- <script src="../../static/js/script.js"></script> -->
 </head>
+
 <body>
-    <h1>DARKO BRUZHUCH</h1>
-    <h2>Welcome to the edit page</h2>
-    
-    <button> <a href="admin/series">SERIES</a></button>
-    <button ><a href="admin/pictures">PICTURES</a></button> 
+    <h1 class="header__title">DARKO BRUZHUCH</h1>
+
+    <div class="edit">
+        <a class="edit__elem" href="admin/series">SERIES</a>
+        <a class="edit__elem" href="admin/pictures">PICTURES</a>
+    </div>
+
 
 
 </body>
+
 </html>
 {{end}}

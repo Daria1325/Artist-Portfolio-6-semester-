@@ -1,0 +1,17 @@
+.series{
+    display: grid;
+    
+}
+
+.series__gallery{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.series__img{
+    height: 380px;
+    width: 340px;
+    background-color: rgb(139, 50, 113);
+    margin: 10px;
+}

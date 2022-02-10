@@ -2,7 +2,33 @@
 {{template "header"}}
 
 
-<div>{{.Series.Name}}</div>
+<main class="main">
+    <div class="main__content">
+        <div class="series">
+            <div class="series__title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae eum numquam
+                eveniet natus, possimus illo similique! Consequatur omnis cupiditate pariatur, molestias, in error illum
+                sequi debitis excepturi, eaque possimus amet.</div>
+            <div class="series__gallery">
+                <a href="1/1" class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+                <a class="series__img"></a>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+<!-- <div>{{.Series.Name}}</div>
 <div>{{.Series.Description.String}}</div>
 <div>
     {{range $key, $value:= .Pictures}}
@@ -11,8 +37,9 @@
     {{else}}
     <div><strong>no pictures</strong></div>
     {{end}}
-</div>
+</div> -->
 
 </body>
+
 </html>
 {{end}}
