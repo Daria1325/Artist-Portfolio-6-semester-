@@ -27,7 +27,7 @@
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
-                <td><button onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">edit</button></td> //нужно передавать номер строки $key чтобі потом в открытие формы по индексу к данным обращатся
+                <td><button onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">edit</button></td>
                 <td><button onclick="openForm('delete_s','{{$value.ID}}')">delete</button></td>
                 {{else}}
                 <td><strong>no series</strong></td>

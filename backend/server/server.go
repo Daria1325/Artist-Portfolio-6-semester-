@@ -21,6 +21,11 @@ type Server struct {
 	StatusUser bool
 }
 
+type SeriesWithPicture struct {
+	Series database.Series
+	Path   string
+}
+
 var MainServer = Server{}
 
 func getFileName(s string) string {
@@ -99,21 +104,26 @@ func work(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	item := []SeriesWithPicture{}
+	for i := 0; i < len(series); i++ {
+		path, err := MainServer.Repo.GetPicturePathBySeriesID(strconv.Itoa(series[i].ID))
+		if err != nil {
+			log.Fatal(err)
+		}
+		if path == "" {
+			path = "/image/1/Alexandr.jpeg"
+		}
+		p := SeriesWithPicture{Series: series[i], Path: path}
+		item = append(item, p)
+	}
 
 	data := struct {
 		Title string
-		Items []struct {
-			Series  database.Series
-			picture string
-		}
+		Items []SeriesWithPicture
 	}{
 		Title: "Work",
-		Items: nil,
+		Items: item,
 	}
-	//for _, item := range series{
-	//	pic,err := MainServer.Repo.GetPictureBySeries(strconv.Itoa(item.ID))
-	//	data.Items = append(data.Items , {item; pic[0].Path.String})
-	//}
 
 	t.ExecuteTemplate(w, "work", data)
 }

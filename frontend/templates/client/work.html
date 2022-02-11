@@ -25,23 +25,42 @@
 
         <div class="work-block">
             {{range $key, $value:= .Items}}
+
                 {{if eq (mod $key 6) 0}}
-                <a href="series/{{$value.ID}}" class="work-block__img1"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img1">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{else if eq (mod $key 6) 1}}
 
-                <a href="series/{{$value.ID}}" class="work-block__img2"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img2">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{else if eq (mod $key 6) 2}}
 
-                <a href="series/{{$value.ID}}" class="work-block__img3"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img3">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{else if eq (mod $key 6) 3}}
 
-                <a href="series/{{$value.ID}}" class="work-block__img4"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img4">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{else if eq (mod $key 6) 4}}
 
-                <a href="series/{{$value.ID}}" class="work-block__img5"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img5">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{else if eq (mod $key 6) 5}}
 
-                <a href="series/{{$value.ID}}" class="work-block__img6"><div> {{$value.Name}} </div></a>
+                <a href="series/{{$value.Series.ID}}" class="work-block__img6">
+                    <div> {{$value.Series.Name}} </div>
+                    <img src="{{$value.Path}}">
+                </a>
                 {{end}}
                 {{else}}
                 <div><strong>no series</strong></div>

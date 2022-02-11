@@ -148,6 +148,29 @@ func (r *Repo) UpdateSeries(item Series) error {
 	}
 	return nil
 }
+func (r *Repo) GetPicturePathBySeriesID(id string) (string, error) {
+	pictures := []Picture{}
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM pictures WHERE series_id='%s' AND (path IS NOT NULL OR path <> ' ')", id))
+	if err != nil {
+		fmt.Errorf("failed to execute the query: %v", err.Error())
+		return "", err
+	}
+	for rows.Next() {
+		var p Picture
+		err = rows.StructScan(&p)
+		if err != nil {
+			fmt.Errorf("%s", err.Error())
+			continue
+		}
+		pictures = append(pictures, p)
+	}
+	if len(pictures) == 0 {
+		return "", nil
+	}
+
+	return pictures[0].Path.String, nil
+
+}
 
 func (r *Repo) GetClients(num int) ([]Client, error) {
 	clients := []Client{}
