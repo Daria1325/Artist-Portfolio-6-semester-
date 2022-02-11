@@ -228,7 +228,8 @@ func login(w http.ResponseWriter, r *http.Request) {
 }
 func admin(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		t, err := template.ParseFiles("frontend/templates/admin/admin.html")
+
+		t, err := template.ParseFiles("frontend/templates/admin/admin.html","frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return
@@ -242,7 +243,7 @@ func admin(w http.ResponseWriter, r *http.Request) {
 
 func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html","frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return
@@ -337,7 +338,7 @@ func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
 func adminPictures(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html","frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return

@@ -1,15 +1,15 @@
-// var expanded = false;
-//
-// function showCheckboxes() {
-//     var checkboxes = document.getElementById("checkboxes");
-//     if (!expanded) {
-//         checkboxes.style.display = "block";
-//         expanded = true;
-//     } else {
-//         checkboxes.style.display = "none";
-//         expanded = false;
-//     }
+// function checkAccept(id){
+//   accepted = document.querySelector('#' + id);
+//   console.log(accepted)
+//   if(accepted){
+//     document.querySelector('#del_btn').removeAttribute('disabled');
+
+//   }
+
 // }
+
+
+
 
 var anyFormOpen = false;
 
@@ -50,10 +50,7 @@ console.log(document.querySelector('#' + s).querySelector('form').action)
                   document.querySelector('#' + s).querySelector('#price').value = objPrice ;
                   document.querySelector('#' + s).querySelector('#year').value = objDate ;
                   document.querySelector('#' + s).querySelector('#material').value = objMat.trim() ;
-                  // document.querySelector('#' + s).querySelector('#img').value = objPath.trim();
-                  // document.querySelector('#' + s).querySelector('#series').value = objPath.trim();
-
-
+                  
               }
         }
   }
@@ -64,10 +61,11 @@ function closeForm(s) {
   objType = s.split('_')[1];
   document.getElementById(s).style.visibility = "hidden";
   anyFormOpen = false;
-
+  console.log(objType);
   document.querySelector('#' + s).querySelector('form').method = 'get';
-  if (objType == s){
+  if (objType == 's'){
     document.querySelector('#' + s).querySelector('form').action = 'series';
+    
   }else {
     document.querySelector('#' + s).querySelector('form').action = 'pictures';
   }

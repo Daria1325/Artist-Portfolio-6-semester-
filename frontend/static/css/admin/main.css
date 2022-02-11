@@ -1,39 +1,10 @@
 
-
-* {
-    font-family: Abel;
-    font-style: normal;
-    font-weight: normal;
-    margin: 0;
-    padding: 0;
-    
-  }
-
- 
-  .header__title {
-    
-    width: auto;
-    height: 130px;
-    padding-left: 36px;
-    padding-top: 32px;
-    font-size: 48px;
-    color: #222222;
-  
-  }
-
-
-  html{
-      height: 100%;
-  }
-
-  body{
-      min-height: 100%;
-  }
 .edit{
     display: flex;
     justify-content: space-evenly;
-    height: 100%;
-    /* margin: 0 auto; */
+    height: 80vh;
+    align-items: center;
+    
     
 }
 

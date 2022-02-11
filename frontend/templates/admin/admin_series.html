@@ -1,53 +1,41 @@
 {{define "admin_series"}}
-<!DOCTYPE html>
-<html lang="en">
+{{template "header_admin"}}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../../static/js/script.js"></script>
-    <link rel="stylesheet" href="../../static/css/admin/edit.css">
+    <div class="edit-page">
+        <h2 class="edit-page__title">Welcome to the series edit page</h2>
 
-</head>
-
-<body>
-
-    <div class="series_table">
-        <h2>Welcome to the series edit page</h2>
-
-        <table>
+        <table class="table">
             <thead>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
-                <th><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
+                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
             </thead>
             {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
-                <td><button onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">edit</button></td>
-                <td><button onclick="openForm('delete_s','{{$value.ID}}')">delete</button></td>
+                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                     <i class="fa fa-pencil"></i></button></td>
+                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+                    <i class="fa fa-trash"></i></button></td>
                 {{else}}
                 <td><strong>no series</strong></td>
             </tr>
              {{end}}
-<!--            <td> id </td>-->
-<!--            <td> nme </td>-->
-<!--            <td> sdsa </td>-->
-<!--            <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
-<!--            <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
-<!--            </tr>-->
+
         </table>
 
     </div>
 
 
     <div class="open-popup" id="delete_s">
-        <form action="" id="delete_series" class="delete_series_form">
-            <input type="checkbox" id="series_delete_accsept">
-            <label for="series_delete_accsept">I understand, that it would be deleted permanently</label>
+        <form action="" id="delete_series" class="delete-form">
+
+            <!-- <input type="checkbox" id="delete_accsept"> -->
+            <label for="delete_accsept">I understand, that it would be deleted permanently</label>
+            
             <button type="submit"><a href="series/delete/">SUBMIT</a></button>
             <button onclick="closeForm('delete_s')">CANCEL</button>
         </form>
@@ -55,38 +43,11 @@
 
 
     <div class="open-popup" id="add_s">
+        <form method="post" action="series/add" id="add_series" class="add-form">
 
-        <form method="post" action="series/add" id="add_series" class="add_series_form">
             <div class="form_header"></div>
             <input required type="text" size="40" placeholder="Name" name="add_series_name">
             <input type="text" size="40" placeholder="Description" name="add_series_description">
-
-
-<!--&lt;!&ndash;не удаляй ссылку&ndash;&gt;-->
-<!--&lt;!&ndash;            https://stackoverflow.com/questions/17714705/how-to-use-checkbox-inside-select-option&ndash;&gt;-->
-<!--            <div class="multiselect">-->
-<!--                <div class="selectBox" onclick="showCheckboxes()">-->
-<!--                    <select>-->
-<!--                        <option>Select an option</option>-->
-<!--                    </select>-->
-<!--                    <div class="overSelect"></div>-->
-<!--                </div>-->
-<!--                <div id="checkboxes">-->
-<!--                    <label for="one">-->
-<!--                        <input type="checkbox" id="one" />First checkbox</label>-->
-<!--                    <label for="two">-->
-<!--                        <input type="checkbox" id="two" />Second checkbox</label>-->
-<!--                    <label for="three">-->
-<!--                        <input type="checkbox" id="three" />Third checkbox</label>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
-            <select multiple>
-                <option>Select an option</option>
-                <option>Select an option</option>
-
-            </select>
 
             <input type="submit" value="SUBMIT">
             <button onclick="closeForm('add_s') ">CANCEL</button>
@@ -96,7 +57,7 @@
     </div>
 
     <div class="open-popup" id="edit_s">
-        <form method="POST" action="series/edit/" id="edit_series" class="edit_series_form">
+        <form method="POST" action="series/edit/" id="edit_series" class="edit-form">
 
             <div class="form_header"></div>
 
@@ -112,7 +73,6 @@
         </form>
 
     </div>
-
 
 </body>
 

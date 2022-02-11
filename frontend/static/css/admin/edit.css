@@ -1,3 +1,121 @@
+*{
+  font-family: Abel, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.header__title{
+  font-size: 72px;
+   display: flex;
+   align-items: center;
+   padding-left: 10vh;
+   padding-top: 25px;
+}
+
+.header a{
+  text-decoration: none;
+}
+.header a:hover{
+  color: #222222;
+}
+.header a:visited{
+  color: #222222;
+}
+
+
+.edit-page{
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 150px 1fr;
+}
+
+.edit-page__title{
+  
+  height: 61px;
+  font-size: 36px;
+  line-height: 61px;
+  color: #222222;
+}
+
+
+.table{
+  border-collapse: collapse;
+  font-size: 18px;
+  width: 1020px;
+}
+
+.table thead tr{
+  background-color: #F4F7FC;
+  text-align: left;
+  font-weight: bold;
+  color: #606F89;
+}
+
+.table th, .table td{
+  padding: 12px 15px;
+}
+
+
+.table tbody tr:nth-of-type(even){
+  background-color: #F4F7FC
+  ;
+}
+
+
+
+.edit-open-b{
+  font-size: 18px;
+  color: #7D90B2;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+}
+
+.delete-open-b{
+  color: #7D90B2;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 18px;
+
+}
+
+.add-open-b {
+  font-size: 18px;
+  background-color: #577487;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+.btn-cell{
+  background-color: #577487;
+
+}
+
+
+
+
+
+
+
+
+.open-popup{
+  visibility: hidden; 
+} 
 
 .form-header {
   width: 100%;
@@ -5,76 +123,26 @@
   background-color: #1B4F72;
 }
 
-.add-open-b {
-  background-color: #577487;
-  color: white;
-  cursor: pointer;
+.delete-form {
+  background-color: white;
 }
 
-.open-popup{
-  visibility: hidden;
- 
-} 
-
-.add_series_form {
+.add-form {
   max-width: 1150px;
   background-color: white;
 }
-
-.delete_series_form {
-  background-color: white;
-}
-.edit_series_form {
+.edit-form {
   max-width: 1150px;
   background-color: white;
 
 }
 
- 
-
-
-
-
-.edit_picture_form {
+.add-form {
   max-width: 1150px;
-  background-color: tomato;
+  background-color: white;
+
 }
 
 
 
 
-
-
-/*.multiselect {*/
-/*  width: 200px;*/
-/*}*/
-
-/*.selectBox {*/
-/*  position: relative;*/
-/*}*/
-
-/*.selectBox select {*/
-/*  width: 100%;*/
-/*  font-weight: bold;*/
-/*}*/
-
-/*.overSelect {*/
-/*  position: absolute;*/
-/*  left: 0;*/
-/*  right: 0;*/
-/*  top: 0;*/
-/*  bottom: 0;*/
-/*}*/
-
-/*#checkboxes {*/
-/*  display: none;*/
-/*  border: 1px #dadada solid;*/
-/*}*/
-
-/*#checkboxes label {*/
-/*  display: block;*/
-/*}*/
-
-/*#checkboxes label:hover {*/
-/*  background-color: #1e90ff;*/
-/*}*/

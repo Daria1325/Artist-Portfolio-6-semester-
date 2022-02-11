@@ -1,21 +1,10 @@
 {{define "admin_pictures"}}
-<!DOCTYPE html>
-<html lang="en">
+{{template "header_admin"}}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../../static/js/script.js"></script>
-    <link rel="stylesheet" href="../../static/css/admin/edit.css">
+    <div class="edit-page">
+        <h2 class="edit-page__title">Welcome to the pictures edit page</h2>
 
-</head>
-
-<body>
-
-    <div class="picture_table">
-        <h2>Welcome to the pictures edit page</h2>
-
-        <table>
+        <table class="table">
             <thead>
                 <th>ID</th>
                 <th>NAME</th>
@@ -23,7 +12,7 @@
                 <th>YEAR</th>
                 <th>MATERIALS</th>
                 <th>SIZE</th>
-                <th><button onclick="openForm('add_p')">ADD PICTURE</button></th>
+                <th colspan="2" class="btn-cell"><button onclick="openForm('add_p')" class="add-open-b">ADD PICTURE</button></th>
             </thead>
             {{range $key, $value:= .Items}}
             <tr>
@@ -33,37 +22,74 @@
                 <td> {{$value.Date.String}} </td>
                 <td> {{$value.Material.String}} </td>
                 <td> {{$value.Size.String}} </td>
-                <td><button onclick="openForm('edit_p', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}','{{$value.Path.String}}','{{$value.Price.Float64}}','{{$value.Date.String}}','{{$value.Material.String}}','{{$value.Size.String}}')" >edit</button></td>
-                <td><button onclick="openForm('delete_p', '{{$value.ID}}')">delete</button></td>
+                <td><button class="edit-open-b" onclick="openForm('edit_p', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}','{{$value.Path.String}}','{{$value.Price.Float64}}','{{$value.Date.String}}','{{$value.Material.String}}','{{$value.Size.String}}')" >
+                    <i class="fa fa-pencil"></i></button></td>
+                <td><button class="delete-open-b" onclick="openForm('delete_p', '{{$value.ID}}')">
+                    <i class="fa fa-trash"></i></button></td>
                 {{else}}
                 <td><strong>no pictures</strong></td>
             </tr>
             {{end}}
-<!--            <tr>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg</td>-->
-<!--                <td> fg </td>-->
-<!--                <td> fg </td>-->
-<!--                <td><button onclick="openForm('edit_p', 1000)">edit</button></td>-->
-<!--                <td><button onclick="openForm('delete_p', 1000)">delete</button></td>-->
-<!--            </tr>-->
+
         </table>
 
     </div>
 
-    <div class="open-popup" id="delete_p">
-        <form action="" id="delete_picture">
-            <input type="checkbox" id="picture_delete_accsept">
-            <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
-            <!-- <input type="submit" value="SUBMIT"> -->
-            <button type="submit"><a href="pictures/delete/">SUBMIT</a></button>
 
+
+
+
+
+    <div class="open-popup" id="delete_p">
+        <form action="" id="delete_picture" class="delete-form">
+
+            <!-- <input type="checkbox" id="picture_delete_accsept"> -->
+            <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+            
+            <button  type="submit"><a href="pictures/delete/">SUBMIT</a></button>
             <button onclick="closeForm('delete_p')">CANCEL</button>
+
         </form>
     </div>
 
+
+
+    <div class="open-popup" id="add_p">
+        <form enctype="multipart/form-data" method="post" action="pictures/add" id="add_picture" class="add-form">
+
+            <div class="form-header"></div>
+
+            <input required type="text" size="40" placeholder="Name" name="add_picture_name">
+            <input type="text" size="40" placeholder="Size" name="add_picture_size">
+<!--            <input type="text" size="40" placeholder="Series" name="add_picture_series">-->
+            <select  name="series">
+                <option disabled>Choose series</option>
+                {{range .Series}}
+                <option value="{{.Name}}">{{.Name}}</option>
+                {{end}}
+            </select>
+
+            <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">
+            <input type="number" max="2022"  min="0" size="40" placeholder="Year" name="add_series_year">
+            <input type="text" size="40" placeholder="Material" name="add_picture_material">
+
+            <input type="text" size="40" placeholder="Description" name="add_picture_description">
+            <input required type="file" size="40" name="add_picture_upload">
+
+
+
+            <input type="submit" value="SUBMIT">
+            <button onclick="closeForm('add_p')">CANCEL</button>
+
+
+
+        </form>
+    </div>
+
+
+
     <div class="open-popup" id="edit_p">
-        <form enctype="multipart/form-data" method="post" action="pictures/edit/" id="edit_picture" class="edit_picture_form">
+        <form enctype="multipart/form-data" method="post" action="pictures/edit/" id="edit_picture" class="edit-form">
 
             <div class="form-header"></div>
 
@@ -96,38 +122,6 @@
         </form>
     </div>
 
-
-    <div class="open-popup" id="add_p">
-        <form enctype="multipart/form-data" method="post" action="pictures/add" id="add_picture">
-
-            <div class="form-header"></div>
-
-            <input required type="text" size="40" placeholder="Name" name="add_picture_name">
-            <input type="text" size="40" placeholder="Size" name="add_picture_size">
-<!--            <input type="text" size="40" placeholder="Series" name="add_picture_series">-->
-            <select  name="series">
-                <option disabled>Choose series</option>
-                {{range .Series}}
-                <option value="{{.Name}}">{{.Name}}</option>
-                {{end}}
-            </select>
-
-            <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">
-            <input type="number" max="2022"  min="0" size="40" placeholder="Year" name="add_series_year">
-            <input type="text" size="40" placeholder="Material" name="add_picture_material">
-
-            <input type="text" size="40" placeholder="Description" name="add_picture_description">
-            <input required type="file" size="40" name="add_picture_upload">
-
-
-
-            <input type="submit" value="SUBMIT">
-            <button onclick="closeForm('add_p')">CANCEL</button>
-
-
-
-        </form>
-    </div>
 
 </body>
 
