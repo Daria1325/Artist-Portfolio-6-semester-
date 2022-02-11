@@ -21,6 +21,8 @@
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>YEAR</th>
+                <th>MATERIALS</th>
+                <th>SIZE</th>
                 <th><button onclick="openForm('add_p')">ADD PICTURE</button></th>
             </thead>
             {{range $key, $value:= .Items}}
@@ -29,6 +31,8 @@
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
                 <td> {{$value.Date.String}} </td>
+                <td> {{$value.Material.String}} </td>
+                <td> {{$value.Size.String}} </td>
                 <td><button onclick="openForm('edit_p', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}','{{$value.Path.String}}','{{$value.Price.Float64}}','{{$value.Date.String}}','{{$value.Material.String}}','{{$value.Size.String}}')" >edit</button></td>
                 <td><button onclick="openForm('delete_p', '{{$value.ID}}')">delete</button></td>
                 {{else}}
@@ -70,8 +74,9 @@
 
             <select id="series"  name="series">
                 <option disabled>Choose series</option>
-                <option value="s1" >s1</option>
-                <option value="s1" >s2</option>
+                {{range .Series}}
+                <option value="{{.Name}}">{{.Name}}</option>
+                {{end}}
             </select>
 
             <input type="number" min="0"  id="price" size="40" placeholder="Price" name="edit_picture_prise">
@@ -102,8 +107,9 @@
 <!--            <input type="text" size="40" placeholder="Series" name="add_picture_series">-->
             <select  name="series">
                 <option disabled>Choose series</option>
-                <option value="s1" >s1</option>
-                <option value="s1" >s2</option>
+                {{range .Series}}
+                <option value="{{.Name}}">{{.Name}}</option>
+                {{end}}
             </select>
 
             <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">

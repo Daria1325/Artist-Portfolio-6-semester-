@@ -128,18 +128,20 @@ func (r *Repo) DeleteSeries(id string) error {
 	}
 	return nil
 }
-func (r *Repo) AddSeries(item Series) error {
-	_, err := r.db.Queryx(fmt.Sprintf("INSERT INTO series (name, description) VALUES ('%s','%s')", item.Name, item.Description.String))
+func (r *Repo) AddSeries(item Series) (int, error) {
+	sqlStatement := `INSERT INTO series (name, description) VALUES ($1, $2) RETURNING id`
+	id := -1
+	err := r.db.QueryRow(sqlStatement, item.Name, item.Description.String).Scan(&id)
+
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
-		return err
+		return -1, err
 	}
-	return nil
+
+	return id, nil
 }
 func (r *Repo) UpdateSeries(item Series) error {
 	_, err := r.db.Queryx(fmt.Sprintf("UPDATE series SET name = '%s', description = '%s' WHERE id = '%d'", item.Name, item.Description.String, item.ID))
-
-	//_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description.String WHERE id =:id`, item)
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
@@ -180,9 +182,6 @@ func (r *Repo) GetPictures() ([]Picture, error) {
 			fmt.Errorf("%s", err.Error())
 			continue
 		}
-		if p.Date.Valid {
-			p.Date.String = p.Date.String[0:4]
-		}
 		pictures = append(pictures, p)
 	}
 	return pictures, nil
@@ -206,9 +205,7 @@ func (r *Repo) GetPictureById(id string) (Picture, error) {
 	if len(pictures) == 0 {
 		return Picture{ID: -1}, nil
 	}
-	if pictures[0].Date.Valid {
-		pictures[0].Date.String = pictures[0].Date.String[0:4]
-	}
+
 	return pictures[0], nil
 
 }
@@ -239,10 +236,9 @@ func (r *Repo) DeletePictures(id string) error {
 	return nil
 }
 func (r *Repo) AddPicture(item Picture) error {
-	date := item.Date.String
 
 	_, err := r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id)" +
-		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, date, item.Material.String, item.Size.String, item.Description.String, item.SeriesId))
+		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, item.Date.String, item.Material.String, item.Size.String, item.Description.String, item.SeriesId))
 
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
@@ -251,7 +247,9 @@ func (r *Repo) AddPicture(item Picture) error {
 	return nil
 }
 func (r *Repo) UpdatePicture(item Picture) error {
-	_, err := r.db.NamedExec(`UPDATE series SET name=:name, description=:description WHERE id =:id`, item)
+	_, err := r.db.Queryx(fmt.Sprintf("UPDATE pictures SET name = '%s',path = '%s',price = '%f',", item.Name, item.Path.String, item.Price.Float64) +
+		fmt.Sprintf("date = '%s',material='%s',size='%s', description='%s',series_id = '%d' WHERE id = '%d'", item.Date.String, item.Material.String, item.Size.String, item.Description.String, item.SeriesId, item.ID))
+
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err

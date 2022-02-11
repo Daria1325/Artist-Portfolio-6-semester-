@@ -18,12 +18,9 @@
             </div>
 
             <ul class="clients__list">
-                <li class="clients__itm">1</li>
-                <li class="clients__itm">2</li>
-                <li class="clients__itm">3</li>
-                <li class="clients__itm">4</li>
-                <li class="clients__itm">5</li>
-                <li class="clients__itm">6</li>
+                {{range .}}
+                <li class="clients__itm">{{.Name}}</li>
+                {{end}}
             </ul>
         </div>
 
