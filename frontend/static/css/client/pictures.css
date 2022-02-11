@@ -15,4 +15,20 @@
     height: 500px;
     width: 500px;
     background-color: chartreuse;
+} 
+
+@media  (max-width:800px) {
+    .picture__img {
+        height: 300px;
+        width: 300px;
+       
+    } 
+
+    
+    .picture{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-items: center
+    }
+
 }

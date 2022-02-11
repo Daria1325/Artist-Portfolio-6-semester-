@@ -1,8 +1,9 @@
 .series{
     display: grid;
+    row-gap: 10px; 
     
 }
-
+ 
 .series__gallery{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -14,4 +15,15 @@
     width: 340px;
     background-color: rgb(139, 50, 113);
     margin: 10px;
+}
+
+
+@media  (max-width:800px) {
+    .series__gallery{
+        grid-template-columns: 1fr 1fr;
+    }
+    .series__img{
+        height: 160px;
+         width: 160px;
+    }
 }

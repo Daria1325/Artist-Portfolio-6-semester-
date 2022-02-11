@@ -18,7 +18,7 @@
   
   width: auto;
   height: 97px;
-  padding-left: 36px;
+  padding-left: 10vh;
   padding-top: 32px;
   font-size: 48px;
   color: #222222;
@@ -52,11 +52,9 @@
 main {
   font-size: 24px;
   line-height: 40px;
-  min-height: 100vh;   
+  min-height: 80vh;   
   display: flex;
-  
- 
-  /* text-align: center; */
+
   letter-spacing: 0.1em;
   
   color: #222222;
@@ -68,11 +66,10 @@ main {
 
 
 
-
 .main__content {
   width: -webkit-fill-available;
   text-align: center;
-  /* align-items: center; */
+
   /* background-color: violet; */
   margin: 0 10vh;
 }
@@ -83,12 +80,6 @@ main {
 
 
 
-
-/* .clients_main_ul li {
-  list-style-type: none;
-  display: inline-block;
-  width: 200px;
-} */
 
 
 @media  (max-width:800px) {

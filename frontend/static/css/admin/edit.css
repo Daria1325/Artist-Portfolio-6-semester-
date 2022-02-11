@@ -16,15 +16,15 @@
  
 } 
 
-.add_series_form {
+.add-series-form {
   max-width: 1150px;
   background-color: white;
 }
 
-.delete_series_form {
+.delete-series-form {
   background-color: white;
 }
-.edit_series_form {
+.edit-series-form {
   max-width: 1150px;
   background-color: white;
 
