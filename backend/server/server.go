@@ -59,7 +59,7 @@ func Copy(src, dst string) error {
 func about(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/about.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 
@@ -68,7 +68,7 @@ func about(w http.ResponseWriter, r *http.Request) {
 func contact(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/contact.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 
@@ -77,7 +77,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 func clients(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/clients.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 	clients, err := MainServer.Repo.GetClients(6)
@@ -96,7 +96,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 	}
 	t, err := template.New("test").Funcs(funcMap).ParseFiles("frontend/templates/client/work.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 	series, err := MainServer.Repo.GetSeries()
@@ -111,7 +111,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 		if path == "" {
-			path = "/image/1/Alexandr.jpeg"
+			path = "/image/img1.jpg"
 		}
 		p := SeriesWithPicture{Series: series[i], Path: path}
 		item = append(item, p)
@@ -128,10 +128,9 @@ func work(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "work", data)
 }
 func showSeries(w http.ResponseWriter, r *http.Request) {
-
 	t, err := template.ParseFiles("frontend/templates/client/show_series.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 
@@ -170,7 +169,7 @@ func showSeries(w http.ResponseWriter, r *http.Request) {
 func showPicture(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/show_picture.html", "frontend/templates/client/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		fmt.Println(w, err.Error())
 		return
 	}
 	vars := mux.Vars(r)
@@ -195,14 +194,13 @@ func login(w http.ResponseWriter, r *http.Request) {
 
 		t, err := template.ParseFiles("frontend/templates/admin/login.html")
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 
 		t.ExecuteTemplate(w, "login", nil)
 	}
 	if r.Method == "POST" {
-
 		err := godotenv.Load("Variables.env")
 		if err != nil {
 			log.Fatal("Error loading .env file")
@@ -231,7 +229,7 @@ func admin(w http.ResponseWriter, r *http.Request) {
 
 		t, err := template.ParseFiles("frontend/templates/admin/admin.html","frontend/templates/admin/header.html")
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		t.ExecuteTemplate(w, "admin", nil)
@@ -245,12 +243,12 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html","frontend/templates/admin/header.html")
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		series, err := MainServer.Repo.GetSeries()
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		data := struct {
@@ -278,7 +276,7 @@ func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		series.Description.String = r.FormValue("add_series_description")
 		id, err := MainServer.Repo.AddSeries(series)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		err = os.Mkdir("./data/image/"+strconv.Itoa(id), 0755)
@@ -310,7 +308,7 @@ func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
 		err = MainServer.Repo.UpdateSeries(series)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
@@ -325,7 +323,7 @@ func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		id := vars["id"]
 		err := MainServer.Repo.DeleteSeries(id)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		err = os.RemoveAll("./data/image/" + id)
@@ -340,17 +338,17 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html","frontend/templates/admin/header.html")
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		pictures, err := MainServer.Repo.GetPictures()
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		series, err := MainServer.Repo.GetSeries()
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		data := struct {
@@ -369,7 +367,6 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		picture := database.Picture{}
@@ -415,7 +412,7 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 
 		err = MainServer.Repo.AddPicture(picture)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		http.Redirect(w, r, "/admin/pictures", http.StatusSeeOther)
@@ -426,8 +423,6 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		picture := database.Picture{}
-
 		err := r.ParseMultipartForm(32 << 20)
 		if err != nil {
 			log.Println(err)
@@ -438,34 +433,13 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
-		prevSeriesId, _ := MainServer.Repo.GetPictureById(vars["id"])
 
+		prevDataPicture, _ := MainServer.Repo.GetPictureById(vars["id"])
+
+		picture := database.Picture{}
 		picture.ID = id
 		picture.Name = r.FormValue("edit_picture_name")
 		picture.Size.String = r.FormValue("edit_picture_size")
-		seriesName := r.FormValue("series")
-		seriesID, err := MainServer.Repo.GetSeriesIDByName(seriesName)
-		if err != nil {
-			log.Println(err)
-		}
-
-		picture.SeriesId = seriesID
-
-		if seriesID != prevSeriesId.SeriesId {
-			pathSrc := "./data" + prevSeriesId.Path.String
-			pathDest := "./data/image/" + strconv.Itoa(picture.SeriesId) + "/" + getFileName(pathSrc)
-			err = Copy(pathSrc, pathDest)
-
-			if err != nil {
-				log.Fatal(err)
-			}
-			err = os.Remove(pathSrc)
-			if err != nil {
-				log.Fatal(err)
-			}
-			picture.Path.String = "/image/" + strconv.Itoa(picture.SeriesId) + "/" + getFileName(pathSrc)
-		}
-
 		price, err := strconv.ParseFloat(r.FormValue("edit_picture_prise"), 32)
 		if err != nil {
 			picture.Price.Valid = false
@@ -475,8 +449,32 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		picture.Date.String = r.FormValue("edit_series_year")
 		picture.Material.String = r.FormValue("edit_picture_material")
 		picture.Description.String = r.FormValue("edit_picture_description")
+		picture.ClientId.Valid = false
+		seriesName := r.FormValue("series")
+		seriesID, err := MainServer.Repo.GetSeriesIDByName(seriesName)
+		if err != nil {
+			log.Println(err)
+		}
+		picture.SeriesId = seriesID
+
+		if seriesID != prevDataPicture.SeriesId {
+			pathSrc := "./data" + prevDataPicture.Path.String
+			pathDest := "./data/image/" + strconv.Itoa(picture.SeriesId) + "/" + getFileName(pathSrc)
+			err = Copy(pathSrc, pathDest)
+			if err != nil {
+				log.Fatal(err)
+			}
+			err = os.Remove(pathSrc)
+			if err != nil {
+				log.Fatal(err)
+			}
+			picture.Path.String = "/image/" + strconv.Itoa(picture.SeriesId) + "/" + getFileName(pathSrc)
+		}
 		file, handler, err := r.FormFile("edit_picture_upload")
 		if err == nil {
+			if prevDataPicture.Path.String != "" && prevDataPicture.Path.Valid{
+				err = os.Remove("./data" + prevDataPicture.Path.String)
+			}
 			path := "./data/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 			f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 			if err != nil {
@@ -488,12 +486,9 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			picture.Path.String = "/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 			defer file.Close()
 		}
-
-		picture.ClientId.Valid = false
-
 		err = MainServer.Repo.UpdatePicture(picture)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		http.Redirect(w, r, "/admin/pictures", http.StatusSeeOther)
@@ -507,12 +502,12 @@ func deletePicturesHandler(w http.ResponseWriter, r *http.Request) {
 		id := vars["id"]
 		picture, err := MainServer.Repo.GetPictureById(id)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		err = MainServer.Repo.DeletePictures(id)
 		if err != nil {
-			fmt.Fprintf(w, err.Error())
+			fmt.Println(w, err.Error())
 			return
 		}
 		err = os.Remove("./data" + picture.Path.String)

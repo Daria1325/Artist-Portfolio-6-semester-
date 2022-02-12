@@ -34,7 +34,12 @@
             <div class="series__title">{{.Series.Description.String}}</div>
             <div class="series__gallery">
                 {{range .Pictures}}
-                <a href="{{.SeriesId}}/{{.ID}}" class="series__img"><div><div>{{.Name}}</div><img src="{{.Path.String}}"></div></a>
+                <a href="{{.SeriesId}}/{{.ID}}" >
+                    <div>
+                        <div>{{.Name}}</div>
+                        <img class="series__img" src="{{.Path.String}}">
+                    </div>
+                </a>
                 {{end}}
             </div>
         </div>

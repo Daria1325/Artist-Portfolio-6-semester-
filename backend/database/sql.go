@@ -8,8 +8,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const layoutISO = "2006-01-02"
-
 type Picture struct {
 	ID          int             `db:"id"`
 	Name        string          `db:"name"`
@@ -30,14 +28,14 @@ type Series struct {
 type Client struct {
 	ID      int    `db:"id"`
 	Name    string `db:"name"`
-	Contact int    `db:"contact_id""`
+	Contact int    `db:"contact_id"`
 	Type    int    `db:"type_id"`
 }
 
 type Contact struct {
 	ID        int    `db:"id"`
 	Email     string `db:"email"`
-	Number    int    `db:"number""`
+	Number    int    `db:"number"`
 	AddNumber int    `db:"add_number"`
 }
 type ClientType struct {
