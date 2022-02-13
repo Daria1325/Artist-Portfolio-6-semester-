@@ -19,9 +19,9 @@
 <main class="main">
     <div class="main__content">
         <div class="picture">
-            <div class="picture__img"><img src="{{.Path.String}}" alt="painting {{.Name}}"></div>
+           <img class="picture__img" src="{{.Path.String}}" alt="painting {{.Name}}">
             <div class="picture__info">
-                <p class="picture__title">{{.Name}} {{.Date.String}} {{.Material.String}} {{.Size.String}}</p>
+                <p class="picture__title">{{.Name}} <br> {{.Date.String}} {{.Material.String}} {{.Size.String}}</p>
                 <p class="picture__description">{{.Description.String}}</p>
             </div>
         </div>

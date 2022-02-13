@@ -30,18 +30,22 @@
 <main class="main">
     <div class="main__content">
         <div class="series">
-            <div class="series__title">{{.Series.Name}}</div>
-            <div class="series__title">{{.Series.Description.String}}</div>
+            <div class="series__title">
+                {{.Series.Name}} <br>
+            {{.Series.Description.String}}</div>
+           
             <div class="series__gallery">
                 {{range .Pictures}}
-                <a href="{{.SeriesId}}/{{.ID}}" >
-                    <div>
-                        <div>{{.Name}}</div>
-                        <img class="series__img" src="{{.Path.String}}">
-                    </div>
-                </a>
+                <a class="series__itm" href="{{.SeriesId}}/{{.ID}}" >
+                    
+                    <img class="series__img" src="{{.Path.String}}">
+                     <div class="series__itm-name">{{.Name}}</div>
+                      
+               </a>
                 {{end}}
             </div>
+
+
         </div>
     </div>
 </main>

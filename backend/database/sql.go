@@ -28,7 +28,7 @@ type Series struct {
 type Client struct {
 	ID      int    `db:"id"`
 	Name    string `db:"name"`
-	Contact int    `db:"contact_id"`
+	Contact sql.NullInt32    `db:"contact_id"`
 	Type    int    `db:"type_id"`
 }
 
@@ -172,7 +172,7 @@ func (r *Repo) GetPicturePathBySeriesID(id string) (string, error) {
 
 func (r *Repo) GetClients(num int) ([]Client, error) {
 	clients := []Client{}
-	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients WHERE type_id <> 2 LIMIT %d", num))
+	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients WHERE type_id <> 2 LIMIT '%d'", num))
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return nil, err

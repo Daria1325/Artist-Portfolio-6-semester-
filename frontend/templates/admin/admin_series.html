@@ -26,14 +26,35 @@
              {{end}}
 
         </table>
+        <table class="table-small table">
+            <thead>
+                <th>ID</th>
+                <th>NAME</th>
+                
+                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
+            </thead>
+            {{range $key, $value:= .Items}}
+            <tr>
+                <td> {{$value.ID}} </td>
+                <td> {{$value.Name}} </td>
+               
+                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                     <i class="fa fa-pencil"></i></button></td>
+                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+                    <i class="fa fa-trash"></i></button></td>
+                {{else}}
+                <td><strong>no series</strong></td>
+            </tr>
+             {{end}}
 
+        </table>
     </div>
 
 
     <div class="open-popup" id="delete_s">
         <form action="" id="delete_series" class="delete-form">
 
-            <!-- <input type="checkbox" id="delete_accsept"> -->
+            
             <label for="delete_accsept">I understand, that it would be deleted permanently</label>
             
             <button type="submit"><a href="series/delete/">SUBMIT</a></button>
@@ -43,33 +64,42 @@
 
 
     <div class="open-popup" id="add_s">
-        <form method="post" action="series/add" id="add_series" class="add-form">
+        <form method="post" action="series/add" id="add_series" class="series-form">
 
-            <div class="form_header"></div>
-            <input required type="text" size="40" placeholder="Name" name="add_series_name">
-            <input type="text" size="40" placeholder="Description" name="add_series_description">
+            <div class="form-header"></div>
+            <div class="series-form__content">
 
-            <input type="submit" value="SUBMIT">
-            <button onclick="closeForm('add_s') ">CANCEL</button>
+                <h1>Add Series</h1>
 
+                <textarea class="series-form__name" required type="text" size="40" placeholder="Name" name="add_series_name"></textarea>
+                <textarea class="series-form__desc" type="text" size="40" placeholder="Description" name="add_series_description"></textarea>
+                <div class="series-form__btn">
+                    <input class="form-btn" type="submit" value="SUBMIT">
+                    <button class="form-btn" onclick="closeForm('add_s') ">CANCEL</button>
+                </div>
 
+            </div>
         </form>
     </div>
 
     <div class="open-popup" id="edit_s">
-        <form method="POST" action="series/edit/" id="edit_series" class="edit-form">
+        <form method="POST" action="series/edit/" id="edit_series" class="series-form">
 
-            <div class="form_header"></div>
+            <div class="form-header"></div>
+            <div class="series-form__content">
+ 
 
-            <input  type="hidden" id="id" name="id">
-            <input required type="text" id="name" size="40" placeholder="Name" name="edit_series_name">
+                <h1>Edit Series</h1>
 
-            <input type="text" id="description" size="40" placeholder="Description" name="edit_series_description">
+                <input  type="hidden" id="id" name="id">
+                <textarea  class="series-form__name" required type="text" id="name" size="40" placeholder="Name" name="edit_series_name"></textarea>
+                <textarea class="series-form__desc" type="text" id="description" size="40" placeholder="Description" name="edit_series_description"></textarea>
+                <div class="series-form__btn">
+                    <input class="form-btn"  type="submit" value="SUBMIT" />
+                    <button class="form-btn"  onclick="closeForm('edit_s')">CANCEL</button>
+                </div>
 
-
-            <input type="submit" value="SUBMIT" />
-            <button onclick="closeForm('edit_s')">CANCEL</button>
-
+            </div>
         </form>
 
     </div>
