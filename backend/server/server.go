@@ -449,8 +449,9 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		picture.Date.String = r.FormValue("edit_series_year")
 		picture.Material.String = r.FormValue("edit_picture_material")
 		picture.Description.String = r.FormValue("edit_picture_description")
+		picture.Path.String = prevDataPicture.Path.String
 		picture.ClientId.Valid = false
-		seriesName := r.FormValue("series")
+		seriesName := r.FormValue("edit_picture_series")
 		seriesID, err := MainServer.Repo.GetSeriesIDByName(seriesName)
 		if err != nil {
 			log.Println(err)
@@ -485,9 +486,8 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			io.Copy(f, file)
 			picture.Path.String = "/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 			defer file.Close()
-		} else {
-			picture.Path.String = prevDataPicture.Path.String
 		}
+
 		err = MainServer.Repo.UpdatePicture(picture)
 		if err != nil {
 			fmt.Println(w, err.Error())

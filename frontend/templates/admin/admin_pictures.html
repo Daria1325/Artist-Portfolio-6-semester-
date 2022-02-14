@@ -69,7 +69,7 @@
             <div class="form-header small"></div>
             <div class="delete-form__content">
 
-                <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+                <label>I understand, that it would be deleted permanently</label>
             
                 <div>
                     <button class="form-btn"  type="submit"><a href="pictures/delete/">SUBMIT</a></button>
@@ -93,7 +93,7 @@
 
                     <div class="picture-form__elem">
                     <input required type="text" size="40" placeholder="Name" name="add_picture_name">
-                    <select  name="series">
+                    <select  name="add_picture_series">
                         <option disabled>Choose series</option>
                         {{range .Series}}
                         <option value="{{.Name}}">{{.Name}}</option>
@@ -145,7 +145,7 @@
 
                     <div class="picture-form__elem">
                         <input required type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
-                        <select id="series"  name="series">
+                        <select id="series"  name="edit_picture_series">
                             <option disabled>Choose series</option>
                             {{range .Series}}
                             <option value="{{.Name}}">{{.Name}}</option>
