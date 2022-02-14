@@ -66,10 +66,16 @@
     <div class="open-popup" id="delete_p">
         <form action="" id="delete_picture" class="delete-form">
 
-            <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
-            <button  type="submit"><a href="pictures/delete/">SUBMIT</a></button>
-            <button onclick="closeForm('delete_p')">CANCEL</button>
+            <div class="form-header small"></div>
+            <div class="delete-form__content">
 
+                <label for="picture_delete_accsept">I understand, that it would be deleted permanently</label>
+            
+                <div>
+                    <button class="form-btn"  type="submit"><a href="pictures/delete/">SUBMIT</a></button>
+                    <button class="form-btn" onclick="closeForm('delete_p')">CANCEL</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -84,19 +90,31 @@
                 <h2>Add Picture</h2>
 
                 <div class="picture-form__text-fildes">
+
+                    <div class="picture-form__elem">
                     <input required type="text" size="40" placeholder="Name" name="add_picture_name">
-                    <input type="text" size="40" placeholder="Size" name="add_picture_size">
                     <select  name="series">
                         <option disabled>Choose series</option>
                         {{range .Series}}
                         <option value="{{.Name}}">{{.Name}}</option>
                         {{end}}
                     </select>
-                    <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">
-                    <input type="number" max="2022"  min="0" size="40" placeholder="Year" name="add_series_year">
+                    </div>
+
+
+                    <div class="picture-form__elem">
+                        <input type="text" size="40" placeholder="Size" name="add_picture_size">
+                        <input type="number" min="0" size="40" placeholder="Price" name="add_picture_prise">
+                    </div>
+                                      
                    
-                    <textarea type="text" size="40" placeholder="Description" name="add_picture_description"></textarea>
+                    <div class="picture-form__elem">
+                    <input type="number" max="2022"  min="0" size="40" placeholder="Year" name="add_series_year">
                     <input type="text" size="40" placeholder="Material" name="add_picture_material">
+                    </div>
+
+                    <textarea type="text" size="40" placeholder="Description" name="add_picture_description"></textarea>
+                   
                 </div>
                 
                 <input required type="file" size="40" name="add_picture_upload">
@@ -123,21 +141,29 @@
                 <h2>Edit Picture</h2>
 
                 <div class="picture-form__text-fildes">
-
                     <input  type="hidden" id="id" name="id">
-                    <input required type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
-                    <input  type="text" id="size" size="40" placeholder="Size" name="edit_picture_size">
-                    <select id="series"  name="series">
-                        <option disabled>Choose series</option>
-                        {{range .Series}}
-                        <option value="{{.Name}}">{{.Name}}</option>
-                        {{end}}
-                    </select>
-                    <input type="number" min="0"  id="price" size="40" placeholder="Price" name="edit_picture_prise">
-                    <input type="number" min="0" max="2022" id="year" size="40" placeholder="Year" name="edit_series_year">
-                    <textarea type="text" id="description" size="40" placeholder="Description" name="edit_picture_description"></textarea>
-                    <input type="text" id="material" size="40" placeholder="Material" name="edit_picture_material">
+
+                    <div class="picture-form__elem">
+                        <input required type="text" id="name" size="40" placeholder="Name" name="edit_picture_name">
+                        <select id="series"  name="series">
+                            <option disabled>Choose series</option>
+                            {{range .Series}}
+                            <option value="{{.Name}}">{{.Name}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+
+                    <div class="picture-form__elem">
+                        <input  type="text" id="size" size="40" placeholder="Size" name="edit_picture_size">
+                        <input type="number" min="0"  id="price" size="40" placeholder="Price" name="edit_picture_prise">
+                    </div>
                     
+                    <div class="picture-form__elem">
+                        <input type="number" min="0" max="2022" id="year" size="40" placeholder="Year" name="edit_series_year">
+                        <input type="text" id="material" size="40" placeholder="Material" name="edit_picture_material">
+                    </div>
+                    
+                    <textarea type="text" id="description" size="40" placeholder="Description" name="edit_picture_description"></textarea>
                  </div>
 
                 <input type="file" id="img" size="40" placeholder="Upload image" name="edit_picture_upload">

@@ -227,7 +227,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 func admin(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 
-		t, err := template.ParseFiles("frontend/templates/admin/admin.html","frontend/templates/admin/header.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin.html", "frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Println(w, err.Error())
 			return
@@ -241,7 +241,7 @@ func admin(w http.ResponseWriter, r *http.Request) {
 
 func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html","frontend/templates/admin/header.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html", "frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Println(w, err.Error())
 			return
@@ -336,7 +336,7 @@ func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 
 func adminPictures(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html","frontend/templates/admin/header.html")
+		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html", "frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Println(w, err.Error())
 			return
@@ -472,7 +472,7 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		file, handler, err := r.FormFile("edit_picture_upload")
 		if err == nil {
-			if prevDataPicture.Path.String != "" && prevDataPicture.Path.Valid{
+			if prevDataPicture.Path.String != "" && prevDataPicture.Path.Valid {
 				err = os.Remove("./data" + prevDataPicture.Path.String)
 			}
 			path := "./data/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
@@ -485,6 +485,8 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			io.Copy(f, file)
 			picture.Path.String = "/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 			defer file.Close()
+		} else {
+			picture.Path.String = prevDataPicture.Path.String
 		}
 		err = MainServer.Repo.UpdatePicture(picture)
 		if err != nil {

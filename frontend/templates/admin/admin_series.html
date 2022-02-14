@@ -54,11 +54,15 @@
     <div class="open-popup" id="delete_s">
         <form action="" id="delete_series" class="delete-form">
 
-            
-            <label for="delete_accsept">I understand, that it would be deleted permanently</label>
-            
-            <button type="submit"><a href="series/delete/">SUBMIT</a></button>
-            <button onclick="closeForm('delete_s')">CANCEL</button>
+            <div class="form-header small"></div>
+            <div class="delete-form__content">
+                <label for="delete_accsept">I understand, that it would be deleted permanently</label>
+                
+                <div>
+                    <button class="form-btn"  type="submit"><a href="series/delete/">SUBMIT</a></button>
+                    <button class="form-btn"  onclick="closeForm('delete_s')">CANCEL</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -69,7 +73,7 @@
             <div class="form-header"></div>
             <div class="series-form__content">
 
-                <h1>Add Series</h1>
+                <h2>Add Series</h2>
 
                 <textarea class="series-form__name" required type="text" size="40" placeholder="Name" name="add_series_name"></textarea>
                 <textarea class="series-form__desc" type="text" size="40" placeholder="Description" name="add_series_description"></textarea>
@@ -89,7 +93,7 @@
             <div class="series-form__content">
  
 
-                <h1>Edit Series</h1>
+                <h2>Edit Series</h2>
 
                 <input  type="hidden" id="id" name="id">
                 <textarea  class="series-form__name" required type="text" id="name" size="40" placeholder="Name" name="edit_series_name"></textarea>
