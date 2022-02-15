@@ -1,120 +1,127 @@
 {{define "admin_series"}}
 {{template "header_admin"}}
 
-    <div class="edit-page">
-        <h2 class="edit-page__title">Welcome to the series edit page</h2>
+<div class="edit-page">
+    <h2 class="edit-page__title">Welcome to the series edit page</h2>
 
-        <table class="table">
-            <thead>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>DESCRIPTION</th>
-                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
-            </thead>
-            {{range $key, $value:= .Items}}
-            <tr>
-                <td> {{$value.ID}} </td>
-                <td> {{$value.Name}} </td>
-                <td> {{$value.Description.String}} </td>
+    <table class="table">
+        <thead>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>DESCRIPTION</th>
+            <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="table__add-open-b">ADD
+                    SERIES</button></th>
+        </thead>
+        {{range $key, $value:= .Items}}
+        <tr>
+            <td> {{$value.ID}} </td>
+            <td> {{$value.Name}} </td>
+            <td> {{$value.Description.String}} </td>
 
-                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
-                     <i class="fa fa-pencil"></i></button></td>
-                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+            <td><button class="table__open-b"
+                    onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                    <i class="fa fa-pencil"></i></button></td>
+            <td><button class="table__open-b" onclick="openForm('delete_s','{{$value.ID}}')">
                     <i class="fa fa-trash"></i></button></td>
-                {{else}}
-                <td><strong>no series</strong></td>
+            {{else}}
+            <td><strong>no series</strong></td>
 
-            </tr>
-             {{end}}
+        </tr>
+        {{end}}
 
-        </table>
-        <table class="table-small table">
-            <thead>
-                <th>ID</th>
-                <th>NAME</th>
-                
-                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
-            </thead>
-            {{range $key, $value:= .Items}}
-            <tr>
-                <td> {{$value.ID}} </td>
-                <td> {{$value.Name}} </td>
-               
-                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
-                     <i class="fa fa-pencil"></i></button></td>
-                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+    </table>
+    <table class="table table_small">
+        <thead>
+            <th>ID</th>
+            <th>NAME</th>
+
+            <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="table__add-open-b">ADD
+                    SERIES</button></th>
+        </thead>
+        {{range $key, $value:= .Items}}
+        <tr>
+            <td> {{$value.ID}} </td>
+            <td> {{$value.Name}} </td>
+
+            <td><button class="table__open-b"
+                    onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                    <i class="fa fa-pencil"></i></button></td>
+            <td><button class="table__open-b" onclick="openForm('delete_s','{{$value.ID}}')">
                     <i class="fa fa-trash"></i></button></td>
-                {{else}}
-                <td><strong>no series</strong></td>
-            </tr>
-             {{end}}
+            {{else}}
+            <td><strong>no series</strong></td>
+        </tr>
+        {{end}}
 
-        </table>
-    </div>
+    </table>
+</div>
 
 
-    <div class="open-popup" id="delete_s">
+<div class="popup" id="delete_s">
 
-        <form action="" id="delete_series" class="delete-form">
+    <form action="" id="delete_series" class="delete-form">
 
-            <div class="form-header small"></div>
-            <div class="delete-form__content">
-                <label for="delete_accsept">I understand, that it would be deleted permanently</label>
-                
-                <div>
-                    <button class="form-btn"  type="submit"><a href="series/delete/">SUBMIT</a></button>
-                    <button class="form-btn"  onclick="closeForm('delete_s')">CANCEL</button>
-                </div>
+        <div class="form-header form-header_small"></div>
+        <div class="delete-form__content">
+            <label>I understand, that it would be deleted permanently</label>
+
+            <div>
+                <button class="form-btn" type="submit"><a href="series/delete/">SUBMIT</a></button>
+                <button class="form-btn" onclick="closeForm('delete_s')">CANCEL</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="popup" id="add_s">
+    <form method="post" action="series/add" id="add_series" class="series-form">
+
+
+        <div class="form-header"></div>
+        <div class="series-form__content">
+
+            <h2>Add Series</h2>
+
+            <textarea class="series-form__name" required type="text" size="40" placeholder="Name"
+                name="add_series_name"></textarea>
+            <textarea class="series-form__desc" type="text" size="40" placeholder="Description"
+                name="add_series_description"></textarea>
+            <div>
+                <input class="form-btn" type="submit" value="SUBMIT">
+                <button class="form-btn" onclick="closeForm('add_s') ">CANCEL</button>
             </div>
 
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
+
+<div class="popup" id="edit_s">
+
+    <form method="POST" action="series/edit/" id="edit_series" class="series-form">
+
+        <div class="form-header"></div>
+        <div class="series-form__content">
 
 
-    <div class="open-popup" id="add_s">
-        <form method="post" action="series/add" id="add_series" class="series-form">
+            <h2>Edit Series</h2>
 
-
-            <div class="form-header"></div>
-            <div class="series-form__content">
-
-
-                <h2>Add Series</h2>
-
-                <textarea class="series-form__name" required type="text" size="40" placeholder="Name" name="add_series_name"></textarea>
-                <textarea class="series-form__desc" type="text" size="40" placeholder="Description" name="add_series_description"></textarea>
-                <div class="series-form__btn">
-                    <input class="form-btn" type="submit" value="SUBMIT">
-                    <button class="form-btn" onclick="closeForm('add_s') ">CANCEL</button>
-                </div>
-
+            <input type="hidden" id="id" name="id">
+            <textarea class="series-form__name" required type="text" id="name" size="40" placeholder="Name"
+                name="edit_series_name"></textarea>
+            <textarea class="series-form__desc" type="text" id="description" size="40" placeholder="Description"
+                name="edit_series_description"></textarea>
+            <div>
+                <input class="form-btn" type="submit" value="SUBMIT" />
+                <button class="form-btn" onclick="closeForm('edit_s')">CANCEL</button>
             </div>
-        </form>
-    </div>
-
-    <div class="open-popup" id="edit_s">
-
-        <form method="POST" action="series/edit/" id="edit_series" class="series-form">
-
-            <div class="form-header"></div>
-            <div class="series-form__content">
- 
-
-                <h2>Edit Series</h2>
-
-                <input  type="hidden" id="id" name="id">
-                <textarea  class="series-form__name" required type="text" id="name" size="40" placeholder="Name" name="edit_series_name"></textarea>
-                <textarea class="series-form__desc" type="text" id="description" size="40" placeholder="Description" name="edit_series_description"></textarea>
-                <div class="series-form__btn">
-                    <input class="form-btn"  type="submit" value="SUBMIT" />
-                    <button class="form-btn"  onclick="closeForm('edit_s')">CANCEL</button>
-                </div>
 
 
-            </div>
-        </form>
+        </div>
+    </form>
 
-    </div>
+</div>
 
 </body>
 

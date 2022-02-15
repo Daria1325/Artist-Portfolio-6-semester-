@@ -1,0 +1,225 @@
+
+.popup{
+    visibility: hidden; 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
+  
+  
+  .form-header {
+    width: 100%;
+    height: 80px;
+    background-color: #577487;
+  }
+  .form-header_small{
+    height: 36px;
+  }
+  .form-btn{
+    width: 415px;
+    height: 65.86px;
+    background: #577487;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 24px;
+    line-height: 46px;
+    color: white;
+  }
+  
+  
+  .delete-form {
+    height: 420px;
+    width: 940px;
+    background-color: white;
+    color: #222222;
+  }
+  .delete-form__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 384px;
+  }
+  .delete-form label{
+    font-size: 36px;
+    line-height: 46px;
+  }
+  .delete-form a{
+    color: white;
+    text-decoration: none;
+  }
+  .delete-form a:visited{
+    color: white;
+    text-decoration: none;
+  }
+  
+  
+  
+  
+  .series-form {
+    height: 700px;
+    width: 1000px;
+    background-color: white;
+    color: #222222;
+  }
+  .series-form__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 640px; 
+  }
+  .series-form__name{
+    width: 832px;
+    height: 63px;
+    background: #FFFFFF;
+    border: 1px solid #222222;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 24px;
+    line-height: 46px;
+    color: #3A3434;
+  }
+  .series-form__desc{
+    width: 832px;
+    height: 203px;
+    background: #FFFFFF;
+    border: 1px solid #222222;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size:24px;
+    line-height: 46px;
+    color: #3A3434;
+  }
+  
+  
+  
+  
+  .picture-form {
+    height: 740px;
+    width: 1150px;
+    background-color: white;
+    color: #222222;
+    display: flex;
+    flex-direction: column;
+  }
+  .picture-form__content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 640px; 
+  }
+  .picture-form__text-fildes{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+    column-gap: 2rem;
+  }
+  .picture-form__elem{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 2rem;
+    column-gap: 2rem;
+  }
+  .picture-form input[type=text],
+  .picture-form input[type=number]{
+    width: 377px;
+    height: 63px;
+    background: #FFFFFF;
+    border: 1px solid #222222;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 24px;
+    line-height: 46px;
+    color: #3A3434;
+  }
+  .picture-form input[type=file]{
+    width: 377px;
+    height: 63px;
+    background: #FFFFFF;
+    
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size: 24px;
+    line-height: 46px;
+    color: #3A3434;
+  }
+  .picture-form textarea{
+    width: 377px;
+    height: 185.77px;
+    background: #FFFFFF;
+    border: 1px solid #222222;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-size:24px;
+    line-height: 46px;
+    color: #3A3434;
+  }
+  
+  @media  (max-width:500px) { 
+  
+    .form-btn{
+      width: 150px;
+      height: 30px;
+      font-size: 18px;
+      line-height: 23px;
+    }
+  
+    .picture-form, 
+    .series-form,
+    .delete-form{
+      width: 400px;
+    }
+
+    .delete-form label{
+      font-size: 18px;
+      line-height: 23px;
+    }
+    .delete-form__content{
+      padding: 0 1rem;
+      text-align: center;
+    }
+  
+    .picture-form textarea{
+      width: 160px;
+      font-size: 18px;
+      height: 90px;
+    }
+    .picture-form input[type=text],
+    .picture-form input[type=number]  {
+      width: 160px;
+      height: 30px;
+      font-size: 18px;
+    }
+    .picture-form input[type=file]{
+        width: 200px;
+        height: 30px;
+        font-size: 18px;
+        line-height: 23px;
+    }
+
+    .series-form__name{
+      width: 320px;
+      height: 30px;
+      font-size: 18px;
+      line-height: 23px;
+    }
+    .series-form__desc{
+      width: 320px;
+      height: 180px;
+      font-size: 18px;
+      line-height: 23px;
+    }
+  }
