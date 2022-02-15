@@ -8,6 +8,7 @@
   
 .table_small{
     display: block;
+
     border-collapse: collapse;
     font-size: 18px;
     max-width: 400px;
