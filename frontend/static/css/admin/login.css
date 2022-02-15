@@ -76,7 +76,7 @@ body{
 }
 
 
-@media (max-width:425px) {
+@media (max-width:500px) {
 
     .login-container{
         grid-template-columns: 1fr;
