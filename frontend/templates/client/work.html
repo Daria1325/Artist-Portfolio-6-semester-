@@ -1,46 +1,64 @@
 {{define "work"}}
 {{template "header"}}
 
-<!-- <title>{{.Title}}</title> -->
 <main class="main">
     <div class="main__content">
 
-        <div class="work-block">
-            <!-- <img src="/image/Faces/Alexandr.jpeg"> -->
-            <a href="series/1" class="work-block__img1"></a>
-            <a href="#" class="work-block__img2"></a>
-            <a href="#" class="work-block__img3"></a>
-            <a href="#" class="work-block__img4"></a>
-            <a href="#" class="work-block__img5"></a>
-            <a href="#" class="work-block__img6"></a>
-        </div>
-        <div class="work-block">
-            <div class="work-block__img1"></div>
-            <div class="work-block__img2"></div>
-            <div class="work-block__img3"></div>
-            <div class="work-block__img4"></div>
-            <div class="work-block__img5"></div>
-            <div class="work-block__img6"></div>
-        </div>
 
+        <div class="work-block">
+            {{range $key, $value:= .Items}}
 
+                {{if eq (mod $key 6) 0}}
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img1" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                   
+                </a>
+                {{else if eq (mod $key 6) 1}}
+
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img2" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                   
+                </a>
+                {{else if eq (mod $key 6) 2}}
+
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img3" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                    
+                </a>
+                {{else if eq (mod $key 6) 3}}
+
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img4" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                    
+                </a>
+                {{else if eq (mod $key 6) 4}}
+
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img5" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                   
+                </a>
+                {{else if eq (mod $key 6) 5}}
+
+                <a class="work-block__itm" href="series/{{$value.Series.ID}}" >
+                    <img class="work-block__img6" src="{{$value.Path}}">
+                    <h2 class="work-block__title"> {{$value.Series.Name}} </h2>
+                   
+                </a>
+                {{end}}
+                {{else}}
+                <div><strong>no series</strong></div>
+            {{end}}
+        </div>
     </div>
 
 
 
 
-    <!-- {{range $key, $value:= .Items}}
-
-            {{if eq (mod $key 2) 0}}
-            <div>{{$key}}</div>
-            <div> {{$value.Name}} </div>
-            {{else}}
-            <div>{{$key}}</div>
-            <div> {{$value.Description}} </div>
-            {{end}}
-        {{else}}
-        <div><strong>no series</strong></div>
-        {{end}} -->
 </main>
 
 

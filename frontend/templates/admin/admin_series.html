@@ -1,177 +1,120 @@
 {{define "admin_series"}}
-<!DOCTYPE html>
-<html lang="en">
+{{template "header_admin"}}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../../static/js/script.js"></script>
-    <link rel="stylesheet" href="../../static/css/admin/edit.css">
+    <div class="edit-page">
+        <h2 class="edit-page__title">Welcome to the series edit page</h2>
 
-</head>
-
-<body>
-
-    <div class="series_table">
-        <h2>Welcome to the series edit page</h2>
-
-        <table>
+        <table class="table">
             <thead>
                 <th>ID</th>
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
-                <th><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
+                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
             </thead>
-            <!-- {{range $key, $value:= .Items}}
+            {{range $key, $value:= .Items}}
             <tr>
                 <td> {{$value.ID}} </td>
                 <td> {{$value.Name}} </td>
                 <td> {{$value.Description.String}} </td>
-                <td><button onclick="openForm('edit_s', '{{$value.ID}}',$key)">edit</button></td> //нужно передавать номер строки $key чтобі потом в открытие формы по индексу к данным обращатся
-                <td><button onclick="openForm('delete_s','{{$value.ID}}')">delete</button></td>
+
+                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                     <i class="fa fa-pencil"></i></button></td>
+                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+                    <i class="fa fa-trash"></i></button></td>
                 {{else}}
                 <td><strong>no series</strong></td>
-            </tr> -->
 
-            <!-- {{end}} -->
-            <td> id </td>
-            <td> nme </td>
-            <td> sdsa </td>
-            <td><button onclick="openForm('edit_s', 1000, 1)"> edit</button></td>
-            <td><button onclick="openForm('delete_s', 1000)">delete</button></td>
             </tr>
+             {{end}}
 
-            <!-- <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s', 1000)"> edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s', 1000)">delete</button></td>-->
-            <!--            </tr>-->
-            <!--            <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
-            <!--            </tr>-->
-            <!--            <tr>-->
-            <!--                <td> id </td>-->
-            <!--                <td> nme </td>-->
-            <!--                <td> sdsa </td>-->
-            <!--                <td><button onclick="openForm('edit_s')">edit</button></td>-->
-            <!--                <td><button onclick="openForm('delete_s')">delete</button></td>-->
-            <!--            </tr> -->
         </table>
+        <table class="table-small table">
+            <thead>
+                <th>ID</th>
+                <th>NAME</th>
+                
+                <th colspan="2" class="btn-cell"><button onclick="openForm('add_s')" class="add-open-b">ADD SERIES</button></th>
+            </thead>
+            {{range $key, $value:= .Items}}
+            <tr>
+                <td> {{$value.ID}} </td>
+                <td> {{$value.Name}} </td>
+               
+                <td><button class="edit-open-b" onclick="openForm('edit_s', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}')">
+                     <i class="fa fa-pencil"></i></button></td>
+                <td ><button class="delete-open-b" onclick="openForm('delete_s','{{$value.ID}}')"> 
+                    <i class="fa fa-trash"></i></button></td>
+                {{else}}
+                <td><strong>no series</strong></td>
+            </tr>
+             {{end}}
 
+        </table>
     </div>
 
 
     <div class="open-popup" id="delete_s">
-        <form action="" id="delete_series" class="delete-series-form">
-            <input type="checkbox" id="series_delete_accsept">
-            <label for="series_delete_accsept">I understand, that it would be deleted permanently</label>
-            <button type="submit"><a href="series/delete/">SUBMIT</a></button>
-            <button onclick="closeForm('delete_s')">CANCEL</button>
+
+        <form action="" id="delete_series" class="delete-form">
+
+            <div class="form-header small"></div>
+            <div class="delete-form__content">
+                <label for="delete_accsept">I understand, that it would be deleted permanently</label>
+                
+                <div>
+                    <button class="form-btn"  type="submit"><a href="series/delete/">SUBMIT</a></button>
+                    <button class="form-btn"  onclick="closeForm('delete_s')">CANCEL</button>
+                </div>
+            </div>
+
         </form>
     </div>
 
 
-    <!--    <div class="open-popup" id="edit_s">-->
-    <!--        <form method="POST" action="series/edit/7" id="edit_series" class="edit_series_form">-->
-
-    <!--            <div class="form_header"></div>-->
-
-    <!--            <input type="text" size="40" placeholder="Name" name="edit_series_name">-->
-
-    <!--            <input type="text" size="40" placeholder="Description" name="edit_series_description">-->
-
-
-    <!--&lt;!&ndash;            <div class="multiselect">&ndash;&gt;-->
-    <!--&lt;!&ndash;                <div class="selectBox" onclick="showCheckboxes()">&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <select>&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <option>Select an option</option>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    </select>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <div class="overSelect"></div>&ndash;&gt;-->
-    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <div id="checkboxes">&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="one">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="one" />First checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="two">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="two" />Second checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                    <label for="three">&ndash;&gt;-->
-    <!--&lt;!&ndash;                        <input type="checkbox" id="three" />Third checkbox</label>&ndash;&gt;-->
-    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
-
-    <!--&lt;!&ndash;            </div>&ndash;&gt;-->
-
-    <!--            <input type="submit" value="Send" />-->
-    <!--            <button type="submit"><a href="series/edit/">SUBMIT</a></button>-->
-    <!--            <button onclick="closeForm('edit_s')">CANCEL</button>-->
-
-    <!--        </form>-->
-
-    <!--    </div>-->
-
     <div class="open-popup" id="add_s">
+        <form method="post" action="series/add" id="add_series" class="series-form">
 
-        <form method="post" action="series/add" id="add_series" class="add-series-form">
+
             <div class="form-header"></div>
-            <input type="text" size="40" placeholder="Name" name="add_series_name">
-            <input type="text" size="40" placeholder="Description" name="add_series_description">
+            <div class="series-form__content">
 
 
-            <!--            <div class="multiselect">-->
-            <!--                <div class="selectBox" onclick="showCheckboxes()">-->
-            <!--                    <select>-->
-            <!--                        <option>Select an option</option>-->
-            <!--                    </select>-->
-            <!--                    <div class="overSelect"></div>-->
-            <!--                </div>-->
+                <h2>Add Series</h2>
 
-            <!--                <div id="checkboxes">-->
-            <!--                    <label for="one">-->
-            <!--                        <input type="checkbox" id="one" />First checkbox</label>-->
-            <!--                    <label for="two">-->
-            <!--                        <input type="checkbox" id="two" />Second checkbox</label>-->
-            <!--                    <label for="three">-->
-            <!--                        <input type="checkbox" id="three" />Third checkbox</label>-->
-            <!--                </div>-->
+                <textarea class="series-form__name" required type="text" size="40" placeholder="Name" name="add_series_name"></textarea>
+                <textarea class="series-form__desc" type="text" size="40" placeholder="Description" name="add_series_description"></textarea>
+                <div class="series-form__btn">
+                    <input class="form-btn" type="submit" value="SUBMIT">
+                    <button class="form-btn" onclick="closeForm('add_s') ">CANCEL</button>
+                </div>
 
-            <!--            </div>-->
-
-            <input type="submit" value="SUBMIT">
-            <button onclick="closeForm('add_s') ">CANCEL</button>
-
-
+            </div>
         </form>
     </div>
 
     <div class="open-popup" id="edit_s">
-        <form method="post" action="" id="edit_series" class="edit-series-form">
+
+        <form method="POST" action="series/edit/" id="edit_series" class="series-form">
 
             <div class="form-header"></div>
+            <div class="series-form__content">
+ 
+
+                <h2>Edit Series</h2>
+
+                <input  type="hidden" id="id" name="id">
+                <textarea  class="series-form__name" required type="text" id="name" size="40" placeholder="Name" name="edit_series_name"></textarea>
+                <textarea class="series-form__desc" type="text" id="description" size="40" placeholder="Description" name="edit_series_description"></textarea>
+                <div class="series-form__btn">
+                    <input class="form-btn"  type="submit" value="SUBMIT" />
+                    <button class="form-btn"  onclick="closeForm('edit_s')">CANCEL</button>
+                </div>
 
 
-            <input type="hidden" name="id" id="id" />
-            <input type="text" name="edit_series_description" id="name" placeholder="Name">
-            <!-- {{(index .Items 6).ID }} -->
-            <!-- <input type="text" name="edit_series_name" id="name" placeholder="Name" /> -->
-            <!-- {{(index .Items 6).Name }} -->
-            <input type="text">
-            <!-- <input type="text" name="edit_series_description" id="description" placeholder="Description" /> -->
-            <!-- {{(index .Items 6).Description.String }} -->
-
-
-
-            <input type="submit" value="SUBMIT" />
-            <button onclick="closeForm('edit_s')">CANCEL</button>
-
+            </div>
         </form>
 
     </div>
-
 
 </body>
 

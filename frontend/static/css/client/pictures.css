@@ -2,12 +2,19 @@
 .picture{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    justify-items: center
 }
 
 .picture__info{
     display: grid;
     align-items: center;
     align-content: space-evenly;
+
+    font-size: 36px;
+    line-height: 64px;
+
+    letter-spacing: 0.125em;
+
 }
 
 
@@ -29,6 +36,12 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         justify-items: center
+    }
+
+    .picture__info{
+        font-size: 18px;
+        line-height: 31px;
+    
     }
 
 }

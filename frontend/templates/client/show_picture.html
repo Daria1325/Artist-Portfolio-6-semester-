@@ -2,29 +2,31 @@
 {{template "header"}}
 
 
+<!--<main class="main">-->
+<!--    <div class="main__content">-->
+<!--        <div class="picture">-->
+<!--            <div class="picture__img"></div>-->
+<!--            <div class="picture__info">-->
+<!--                <p class="picture__title">Name, year, material,size</p>-->
+<!--                <p class="picture__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse-->
+<!--                    repellendus libero tenetur itaque asperiores laboriosam. Lorem ipsum dolor sit amet consectetur-->
+<!--                    adipisicing elit. Eius, dicta.</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</main>-->
+
 <main class="main">
     <div class="main__content">
         <div class="picture">
-            <div class="picture__img"></div>
+           <img class="picture__img" src="{{.Path.String}}" alt="painting {{.Name}}">
             <div class="picture__info">
-                <p class="picture__title">Name, year, material,size</p>
-                <p class="picture__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-                    repellendus libero tenetur itaque asperiores laboriosam. Lorem ipsum dolor sit amet consectetur
-                    adipisicing elit. Eius, dicta.</p>
+                <p class="picture__title">{{.Name}} <br> {{.Date.String}} {{.Material.String}} {{.Size.String}}</p>
+                <p class="picture__description">{{.Description.String}}</p>
             </div>
         </div>
     </div>
 </main>
-
-
-<!-- <div><img src="{{.Path.String}}" alt="painting {{.Name}}"></div>
-<div>
-    <div>{{.Name}}</div>
-    <div>{{.Date.String}}</div>
-    <div>{{.Material.String}}</div>
-    <div>{{.Size.String}}</div>
-    <div>{{.Description.String}}</div>
-</div> -->
 
 </body>
 

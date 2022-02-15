@@ -1,6 +1,5 @@
-
 * {
-  font-family: Abel;
+  font-family: Abel, sans-serif;
   font-style: normal;
   font-weight: normal;
   margin: 0;
@@ -19,7 +18,9 @@
   width: auto;
   height: 97px;
   padding-left: 10vh;
-  padding-top: 32px;
+
+  padding-top: 25px;
+
   font-size: 48px;
   color: #222222;
 
