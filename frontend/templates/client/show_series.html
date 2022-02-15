@@ -2,46 +2,22 @@
 {{template "header"}}
 
 
-<!--<main class="main">-->
-<!--    <div class="main__content">-->
-<!--        <div class="series">-->
-<!--            <div class="series__title">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae eum numquam-->
-<!--                eveniet natus, possimus illo similique! Consequatur omnis cupiditate pariatur, molestias, in error illum-->
-<!--                sequi debitis excepturi, eaque possimus amet.</div>-->
-<!--            <div class="series__gallery">-->
-<!--                <a href="1/1" class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-<!--                <a class="series__img"></a>-->
-
-
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</main>-->
-
-
-
 <main class="main">
     <div class="main__content">
+
         <div class="series">
             <div class="series__title">
                 {{.Series.Name}} <br>
-            {{.Series.Description.String}}</div>
-           
+                {{.Series.Description.String}}</div>
+
             <div class="series__gallery">
                 {{range .Pictures}}
-                <a class="series__itm" href="{{.SeriesId}}/{{.ID}}" >
-                    
+                <a class="series__itm" href="{{.SeriesId}}/{{.ID}}">
+
                     <img class="series__img" src="{{.Path.String}}">
-                     <div class="series__itm-name">{{.Name}}</div>
-                      
-               </a>
+                    <div class="series__itm-name">{{.Name}}</div>
+
+                </a>
                 {{end}}
             </div>
 

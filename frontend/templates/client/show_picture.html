@@ -2,24 +2,11 @@
 {{template "header"}}
 
 
-<!--<main class="main">-->
-<!--    <div class="main__content">-->
-<!--        <div class="picture">-->
-<!--            <div class="picture__img"></div>-->
-<!--            <div class="picture__info">-->
-<!--                <p class="picture__title">Name, year, material,size</p>-->
-<!--                <p class="picture__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse-->
-<!--                    repellendus libero tenetur itaque asperiores laboriosam. Lorem ipsum dolor sit amet consectetur-->
-<!--                    adipisicing elit. Eius, dicta.</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</main>-->
-
 <main class="main">
     <div class="main__content">
+
         <div class="picture">
-           <img class="picture__img" src="{{.Path.String}}" alt="painting {{.Name}}">
+            <img class="picture__img" src="{{.Path.String}}" alt="painting {{.Name}}">
             <div class="picture__info">
                 <p class="picture__title">{{.Name}} <br> {{.Date.String}} {{.Material.String}} {{.Size.String}}</p>
                 <p class="picture__description">{{.Description.String}}</p>
