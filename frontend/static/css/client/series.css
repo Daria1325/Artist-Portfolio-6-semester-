@@ -43,6 +43,7 @@
 
 
 
+
 .series__itm:hover .series__itm-name{
     position: absolute;
     opacity: 1;
@@ -52,7 +53,7 @@
     filter: blur(4px);
  }
  
- 
+
 @media  (max-width:800px) {
     .series__gallery{
         grid-template-columns: 1fr 1fr;
@@ -62,9 +63,11 @@
          width: 160px;
     }
 
+
     .series__itm-name{
         font-size: 18px;
         line-height: 41px;
         height: 100px;
     }
 }
+

@@ -13,6 +13,7 @@
 
 var anyFormOpen = false;
 
+
 function openForm(s, objID, objName, objDesc, objPath, objPrice, objDate, objMat, objSize) {
   objType = s.split('_')[1];
 
@@ -53,6 +54,7 @@ console.log(document.querySelector('#' + s).querySelector('form').action)
                   
               }
         }
+
   }
 
 }
@@ -75,6 +77,4 @@ function closeForm(s) {
 
 
 }
-
-
 

@@ -37,9 +37,11 @@
         grid-template-rows: 1fr 1fr;
         justify-items: center
     }
+
     .picture__info{
         font-size: 18px;
         line-height: 31px;
     
     }
+
 }
