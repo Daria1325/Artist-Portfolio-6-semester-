@@ -39,7 +39,7 @@
 }
 
 
-@media  (max-width:500px) {
+@media  (max-width:600px) {
   .header__title{
     justify-content: center;
     padding-left: 0;

@@ -20,7 +20,6 @@ func main() {
 	server.MainServer.Repo = database.Init(config)
 	defer server.MainServer.Repo.Close()
 	server.MainServer.StatusUser = false
-
 	err = server.Start(config)
 	if err != nil {
 		_ = fmt.Errorf("%s", err.Error())

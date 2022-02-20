@@ -20,7 +20,6 @@ type Server struct {
 	Repo       *database.Repo
 	StatusUser bool
 }
-
 type SeriesWithPicture struct {
 	Series database.Series
 	Path   string
@@ -35,34 +34,29 @@ func getFileName(s string) string {
 	}
 	return ""
 }
-
 func Copy(src, dst string) error {
 	in, err := os.Open(src)
 	if err != nil {
 		return err
 	}
 	defer in.Close()
-
 	out, err := os.Create(dst)
 	if err != nil {
 		return err
 	}
 	defer out.Close()
-
 	_, err = io.Copy(out, in)
 	if err != nil {
 		return err
 	}
 	return out.Close()
 }
-
 func about(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("frontend/templates/client/about.html", "frontend/templates/client/header.html")
 	if err != nil {
 		fmt.Println(w, err.Error())
 		return
 	}
-
 	t.ExecuteTemplate(w, "about", nil)
 }
 func contact(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +65,6 @@ func contact(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(w, err.Error())
 		return
 	}
-
 	t.ExecuteTemplate(w, "contact", nil)
 }
 func clients(w http.ResponseWriter, r *http.Request) {
@@ -85,7 +78,6 @@ func clients(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-
 	t.ExecuteTemplate(w, "clients", clients)
 }
 func work(w http.ResponseWriter, r *http.Request) {
@@ -116,7 +108,6 @@ func work(w http.ResponseWriter, r *http.Request) {
 		p := SeriesWithPicture{Series: series[i], Path: path}
 		item = append(item, p)
 	}
-
 	data := struct {
 		Title string
 		Items []SeriesWithPicture
@@ -124,7 +115,6 @@ func work(w http.ResponseWriter, r *http.Request) {
 		Title: "Work",
 		Items: item,
 	}
-
 	t.ExecuteTemplate(w, "work", data)
 }
 func showSeries(w http.ResponseWriter, r *http.Request) {
@@ -133,7 +123,6 @@ func showSeries(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(w, err.Error())
 		return
 	}
-
 	vars := mux.Vars(r)
 	id := vars["id"]
 	pictures := []database.Picture{}
@@ -148,7 +137,6 @@ func showSeries(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-
 		data := struct {
 			Title    string
 			Series   database.Series
@@ -158,7 +146,6 @@ func showSeries(w http.ResponseWriter, r *http.Request) {
 			Series:   series,
 			Pictures: pictures,
 		}
-
 		t.ExecuteTemplate(w, "show_series", data)
 	} else {
 		t.Parse("<div>404 page not found</div>")
@@ -186,18 +173,14 @@ func showPicture(w http.ResponseWriter, r *http.Request) {
 		t.Parse("<div>404 page not found</div>")
 		t.Execute(w, nil)
 	}
-
 }
-
 func login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
-
 		t, err := template.ParseFiles("frontend/templates/admin/login.html")
 		if err != nil {
 			fmt.Println(w, err.Error())
 			return
 		}
-
 		t.ExecuteTemplate(w, "login", nil)
 	}
 	if r.Method == "POST" {
@@ -205,7 +188,6 @@ func login(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal("Error loading .env file")
 		}
-
 		user := os.Getenv("USERNAME_ADMIN")
 		pass := os.Getenv("PASSWORD")
 		err = r.ParseForm()
@@ -222,11 +204,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/login", http.StatusSeeOther)
 		}
 	}
-
 }
 func admin(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
-
 		t, err := template.ParseFiles("frontend/templates/admin/admin.html", "frontend/templates/admin/header.html")
 		if err != nil {
 			fmt.Println(w, err.Error())
@@ -236,9 +216,7 @@ func admin(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
-
 func adminSeries(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		t, err := template.ParseFiles("frontend/templates/admin/admin_series.html", "frontend/templates/admin/header.html")
@@ -258,12 +236,10 @@ func adminSeries(w http.ResponseWriter, r *http.Request) {
 			Title: "Series",
 			Items: series,
 		}
-
 		t.ExecuteTemplate(w, "admin_series", data)
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
 func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
@@ -283,12 +259,10 @@ func addSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatal(err)
 		}
-
 		http.Redirect(w, r, "/admin/series", http.StatusSeeOther)
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
 func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
@@ -305,7 +279,6 @@ func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		series.Name = r.FormValue("edit_series_name")
 		series.Description.String = r.FormValue("edit_series_description")
-
 		err = MainServer.Repo.UpdateSeries(series)
 		if err != nil {
 			fmt.Println(w, err.Error())
@@ -315,7 +288,6 @@ func editSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
 func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
@@ -331,9 +303,7 @@ func deleteSeriesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
-
 func adminPictures(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		t, err := template.ParseFiles("frontend/templates/admin/admin_pictures.html", "frontend/templates/admin/header.html")
@@ -360,17 +330,14 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 			Series: series,
 			Items:  pictures,
 		}
-
 		t.ExecuteTemplate(w, "admin_pictures", data)
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
 func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
 		picture := database.Picture{}
-
 		err := r.ParseMultipartForm(32 << 20)
 		if err != nil {
 			log.Println(err)
@@ -398,7 +365,6 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer file.Close()
-
 		path := "./data/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 		f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
@@ -409,7 +375,6 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		io.Copy(f, file)
 		picture.Path.String = "/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 		picture.ClientId.Valid = false
-
 		err = MainServer.Repo.AddPicture(picture)
 		if err != nil {
 			fmt.Println(w, err.Error())
@@ -419,7 +384,6 @@ func addPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
 func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 	if MainServer.StatusUser {
@@ -427,15 +391,12 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 		}
-
 		vars := mux.Vars(r)
 		id, err := strconv.Atoi(vars["id"])
 		if err != nil {
 			log.Println(err)
 		}
-
 		prevDataPicture, _ := MainServer.Repo.GetPictureById(vars["id"])
-
 		picture := database.Picture{}
 		picture.ID = id
 		picture.Name = r.FormValue("edit_picture_name")
@@ -457,7 +418,6 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 		}
 		picture.SeriesId = seriesID
-
 		if seriesID != prevDataPicture.SeriesId {
 			pathSrc := "./data" + prevDataPicture.Path.String
 			pathDest := "./data/image/" + strconv.Itoa(picture.SeriesId) + "/" + getFileName(pathSrc)
@@ -487,7 +447,6 @@ func editPicturesHandler(w http.ResponseWriter, r *http.Request) {
 			picture.Path.String = "/image/" + strconv.Itoa(seriesID) + "/" + handler.Filename
 			defer file.Close()
 		}
-
 		err = MainServer.Repo.UpdatePicture(picture)
 		if err != nil {
 			fmt.Println(w, err.Error())
@@ -517,9 +476,7 @@ func deletePicturesHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-
 }
-
 func Start(config *cnfg.Config) error {
 	rtr := mux.NewRouter()
 	rtr.HandleFunc("/about", about).Methods("GET")
@@ -528,7 +485,6 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/work", work).Methods("GET")
 	rtr.HandleFunc("/series/{id:[0-9]+}", showSeries).Methods("GET")
 	rtr.HandleFunc("/series/{id_s:[0-9]+}/{id_p:[0-9]+}", showPicture).Methods("GET")
-
 	rtr.HandleFunc("/login", login)
 	rtr.HandleFunc("/admin", admin).Methods("GET")
 	rtr.HandleFunc("/admin/series", adminSeries)
@@ -539,11 +495,9 @@ func Start(config *cnfg.Config) error {
 	rtr.HandleFunc("/admin/pictures/edit/{id:[0-9]+}", editPicturesHandler).Methods("POST")
 	rtr.HandleFunc("/admin/pictures/delete/{id:[0-9]+}", deletePicturesHandler)
 	rtr.HandleFunc("/admin/pictures/add", addPicturesHandler)
-
 	http.Handle("/", rtr)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./frontend/static/"))))
 	http.Handle("/image/", http.StripPrefix("/image/", http.FileServer(http.Dir("./data/image/"))))
-
 	err := http.ListenAndServe(config.BindAddr, nil)
 	if err != nil {
 		return err

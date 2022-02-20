@@ -75,7 +75,7 @@
     transition: .5s;
 }
 
-@media (max-width:500px) {
+@media (max-width:600px) {
     .work-block{
         grid-template-columns: 1fr;
     }

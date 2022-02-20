@@ -22,7 +22,7 @@
     text-transform: capitalize;
 }
 
- @media  (max-width:500px) {
+ @media  (max-width:600px) {
     .clients__itm {
         font-size: 14px;
         line-height: 20px;

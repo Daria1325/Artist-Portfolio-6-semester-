@@ -168,7 +168,7 @@
     color: #3A3434;
   }
   
-  @media  (max-width:500px) { 
+  @media  (max-width:600px) {
   
     .form-btn{
       width: 150px;

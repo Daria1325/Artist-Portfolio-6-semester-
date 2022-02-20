@@ -26,23 +26,11 @@ type Series struct {
 	Description sql.NullString `db:"description"`
 }
 type Client struct {
-	ID      int    `db:"id"`
-	Name    string `db:"name"`
-	Contact sql.NullInt32    `db:"contact_id"`
-	Type    int    `db:"type_id"`
+	ID      int           `db:"id"`
+	Name    string        `db:"name"`
+	Contact sql.NullInt32 `db:"contact_id"`
+	Type    int           `db:"type_id"`
 }
-
-type Contact struct {
-	ID        int    `db:"id"`
-	Email     string `db:"email"`
-	Number    int    `db:"number"`
-	AddNumber int    `db:"add_number"`
-}
-type ClientType struct {
-	ID   int    `db:"id"`
-	Name string `db:"name"`
-}
-
 type Repo struct {
 	db *sqlx.DB
 }
@@ -50,7 +38,6 @@ type Repo struct {
 func New(db *sqlx.DB) *Repo {
 	return &Repo{db: db}
 }
-
 func (r *Repo) GetSeries() ([]Series, error) {
 	series := []Series{}
 	rows, err := r.db.Queryx("SELECT * FROM series ORDER BY id")
@@ -90,7 +77,6 @@ func (r *Repo) GetSeriesById(id string) (Series, error) {
 	} else {
 		return series[0], nil
 	}
-
 }
 func (r *Repo) GetSeriesIDByName(name string) (int, error) {
 	series := []Series{}
@@ -135,7 +121,6 @@ func (r *Repo) AddSeries(item Series) (int, error) {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return -1, err
 	}
-
 	return id, nil
 }
 func (r *Repo) UpdateSeries(item Series) error {
@@ -165,11 +150,8 @@ func (r *Repo) GetPicturePathBySeriesID(id string) (string, error) {
 	if len(pictures) == 0 {
 		return "", nil
 	}
-
 	return pictures[0].Path.String, nil
-
 }
-
 func (r *Repo) GetClients(num int) ([]Client, error) {
 	clients := []Client{}
 	rows, err := r.db.Queryx(fmt.Sprintf("SELECT * FROM clients WHERE type_id <> 2 LIMIT '%d'", num))
@@ -188,7 +170,6 @@ func (r *Repo) GetClients(num int) ([]Client, error) {
 	}
 	return clients, nil
 }
-
 func (r *Repo) GetPictures() ([]Picture, error) {
 	pictures := []Picture{}
 	rows, err := r.db.Queryx("SELECT * FROM pictures ORDER BY id")
@@ -226,9 +207,7 @@ func (r *Repo) GetPictureById(id string) (Picture, error) {
 	if len(pictures) == 0 {
 		return Picture{ID: -1}, nil
 	}
-
 	return pictures[0], nil
-
 }
 func (r *Repo) GetPictureBySeries(id string) ([]Picture, error) {
 	pictures := []Picture{}
@@ -257,10 +236,8 @@ func (r *Repo) DeletePictures(id string) error {
 	return nil
 }
 func (r *Repo) AddPicture(item Picture) error {
-
 	_, err := r.db.Queryx("INSERT INTO pictures (name,path,price,date,material,size, description,series_id)" +
 		fmt.Sprintf(" VALUES ('%s','%s', '%f', '%s', '%s','%s','%s','%d')", item.Name, item.Path.String, item.Price.Float64, item.Date.String, item.Material.String, item.Size.String, item.Description.String, item.SeriesId))
-
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
@@ -270,25 +247,21 @@ func (r *Repo) AddPicture(item Picture) error {
 func (r *Repo) UpdatePicture(item Picture) error {
 	_, err := r.db.Queryx(fmt.Sprintf("UPDATE pictures SET name = '%s',path = '%s',price = '%f',", item.Name, item.Path.String, item.Price.Float64) +
 		fmt.Sprintf("date = '%s',material='%s',size='%s', description='%s',series_id = '%d' WHERE id = '%d'", item.Date.String, item.Material.String, item.Size.String, item.Description.String, item.SeriesId, item.ID))
-
 	if err != nil {
 		fmt.Errorf("failed to execute the query: %v", err.Error())
 		return err
 	}
 	return nil
 }
-
 func (r *Repo) Close() error {
 	err := r.db.Close()
 	return err
 }
-
 func Init(config *cnfg.Config) *Repo {
 	db, err := sqlx.Open("postgres", fmt.Sprintf("host =%s port=%s user=%s password=%s dbname=%s sslmode=disable", config.DbHost, config.DbPort, config.DbUser, config.DbPassword, config.DbName))
 	if err != nil {
 		return nil
 	}
 	repo := New(db)
-
 	return repo
 }

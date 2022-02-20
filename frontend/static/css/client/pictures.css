@@ -16,7 +16,7 @@
     height: 500px;
     width: 500px;
 } 
-@media  (max-width:800px) {
+@media  (max-width:600px) {
     .picture__img {
         height: 300px;
         width: 300px;

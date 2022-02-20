@@ -42,7 +42,7 @@
     filter: blur(4px);
  }
 
-@media  (max-width:500px) {
+@media  (max-width:600px) {
     .series__gallery{
         grid-template-columns: 1fr 1fr;
     }

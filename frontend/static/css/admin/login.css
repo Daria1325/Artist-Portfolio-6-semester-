@@ -5,22 +5,21 @@
     color: #222222;
 }
 
-html{
-    height: 100%;
-}
+/*html{*/
+/*    height: 100%;*/
+/*}*/
 
-body{
-    min-height: 100%;
-}
+/*body{*/
+/*    min-height: 100%;*/
+/*}*/
 
 .login-container{
     display: grid;
     grid-template-columns: 2fr 3fr;
-    min-height: 100vh;
+    height: 100vh;
 }
 .login-container__header{
     font-size: 72px;
-    line-height:  px;
     display: flex;
     align-items: center;
     margin-left: 76px;
@@ -39,7 +38,7 @@ body{
 .login-form{
     background-color: #C4C4C4;
     width: 510px;
-    height: 300px;
+    height: 350px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -48,10 +47,10 @@ body{
 }
 
 .login-form input {
+    padding-left: 1rem;
     width: 429px;
     height: 47.05px;
     background: #FFFFFF;
-    border: 1px solid #222222;
     box-sizing: border-box;
     border-radius: 10px;
     font-size: 24px;
@@ -73,14 +72,18 @@ body{
     font-size: 24px;
     align-items: center;
     color: #222222;
+    display: grid;
+    justify-content: center;
 }
 
 
-@media (max-width:500px) {
+
+
+@media (max-width: 600px) {
 
     .login-container{
         grid-template-columns: 1fr;
-        grid-template-rows: 90px 1fr;
+        grid-template-rows: 70px 1fr;
     }
 
     .login-container__header{
@@ -104,7 +107,7 @@ body{
         align-items: center;
     }
     .login-form__filde {
-        width: 325px;
+        /*width: 325px;*/
         font-size: 18px;
     }
     .login-form input {

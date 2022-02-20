@@ -59,11 +59,11 @@
 
 
   
-@media  (max-width:500px) {
+@media  (max-width:600px) {
     .table{
       display: none;
     }
-    .table-small{
+    .table_small{
       display: block;
     }
     
