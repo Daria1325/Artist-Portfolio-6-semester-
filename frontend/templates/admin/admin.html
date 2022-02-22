@@ -1,20 +1,23 @@
 {{define "admin"}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/admin/edit.css" />
-    <script src="../../static/js/script.js"></script>
-</head>
-<body>
-    <h1>DARKO BRUZHUCH</h1>
-    <h2>Welcome to the edit page</h2>
-    
-    <button> <a href="admin/series">SERIES</a></button>
-    <button ><a href="admin/pictures">PICTURES</a></button> 
+{{template "header_admin"}}
+
+
+<div class="choose">
+
+    <div class="choose__itm">
+        <a class="choose__elem" href="admin/series"></a>
+        <h1 class="choose__title">SERIES</h1>
+    </div>
+    <div class="choose__itm">
+        <a class="choose__elem" href="admin/pictures"></a>
+        <h1 class="choose__title">PICTURES</h1>
+
+    </div>
+
+</div>
 
 
 </body>
+
 </html>
 {{end}}

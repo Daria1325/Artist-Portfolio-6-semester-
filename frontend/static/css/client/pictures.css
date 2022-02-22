@@ -1,0 +1,33 @@
+
+.picture{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center
+}
+.picture__info{
+    display: grid;
+    align-items: center;
+    align-content: space-evenly;
+    font-size: 36px;
+    line-height: 64px;
+    letter-spacing: 0.125em;
+}
+.picture__img {
+    height: 500px;
+    width: 500px;
+} 
+@media  (max-width:600px) {
+    .picture__img {
+        height: 300px;
+        width: 300px;
+    } 
+    .picture{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-items: center
+    }
+    .picture__info{
+        font-size: 18px;
+        line-height: 31px;
+    }
+}

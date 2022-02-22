@@ -1,0 +1,51 @@
+*{
+  font-family: Abel, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+.header__title{
+  font-size: 48px;
+   display: flex;
+   align-items: center;
+   padding-left: 10vh;
+   padding-top: 25px;
+}
+.header a{
+  text-decoration: none;
+}
+.header a:hover{
+  color: #222222;
+}
+.header a:visited{
+  color: #222222;
+}
+
+
+.edit-page{
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 150px 1fr;
+}
+.edit-page__title{
+  height: 61px;
+  font-size: 36px;
+  line-height: 61px;
+  color: #222222;
+}
+
+
+@media  (max-width:600px) {
+  .header__title{
+    justify-content: center;
+    padding-left: 0;
+  }
+  .edit-page__title{
+    font-size: 24px;
+    line-height: 46px;
+  }
+}

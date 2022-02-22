@@ -2,17 +2,31 @@
 {{template "header"}}
 
 
-<div>{{.Series.Name}}</div>
-<div>{{.Series.Description.String}}</div>
-<div>
-    {{range $key, $value:= .Pictures}}
-    <div>{{$value.Name}}</div>
-    <div><img src="{{$value.Path.String}}" alt="painting {{$value.Name}}"></div>
-    {{else}}
-    <div><strong>no pictures</strong></div>
-    {{end}}
-</div>
+<main class="main">
+    <div class="main__content">
+
+        <div class="series">
+            <div class="series__title">
+                {{.Series.Name}} <br>
+                {{.Series.Description.String}}</div>
+
+            <div class="series__gallery">
+                {{range .Pictures}}
+                <a class="series__itm" href="{{.SeriesId}}/{{.ID}}">
+
+                    <img class="series__img" src="{{.Path.String}}">
+                    <div class="series__itm-name">{{.Name}}</div>
+
+                </a>
+                {{end}}
+            </div>
+
+
+        </div>
+    </div>
+</main>
 
 </body>
+
 </html>
 {{end}}
