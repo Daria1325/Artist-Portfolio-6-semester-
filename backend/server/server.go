@@ -316,10 +316,17 @@ func adminPictures(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(w, err.Error())
 			return
 		}
+
 		series, err := MainServer.Repo.GetSeries()
 		if err != nil {
 			fmt.Println(w, err.Error())
 			return
+		}
+		for i, item := range pictures {
+			if item.Path.Valid {
+				s := getFileName(item.Path.String)
+				pictures[i].Path.String = s
+			}
 		}
 		data := struct {
 			Title  string

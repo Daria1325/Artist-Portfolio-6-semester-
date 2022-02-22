@@ -12,6 +12,7 @@
             <th>YEAR</th>
             <th>MATERIALS</th>
             <th>SIZE</th>
+            <th>FILE</th>
             <th colspan="2" class="btn-cell"><button onclick="openForm('add_p')" class="table__add-open-b">ADD
                     PICTURE</button></th>
         </thead>
@@ -23,6 +24,7 @@
             <td> {{$value.Date.String}} </td>
             <td> {{$value.Material.String}} </td>
             <td> {{$value.Size.String}} </td>
+            <td>{{$value.Path.String}} </td>
             <td><button class="table__open-b"
                     onclick="openForm('edit_p', '{{$value.ID}}','{{$value.Name}}','{{$value.Description.String}}','{{$value.Path.String}}','{{$value.Price.Float64}}','{{$value.Date.String}}','{{$value.Material.String}}','{{$value.Size.String}}')">
                     <i class="fa fa-pencil"></i></button></td>
