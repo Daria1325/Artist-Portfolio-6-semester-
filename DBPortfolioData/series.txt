@@ -1,0 +1,10 @@
+1,Faces                                             ,"This series of works was written during a stay at a historical festival. Each portrait is painted from a living person who deigned to become a model. 
+The faces do not differ in particular symmetry and regularity of features, but each of them accurately conveys the character of its owner."
+3,Salve civitatem                                   ,"Falling in love with the city is impossible, they said. Fall in love with the spirit - always.
+This series of works was written spontaneously when a gentleman commissioned me to draw a street where he grew up. I managed to capture the spirit of this city, its inhabitants and it was not possible to leave it just like that... Therefore, now you can enjoy the incredible beauties of Termoli with me"
+0,Without series                                    ,with no series
+5,How we live                                       ,
+2,Hellenic gardens                                  ,These works were written under the inspiration of beautiful Greece.
+4,Great nobility                                    ,The series is dedicated to depicting life in the palaces of a bygone era.
+6,Originals                                         ,This series of paintings shows my vision of the seven deadly sins.
+68,Test                                              ,t
